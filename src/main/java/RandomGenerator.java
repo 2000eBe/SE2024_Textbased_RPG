@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class RandomGenerator {
+// This Class is a randomgenerator for different events and occasions
+public class RandomGenerator {
 }

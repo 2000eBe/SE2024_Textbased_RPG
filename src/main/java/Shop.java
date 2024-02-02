@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class Shop {
+// This class represents different vendors / shops and their stock
+public class Shop {
 }

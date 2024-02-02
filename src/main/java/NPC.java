@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class NPC {
+// This class contains all information and stats for NPC Characters in the game
+public class NPC {
 }
