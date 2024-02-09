@@ -22,7 +22,7 @@ public class PlayerCharacter implements CombatSystemInterface{
 
         do {
             System.out.println("Wie heißt du? ");
-            setPlayerName(GameLogic.scanner.next());
+            setPlayerName(GameLogic.scanner.nextLine());
             GameLogic.printHeading("Den Namen " + getPlayerName() + " bestätigen?");
             System.out.println("(1) für ''Ja''");
             System.out.println("(2) für ''Nein, ich möchte mich gerne umbenennen!''");
