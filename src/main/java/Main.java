@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         PlayerCharacter pc = new PlayerCharacter();
-        pc.setPlayerName("DefaultName");
+        pc.setPlayerName("DefaultName Test");
         GameLogic.printHeading("Erstelle deinen eigenen Helden!");
        pc.CharacterCreationName();
        pc.CharacterCreationClass();
