@@ -1,26 +1,27 @@
 // This class implements a new player character and its traits
-public class PlayerCharacter {
+public class PlayerCharacter implements CombatSystemInterface{
 
     private CharacterClass characterClass;
 
     private CharacterInventory characterInventory;
     private String playerName;
 
-    public PlayerCharacter(String playerName, CharacterClass characterClass){
-        this.playerName = playerName;
-        this.characterClass = characterClass;
-        this.characterInventory = getCharacterInventory();
+
+    public PlayerCharacter(){
+
     }
 
 
-// Method to choose the charactername
+
+
+    // Method to choose the charactername
     public void CharacterCreationName(){
         // GameLogic.printHeading("Charaktererstellung");
         boolean nameSet = false;
 
 
         do {
-            System.out.println("Erstelle deinen persönlichen Helden" + "\n" + "Wie heißt du? ");
+            System.out.println("Wie heißt du? ");
             setPlayerName(GameLogic.scanner.next());
             GameLogic.printHeading("Den Namen " + getPlayerName() + " bestätigen?");
             System.out.println("(1) für ''Ja''");
@@ -31,70 +32,56 @@ public class PlayerCharacter {
                 nameSet = true;
             } else if (input == 2) {
                 System.out.println("Bitte den korrigierten Namen eintragen.");
-                setPlayerName(GameLogic.scanner.next());
-                nameSet = true;
+
+
             }
         } while (!nameSet);
-
-        GameLogic.printSeperator(30);
-
     }
 
    // Method to choose the characterclass
-    public void CharacterCreationClass(){
-        boolean classSet = false;
-        do {
-            GameLogic.printSeperator(30);
-            System.out.println("Welche Klasse möchtest du spielen?" + "\n" + "Magier oder Waffenmeister?");
-            System.out.println("Du kannst deine Klasse danach nicht mehr ändern!");
-            System.out.println("(1) für ''Magier''");
-            System.out.println("(2) für ''Waffenmeister''");
-            System.out.println("(3) für Informationen zu den beiden Klassen");
+   public void CharacterCreationClass() {
+       boolean classSet = false;
+       do {
+           GameLogic.printSeperator(30);
+           System.out.println("Welche Klasse möchtest du spielen?" + "\n" + "Magier oder Waffenmeister?");
+           System.out.println("Du kannst deine Klasse danach nicht mehr ändern!");
+           System.out.println("(1) für ''Magier''");
+           System.out.println("(2) für ''Waffenmeister''");
+           System.out.println("(3) für Informationen zu den beiden Klassen");
 
-            int input = GameLogic.readInt("-> ", 3);
-            int input1 = GameLogic.readInt("-> ", 2);
-            if(input == 1)
-            {
-                System.out.println("Entscheidest du dich für den Pfad der Magie?"  + "\n" +
-                        "(1) für ''Ja''!" + "\n" +
-                        "(2) für ''Nein, ich möchte es mir erneut überlegen"
-                );
-                    if(input1 == 1){
-                        ;
-                        classSet = true;
-                    } else if (input1 == 2) {
-                       CharacterCreationClass();
-                    }
+           int input = GameLogic.readInt("-> ", 3);
 
-            }
-            else if (input == 2)
-            {
-                System.out.println("Entscheidest du dich für den Pfad der Waffenkunst?"  + "\n" +
-                        "(1) für ''Ja''!" + "\n" +
-                        "(2) für ''Nein, ich möchte es mir erneut überlegen"
-                );
-                    if(input1 == 1){
-                        // characterClass.Magier();
-                        classSet = true;
-                    } else if (input1 == 2) {
-                        CharacterCreationClass();
-                    }
-            }
-            else if (input == 3)
-            {
-                GameLogic.printSeperator(30);
-                System.out.println(
-                        "Magier haben weniger Lebenspunkte als Waffenmeister. Sie haben jedoch Manapunkte und ihre " + "\n" +
-                                "Angriffe sind mächtiger - dafür sind sie umso gebrechlicher. Magier können nur Zauberstäbe führen.");
-                System.out.println(
-                        "Waffenmeister haben mehr Lebenspunkte und keine Manapunkte." + "\n"+
-                                "Sie können Schwerter, Äxte und Streitkolben führen, aber keine Zauberstäbe." + "\n" +
-                                "Ihre Angriffe sind abhängig von der geführten Waffe.");
-                GameLogic.printSeperator(30);
-                CharacterCreationClass();
-            }
-        } while (!classSet);
-    }
+           if (input == 1) {
+               System.out.println("Entscheidest du dich für den Pfad der Magie?" + "\n" +
+                       "(1) für ''Ja''!" + "\n" +
+                       "(2) für ''Nein, ich möchte es mir erneut überlegen''"
+               );
+               int input1 = GameLogic.readInt("-> ", 2);
+               if (input1 == 1) {
+                   classSet = true;
+               }
+           } else if (input == 2) {
+               System.out.println("Entscheidest du dich für den Pfad der Waffenkunst?" + "\n" +
+                       "(1) für ''Ja''!" + "\n" +
+                       "(2) für ''Nein, ich möchte es mir erneut überlegen''"
+               );
+               int input1 = GameLogic.readInt("-> ", 2);
+               if (input1 == 1) {
+                   classSet = true;
+               }
+           } else if (input == 3) {
+               GameLogic.printSeperator(30);
+               System.out.println(
+                       "Magier haben weniger Lebenspunkte als Waffenmeister. Sie haben jedoch Manapunkte und ihre " + "\n" +
+                               "Angriffe sind mächtiger - dafür sind sie umso gebrechlicher. Magier können nur Zauberstäbe führen.");
+               System.out.println(
+                       "Waffenmeister haben mehr Lebenspunkte und keine Manapunkte." + "\n" +
+                               "Sie können Schwerter, Äxte und Streitkolben führen, aber keine Zauberstäbe." + "\n" +
+                               "Ihre Angriffe sind stark abhängig von der geführten Waffe.");
+               GameLogic.printSeperator(30);
+           }
+       } while (!classSet);
+   }
 
     // Getter and Setter Methods
 
@@ -111,7 +98,21 @@ public class PlayerCharacter {
             return playerName;
         }
 
-        public void setPlayerName(String playerName) {
-            this.playerName = playerName;
-        }
+
+
+   // Combatsystem
+    @Override
+    public int attack() {
+        return 0;
+    }
+
+    @Override
+    public int block() {
+        return 0;
+    }
+
+    @Override
+    public int heal() {
+        return 0;
+    }
 }

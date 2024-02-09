@@ -42,4 +42,13 @@ public class GameLogic {
                 System.out.println();
             }
     }
+
+    // IO for critical hit
+    public static void playerCrit(){
+        System.out.println("Du hast kritischen Schaden zugefügt! (x2 Schaden zugefügt)");
+    }
+
+    public static void monsterCrit(){
+        System.out.println("Dein Gegner hat dich kritisch verwundet! (x2 Schaden erhalten)" );
+    }
 }

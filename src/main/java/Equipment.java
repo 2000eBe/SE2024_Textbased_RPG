@@ -16,7 +16,11 @@ public class Equipment {
 
     // method block
 
-
+        public void weapon(String weaponName, String weaponDescription, int attackPoints){
+            this.weaponName = weaponName;
+            this.weaponDescription = weaponDescription;
+            this.attackPoints = attackPoints;
+        }
 
     // getter & setter block
         public String getWeaponName() {
