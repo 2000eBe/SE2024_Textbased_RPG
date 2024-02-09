@@ -36,6 +36,38 @@ public class CharacterClass {
 
     }
 
+    public void setCharacterClass(CharacterClasses characterClass) {
+        this.characterClass = characterClass;
+    }
+
+    public CharacterClasses getCharacterClass() {
+        return characterClass;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getMp() {
+        return mp;
+    }
+
+    public void setMp(int mp) {
+        this.mp = mp;
+    }
+
     public void Waffenmeister(int hp, Weapon weapon){
         this.characterClass = CharacterClasses.WAFFENMEISTER;
         this.hp = hp;
@@ -43,7 +75,15 @@ public class CharacterClass {
     }
 
 
-
+    public String toString(){
+        if (characterClass == CharacterClasses.MAGIER) {
+            return "Magier";
+        } else if (characterClass == CharacterClasses.WAFFENMEISTER) {
+            return "Waffenmeister";
+        } else {
+            return "Unbekannt"; // Behandeln Sie den Fall, wenn die Klasse nicht festgelegt ist
+        }
+    }
 
 
 

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Monster implements  CombatSystemInterface{
+public class Monster implements CombatSystemInterface{
 
     private final String name;
     private final String description;
@@ -39,7 +39,6 @@ public class Monster implements  CombatSystemInterface{
     @Override
     public int heal() {
         return 0;
-
     }
 
 

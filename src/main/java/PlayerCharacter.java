@@ -1,13 +1,13 @@
 // This class implements a new player character and its traits
 public class PlayerCharacter implements CombatSystemInterface{
 
-    private CharacterClass characterClass;
+    private CharacterClass characterClass = new CharacterClass();
 
     private CharacterInventory characterInventory;
     private String playerName;
 
 
-    public PlayerCharacter(){
+    public PlayerCharacter(String playerName, CharacterClasses characterClass){
 
     }
 
@@ -58,6 +58,7 @@ public class PlayerCharacter implements CombatSystemInterface{
                );
                int input1 = GameLogic.readInt("-> ", 2);
                if (input1 == 1) {
+                   characterClass.setCharacterClass(CharacterClasses.MAGIER);
                    classSet = true;
                }
            } else if (input == 2) {
@@ -67,6 +68,7 @@ public class PlayerCharacter implements CombatSystemInterface{
                );
                int input1 = GameLogic.readInt("-> ", 2);
                if (input1 == 1) {
+                   characterClass.setCharacterClass(CharacterClasses.WAFFENMEISTER);
                    classSet = true;
                }
            } else if (input == 3) {
@@ -97,6 +99,17 @@ public class PlayerCharacter implements CombatSystemInterface{
             return playerName;
         }
 
+    public CharacterClass getCharacterClass() {
+
+        return characterClass;
+    }
+
+    public void setCharacterClass() {
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
 
    // Combatsystem
@@ -115,11 +128,4 @@ public class PlayerCharacter implements CombatSystemInterface{
         return 0;
     }
 
-    public void setCharacterClass(CharacterClass characterClass) {
-        this.characterClass = characterClass;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
 }
