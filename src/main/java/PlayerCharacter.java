@@ -85,7 +85,6 @@ public class PlayerCharacter implements CombatSystemInterface{
 
     // Getter and Setter Methods
 
-
         public CharacterInventory getCharacterInventory() {
             return characterInventory;
         }
@@ -114,5 +113,13 @@ public class PlayerCharacter implements CombatSystemInterface{
     @Override
     public int heal() {
         return 0;
+    }
+
+    public void setCharacterClass(CharacterClass characterClass) {
+        this.characterClass = characterClass;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 }
