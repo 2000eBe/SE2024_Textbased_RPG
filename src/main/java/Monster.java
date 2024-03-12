@@ -37,9 +37,10 @@ public class Monster implements CombatSystemInterface{
     }
 
     @Override
-    public int heal() {
+    public int heal(int amount) {
         return 0;
     }
+
 
 
 }

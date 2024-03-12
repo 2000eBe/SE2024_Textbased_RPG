@@ -6,6 +6,6 @@ public interface CombatSystemInterface {
     // Block a physical/magical attack
     int block();
     // Increase missing HP
-    int heal();
+    int heal(int amount);
 
 }

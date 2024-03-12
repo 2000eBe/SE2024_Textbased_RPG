@@ -38,6 +38,14 @@ public class CharacterClass {
 
     public void setCharacterClass(CharacterClasses characterClass) {
         this.characterClass = characterClass;
+        setHp(100);
+        setMp(0);
+        setWeapon(Weapon.SCHWERT);
+        if (characterClass == CharacterClasses.MAGIER){
+            setHp(75);
+            setMp(100); // only mages have MP
+            setWeapon(Weapon.ZAUBERSTAB);
+        }
     }
 
     public CharacterClasses getCharacterClass() {

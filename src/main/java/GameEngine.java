@@ -4,6 +4,8 @@ public class GameEngine {
     private PlayerCharacter player;
     private GameLogic gameLogic;
     public void runGame(){
+        // Check if person wants to continue or start new game
+        //checkPlayerGameChoice();
         // Initialize the game
         initializeGame();
 
@@ -22,7 +24,12 @@ public class GameEngine {
            // checkGameStatus();
         }
 
-        // end the Game
+    private void checkPlayerGameChoice() {
+        System.out.println("Möchtest du ein neues Spiel beginnen oder ein Spielstand fortführen?");
+
+    }
+
+    // end the Game
        // endGame();
     //}
 

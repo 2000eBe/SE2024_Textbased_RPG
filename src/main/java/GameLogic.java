@@ -77,20 +77,21 @@ public class GameLogic {
     }
 
     private static void openShop() {
+            printHeading("DER MARKTPLATZ");
     }
 
     private static void showCharacterStatistics() {
             printHeading("CHARAKTERSTATISTIKEN");
         System.out.println("Charaktername: " + player.getPlayerName());
         System.out.println("Klasse: " + player.getCharacterClass());
-        System.out.println("Verfügbare HP: " + player.getCharacterClass().getHp());
+        System.out.println("Verfügbare HP: " + player.getCurrentHP());
         // check if its a mage and can have MP
         if(CharacterClasses.MAGIER == player.getCharacterClass().getCharacterClass()){
             System.out.println("Verfügbare MP: " + player.getCharacterClass().getMp());
         }
 
         System.out.println("Getragene Waffe: ");
-        System.out.println("Gesammeltes Vermögen: ");
+        System.out.println("Gesammeltes Vermögen: " + player.getCharacterInventory().getCurrencyAmount() + " Gold");
         System.out.println("Bezwungene Turm-Etagen: ");
 
         printSeperator(30);

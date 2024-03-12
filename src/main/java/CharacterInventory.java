@@ -11,6 +11,9 @@ public class CharacterInventory {
     private static final int MaxAvailableInventorySpace = 15;
     private static final int MaxWeaponArmorySpace = 3;
 
+    private int currencyAmount;
+
+
 
     public CharacterInventory(){
         this.weaponInventory = new Weapon[MaxWeaponArmorySpace];
@@ -42,4 +45,14 @@ public class CharacterInventory {
         System.out.println(Arrays.toString(buffitemInventory));
     }
 
+
+    // getter and setter
+
+    public int getCurrencyAmount() {
+        return currencyAmount;
+    }
+
+    public void setCurrencyAmount(int currencyAmount) {
+        this.currencyAmount = currencyAmount;
+    }
 }

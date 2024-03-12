@@ -2,8 +2,7 @@
 public class PlayerCharacter implements CombatSystemInterface{
 
     private CharacterClass characterClass = new CharacterClass();
-
-    private CharacterInventory characterInventory;
+    private CharacterInventory characterInventory = new CharacterInventory();
     private String playerName;
 
 
@@ -19,7 +18,6 @@ public class PlayerCharacter implements CombatSystemInterface{
         // GameLogic.printHeading("Charaktererstellung");
         boolean nameSet = false;
 
-
         do {
             System.out.println("Wie heißt du? ");
             setPlayerName(GameLogic.scanner.nextLine());
@@ -32,7 +30,6 @@ public class PlayerCharacter implements CombatSystemInterface{
                 nameSet = true;
             } else if (input == 2) {
                 System.out.println("Bitte den korrigierten Namen eintragen.");
-
 
             }
         } while (!nameSet);
@@ -60,6 +57,7 @@ public class PlayerCharacter implements CombatSystemInterface{
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.MAGIER);
                    classSet = true;
+                   characterInventory.setCurrencyAmount(50);
                }
            } else if (input == 2) {
                System.out.println("Entscheidest du dich für den Pfad der Waffenkunst?" + "\n" +
@@ -70,6 +68,7 @@ public class PlayerCharacter implements CombatSystemInterface{
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.WAFFENMEISTER);
                    classSet = true;
+                   characterInventory.setCurrencyAmount(50);
                }
            } else if (input == 3) {
                GameLogic.printSeperator(30);
@@ -85,29 +84,28 @@ public class PlayerCharacter implements CombatSystemInterface{
        } while (!classSet);
    }
 
+// get current HP
+   public int getCurrentHP(){
+       int currentHP = characterClass.getHp();
+       return currentHP;
+    }
+
+
     // Getter and Setter Methods
 
         public CharacterInventory getCharacterInventory() {
             return characterInventory;
         }
 
-        public void setCharacterInventory(CharacterInventory characterInventory) {
-            this.characterInventory = characterInventory;
-        }
+        public void setCharacterInventory(CharacterInventory characterInventory) {this.characterInventory = characterInventory;}
 
         public String getPlayerName() {
             return playerName;
         }
 
-    public CharacterClass getCharacterClass() {
-
-        return characterClass;
-    }
-
-    public void setCharacterClass() {
-    }
-
-    public void setPlayerName(String playerName) {
+        public CharacterClass getCharacterClass() {return characterClass;}
+        public void setCharacterClass() {}
+        public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
@@ -124,8 +122,19 @@ public class PlayerCharacter implements CombatSystemInterface{
     }
 
     @Override
-    public int heal() {
-        return 0;
+    public int heal(int amount) {
+        int maxHP = 100;
+        if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
+            maxHP = 75;
+        }
+        int currentHP = characterClass.getHp();
+        currentHP += amount;
+        if(currentHP > maxHP){
+            currentHP = maxHP;
+        }
+
+        return maxHP;
     }
+
 
 }
