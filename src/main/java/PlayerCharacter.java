@@ -90,6 +90,11 @@ public class PlayerCharacter implements CombatSystemInterface{
        return currentHP;
     }
 
+    public int getCurrentMP(){
+        int currentMP = characterClass.getMp();
+        return currentMP;
+    }
+
 
     // Getter and Setter Methods
 
@@ -137,4 +142,15 @@ public class PlayerCharacter implements CombatSystemInterface{
     }
 
 
+    public void restoreMP(int restoreAmount) {
+        if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
+           int maxMP = characterClass.getMp();
+
+            int currentMP = getCurrentMP();
+            if(currentMP > maxMP){
+                currentMP = maxMP;
+            }
+        }
+        System.out.println("Manatränke haben keinen Effekt auf Waffenmeister");
+    }
 }

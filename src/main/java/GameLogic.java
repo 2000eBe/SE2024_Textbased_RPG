@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class GameLogic {
 
     static Scanner scanner = new Scanner(System.in);
+    static Shop shop;
     static PlayerCharacter player;//current player
     static boolean isRunning;
 
@@ -59,8 +60,7 @@ public class GameLogic {
                 //System.out.println("Hier wären Statistiken zum Charakter... wenn es da wäre!");
                 break;
             case 3:
-                //openShop();
-                System.out.println("Hier wären Händler, die sind aber noch auf dem Weg");
+                openShop();
                 break;
             case 4:
                 //endGame();
@@ -78,6 +78,10 @@ public class GameLogic {
 
     private static void openShop() {
             printHeading("DER MARKTPLATZ");
+            shop = new Shop();
+            shop.setPc(player);
+            Shop.chooseVendor();
+
     }
 
     private static void showCharacterStatistics() {
@@ -87,7 +91,7 @@ public class GameLogic {
         System.out.println("Verfügbare HP: " + player.getCurrentHP());
         // check if its a mage and can have MP
         if(CharacterClasses.MAGIER == player.getCharacterClass().getCharacterClass()){
-            System.out.println("Verfügbare MP: " + player.getCharacterClass().getMp());
+            System.out.println("Verfügbare MP: " + player.getCurrentMP());
         }
 
         System.out.println("Getragene Waffe: ");

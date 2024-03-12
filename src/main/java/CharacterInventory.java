@@ -1,13 +1,10 @@
-import javax.sound.midi.Soundbank;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 // This class is the character inventory which can hold different items at once
 public class CharacterInventory {
 
     private final Weapon[] weaponInventory;
-    private final BuffItems[] buffitemInventory;
+    private final Items[] itemInventory;
     private static final int MaxAvailableInventorySpace = 15;
     private static final int MaxWeaponArmorySpace = 3;
 
@@ -17,7 +14,7 @@ public class CharacterInventory {
 
     public CharacterInventory(){
         this.weaponInventory = new Weapon[MaxWeaponArmorySpace];
-        this.buffitemInventory = new BuffItems[MaxAvailableInventorySpace];
+        this.itemInventory = new Items[MaxAvailableInventorySpace];
     }
 
     // Methods to add weapons or buffitems
@@ -29,9 +26,9 @@ public class CharacterInventory {
         }
     }
 
-    public void addBuffItemToInventory( BuffItems buffItem, int position){
+    public void addBuffItemToInventory(Items buffItem, int position){
         if (position >= 0 && position < MaxAvailableInventorySpace){
-            buffitemInventory[position] = buffItem;
+            itemInventory[position] = buffItem;
         } else {
             throw new IllegalArgumentException("Ungültiger Ablageplatz für Item oder Inventar voll!");
         }
@@ -42,9 +39,30 @@ public class CharacterInventory {
         System.out.println("Im Waffenschrank befinden sich folgende Waffen:");
         System.out.println(Arrays.toString(weaponInventory));
         System.out.println("Im Inventar befinden sich folgende Iteams");
-        System.out.println(Arrays.toString(buffitemInventory));
+        System.out.println(Arrays.toString(itemInventory));
     }
 
+
+    // add Potion to inventory
+    public void addPotion(Potion potion){
+        for (int i = 0; i < itemInventory.length; i++){
+            if (itemInventory[i] == null){
+                itemInventory[i] = potion;
+                break;
+            }
+        }
+    }
+
+    // take Potion out of inventory to use
+    public void usePotionInInventory(int index, PlayerCharacter pc){
+        if (index >= 0 && index < itemInventory.length && itemInventory[index] instanceof Potion){
+            Potion potion = (Potion) itemInventory[index];
+            potion.usePotion(pc);
+            itemInventory[index] = null;
+        } else {
+            System.out.println("An dieser Stelle befindet sich kein Trank zum Konsumieren");
+        }
+    }
 
     // getter and setter
 
