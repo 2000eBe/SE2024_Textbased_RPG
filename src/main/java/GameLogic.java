@@ -52,8 +52,13 @@ public class GameLogic {
 
         switch (choice){
             case 1:
-              GameEngine game = new GameEngine(player, scanner);
-              game.startGame();
+                if (player.getCurrentLevel() != 0){
+                    GameEngine game = new GameEngine(player, scanner);
+                    game.startGame();
+                } else {
+                    System.out.println("Spieler hat keine aktuelle Dungeon-Instanz");
+                    showMainMenu();
+                }
                 break;
             case 2:
                 showCharacterStatistics();

@@ -34,10 +34,10 @@ public class GameEngine {
         }
 
         public void startGame(){
-        int currentLevel = 1; // start with level 1
+        int currentLevel = player.getCurrentLevel(); // start with level 1
+            Map currentMap = player.getCurrentDungeon().getLevel(currentLevel);
 
             while (true){
-                Map currentMap = player.getCurrentDungeon().getLevel(currentLevel);
                 System.out.println("Aktuelles Level: " + currentLevel);
                 System.out.println(currentMap.getDescription());
 
@@ -101,6 +101,7 @@ public class GameEngine {
         System.out.println("TEST NAME IST: " + pc.getPlayerName());
         System.out.println("TEST Klasse IST: " + pc.getCharacterClass());
 
+        pc.setCurrentLevel(1);
         GameLogic.showMainMenu();
     }
 

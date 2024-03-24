@@ -5,6 +5,9 @@ public class PlayerCharacter implements CombatSystemInterface{
     private CharacterInventory characterInventory = new CharacterInventory();
     private String playerName;
 
+    private int currentLevel;
+    private Dungeon currentDungeon;
+
 
     public PlayerCharacter(String playerName, CharacterClasses characterClass){
 
@@ -154,7 +157,19 @@ public class PlayerCharacter implements CombatSystemInterface{
         System.out.println("Manatränke haben keinen Effekt auf Waffenmeister");
     }
 
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int level) {
+        this.currentLevel = level;
+    }
+
     public Map getCurrentDungeon() {
         return null;
+    }
+
+    public void setCurrentDungeon(Dungeon dungeon) {
+        this.currentDungeon = dungeon;
     }
 }
