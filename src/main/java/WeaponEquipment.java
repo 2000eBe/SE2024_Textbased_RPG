@@ -18,7 +18,7 @@ public class WeaponEquipment {
         staffUpgrades = new ArrayList<>();
         maceUpgrades = new ArrayList<>();
 
-        initalizeSwordUpgrades();
+        initializeSwordUpgrades();
         initializeAxeUpgrades();
         initializeStaffUpgrades();
         initalizeMaceUpgrades();
@@ -27,15 +27,26 @@ public class WeaponEquipment {
 
     // Methods to Initialize Weaponupgrades for every type of weapon
     private void initalizeMaceUpgrades() {
+        maceUpgrades.add(new WeaponUpgrade("Streikolben Upgrade Stufe 1", 70));
+        maceUpgrades.add(new WeaponUpgrade("Streikolben Upgrade Stufe 2", 120));
+        maceUpgrades.add(new WeaponUpgrade("Streikolben Upgrade Stufe 3", 175));
+        maceUpgrades.add(new WeaponUpgrade("Streikolben Upgrade Stufe 4", 200));
+        maceUpgrades.add(new WeaponUpgrade("Streikolben Upgrade Stufe 5", 0)); // only obtainable in dungeon
+
     }
 
     private void initializeStaffUpgrades() {
+        staffUpgrades.add(new WeaponUpgrade("Zauberstab Upgrade Stufe 1", 70));
+        staffUpgrades.add(new WeaponUpgrade("Zauberstab Upgrade Stufe 2", 120));
+        staffUpgrades.add(new WeaponUpgrade("Zauberstab Upgrade Stufe 3", 175));
+        staffUpgrades.add(new WeaponUpgrade("Zauberstab Upgrade Stufe 4", 200));
+        staffUpgrades.add(new WeaponUpgrade("Zauberstab Upgrade Stufe 5", 0)); // only obtainable in dungeon
     }
 
     private void initializeAxeUpgrades() {
     }
 
-    private void initalizeSwordUpgrades() {
+    private void initializeSwordUpgrades() {
     }
 
 

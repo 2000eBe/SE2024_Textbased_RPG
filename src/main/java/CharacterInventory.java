@@ -9,6 +9,7 @@ public class CharacterInventory {
     private static final int MaxWeaponArmorySpace = 3;
 
     private int currencyAmount;
+    private Weapon currentWeapon;
 
 
 
@@ -66,6 +67,14 @@ public class CharacterInventory {
     }
 
     // getter and setter
+
+    public Weapon getCurrentWeapon(){
+        return currentWeapon;
+    }
+
+    public void setCurrentWeapon(){
+        this.currentWeapon = currentWeapon;
+    }
 
     public int getCurrencyAmount() {
         return currencyAmount;

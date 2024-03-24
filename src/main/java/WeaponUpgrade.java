@@ -2,9 +2,14 @@ public class WeaponUpgrade {
     private String upgradeName;
     private int price;
 
-    public WeaponUpgrade(String upgradeName, int price){
+    private WeaponAttributes modifiedAttributes;
+
+
+    public WeaponUpgrade(String upgradeName, int price, WeaponAttributes modifiedAttributes){
         this.upgradeName = upgradeName;
         this.price = price;
+        this.modifiedAttributes = modifiedAttributes;
+
     }
 
     // Getter & Setter
@@ -22,5 +27,13 @@ public class WeaponUpgrade {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public WeaponAttributes getModifiedAttributes() {
+        return modifiedAttributes;
+    }
+
+    public void setModifiedAttributes(WeaponAttributes modifiedAttributes) {
+        this.modifiedAttributes = modifiedAttributes;
     }
 }
