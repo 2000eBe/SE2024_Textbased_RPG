@@ -26,12 +26,19 @@ public class CharacterInventory {
         }
     }
 
-    public void addPotionItemToInventory(PotionItems potion, int position){
-        if (position >= 0 && position < MaxAvailableInventorySpace){
-            itemInventory[position] = potion;
-        } else {
-            throw new IllegalArgumentException("Ungültiger Ablageplatz für Item oder Inventar voll!");
+    public void addPotionItemToInventory(PotionItems potion){
+        boolean added = false;
+        for (int i = 0; i < MaxAvailableInventorySpace; i++){
+            if(itemInventory[i] == null){
+                itemInventory[i] = potion;
+                added = true;
+                break;
+            }
         }
+        if (!added) {
+            throw new IllegalArgumentException("Inventar voll! Du kannst nichts mehr aufnehmen oder kaufen!")
+        }
+
     }
 
    // Show contents of inventories
@@ -66,5 +73,16 @@ public class CharacterInventory {
 
     public void setCurrencyAmount(int currencyAmount) {
         this.currencyAmount = currencyAmount;
+    }
+
+    // check for available Inventory space
+    public int getNumAvailableInventorySpace() {
+        int count = 0;
+        for(PotionItems item : itemInventory){
+            if (item == null){
+                count++;
+            }
+        }
+        return count;
     }
 }

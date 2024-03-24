@@ -1,7 +1,7 @@
 // This is a class and collection of available items in the game that change the character statistics
 public abstract class PotionItems {
     private String name;
-    private int price;
+    private static int price;
 
     public PotionItems(String name, int price) {
         this.name = name;
@@ -12,7 +12,7 @@ public abstract class PotionItems {
         return name;
     }
 
-    public int getPrice() {
+    public static int getPrice() {
         return price;
     }
 
@@ -22,9 +22,9 @@ public abstract class PotionItems {
 
     public abstract void use(PlayerCharacter pc);
 
-    public class HealthPotion extends PotionItems {
+    public static class HealthPotion extends PotionItems {
         public HealthPotion() {
-            super("Heiltrank", 50);
+            super("Heiltrank", 30);
         }
 
         @Override
@@ -37,9 +37,9 @@ public abstract class PotionItems {
     }
 
 
-    public class ManaPotion extends PotionItems {
+    public static class ManaPotion extends PotionItems {
         public ManaPotion() {
-            super("Manatrank", 35);
+            super("Manatrank", 25);
         }
 
 

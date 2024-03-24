@@ -1,4 +1,4 @@
-
+import java.sql.SQLOutput;
 
 // This class represents different vendors / shops and their stock
 public class Shop {
@@ -84,7 +84,57 @@ public class Shop {
 
         int input = GameLogic.readInt("-> ", 2);
 
+        // show stock
+        if (input == 1){
+            int input2 = GameLogic.readInt("-> ", 3);
+            System.out.println("Du hast die Auswahl zwischen Heiltränken und Manatränken.");
+            System.out.println("(1) Wenn du ein Heiltrank möchtest. (Kosten: " + PotionItems.HealthPotion.getPrice() + " Gold)");
+            System.out.println("(2) Wenn du ein Manatrank möchtest. (Kosten: " + PotionItems.ManaPotion.getPrice() + " Gold)");
+            System.out.println("(3) Wenn du doch nichts kaufen möchtest und verlässt den Laden.");
 
+            switch (input2){
+                case 1:
+                    buyPotion(new PotionItems.HealthPotion());
+                    break;
+                case 2:
+                    buyPotion(new PotionItems.ManaPotion());
+                    break;
+                case 3:
+                    System.out.println("Du verlässt das Alchemielabor und kehrst zur Stadt zurück");
+                    GameLogic.printSeperator(30);
+                    chooseVendor();
+                    break;
+                default:
+                    System.out.println("Ungültige Eingabe. Bitte versuche es erneut mit einer Zahl zwischen 1 und 3.");
+            }
+
+        }
+        //leave
+        else if (input == 2){
+            System.out.println("Du verlässt das Alchemielabor und kehrst zur Stadt zurück");
+            GameLogic.printSeperator(30);
+            chooseVendor();
+        }
+
+
+    }
+
+    private static void buyPotion(PotionItems potion){
+        int price = potion.getPrice();
+
+        if (!checkAffordable(price)){
+            System.out.println("Du kann dir den Trank nicht leisten. Der Alchemist schickt dich fort");
+        } else if (!checkInventorySpace()) {
+            System.out.println("Du hast keinen Platz im Inventar und kannst nichts kaufen. Du verlässt den Laden!");
+        } else {
+            payGold(price);
+            pc.getCharacterInventory().addPotionItemToInventory(potion);
+            System.out.println("Du hast einen Trank erworben und schaust dich weiter im Alchemielabor um.");
+            VisitAlchemyVendor();
+        }
+    }
+    private static boolean checkInventorySpace() {
+        return pc.getCharacterInventory().getNumAvailableInventorySpace() > 0;
     }
 
 
