@@ -52,8 +52,8 @@ public class GameLogic {
 
         switch (choice){
             case 1:
-                //startGame();
-                System.out.println("Hier würde das Spiel starten... wenn es da wäre!");
+              GameEngine game = new GameEngine(player, scanner);
+              game.startGame();
                 break;
             case 2:
                 showCharacterStatistics();
@@ -105,8 +105,7 @@ public class GameLogic {
         }
         }
 
-    private static void startGame() {
-    }
+
 
     // Method to simulate clearing of the console for a cleaner look
     public static void clearConsole(){

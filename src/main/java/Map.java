@@ -1,3 +1,5 @@
+import java.util.Collection;
+
 // This class should visualize the map of areas or dungeon rooms with the symbols - and |
 public class Map {
 
@@ -6,13 +8,13 @@ public class Map {
     private final int numOfMonster;
     private final boolean isBossArea;
 
-    private final boolean hasSecretVendor;
-    public Map(String description, Monster monster, int numOfMonster, boolean isBossArea, boolean hasSecretVendor) {
+    private final boolean hasSecretChest;
+    public Map(String description, Monster monster, int numOfMonster, boolean isBossArea, boolean hasSecretChest) {
         this.description = description;
         this.monster = monster;
         this.numOfMonster = numOfMonster;
         this.isBossArea = isBossArea;
-        this.hasSecretVendor = hasSecretVendor;
+        this.hasSecretChest = hasSecretChest;
     }
 
     public static Map newMapInstance(){
@@ -42,7 +44,15 @@ public class Map {
         return isBossArea;
     }
 
-    public boolean isHasSecretVendor() {
-        return hasSecretVendor;
+    public boolean isHasSecretChest() {
+        return hasSecretChest;
+    }
+
+    public Map getLevel(int currentLevel) {
+        return null;
+    }
+
+    public Collection<Object> getLevels() {
+        return null;
     }
 }

@@ -1,8 +1,12 @@
+import java.util.Scanner;
+
 // This class implements the main GameEngine & Loop
 public class GameEngine {
     private boolean isRunning;
     private PlayerCharacter player;
     private GameLogic gameLogic;
+    private Scanner scanner;
+
     public void runGame(){
         // Check if person wants to continue or start new game
         //checkPlayerGameChoice();
@@ -24,6 +28,50 @@ public class GameEngine {
            // checkGameStatus();
         }
 
+        public GameEngine(PlayerCharacter player, Scanner scanner){
+        this.player = player;
+        this.scanner = scanner;
+        }
+
+        public void startGame(){
+        int currentLevel = 1; // start with level 1
+
+            while (true){
+                Map currentMap = player.getCurrentDungeon().getLevel(currentLevel);
+                System.out.println("Aktuelles Level: " + currentLevel);
+                System.out.println(currentMap.getDescription());
+
+
+
+
+
+
+
+
+
+                // Finish the game
+                if (currentLevel > player.getCurrentDungeon().getLevels().size()){
+                    System.out.println("Herzlichen Glückwunsch! Du hast die Stadt vor der Bedrohung des dunklen Turms gerettet!");
+                    break;
+                }
+
+
+                GameLogic.printSeperator(30);
+
+                int choice = GameLogic.readInt("Möchtest du zum nächsten Level gehen? ", 2);
+                System.out.println("(1) für das nächste Level" + "\n" + "(2) zum Menü (Statistiken, Stadt besuchen, Spiel beenden) zurückkehren");
+                if(choice == 1){
+                    currentLevel++;
+                } else if (choice == 2){
+                    GameLogic.showMainMenu();
+
+                }
+
+
+
+            }
+
+        }
     private void checkPlayerGameChoice() {
         System.out.println("Möchtest du ein neues Spiel beginnen oder ein Spielstand fortführen?");
 

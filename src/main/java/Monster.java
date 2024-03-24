@@ -26,6 +26,10 @@ public class Monster implements CombatSystemInterface{
         this.aggression = aggression;
     }
 
+    public static Object randomMonster() {
+        return null;
+    }
+
     @Override
     public int attack() {
         return rand.nextInt(maxDmg - minDmg - 1 );

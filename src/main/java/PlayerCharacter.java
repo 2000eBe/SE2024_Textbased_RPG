@@ -153,4 +153,8 @@ public class PlayerCharacter implements CombatSystemInterface{
         }
         System.out.println("Manatränke haben keinen Effekt auf Waffenmeister");
     }
+
+    public Map getCurrentDungeon() {
+        return null;
+    }
 }

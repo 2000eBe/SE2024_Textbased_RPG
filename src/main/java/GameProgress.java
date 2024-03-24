@@ -3,4 +3,5 @@ public class GameProgress {
     private int playerLevel;
     private int playerExperience;
     private CharacterClasses playerClass;
+
 }

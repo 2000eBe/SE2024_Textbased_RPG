@@ -73,6 +73,7 @@ public class Shop {
         }
     }
 
+    // TODO add Weaponupgrading functionality to WeaponSmith
     //  Town Weapon Smith Method
     private static void VisitWeaponSmith() {
         System.out.println("Du betrittst die Waffenschmiede. Du kannst deine Waffe verbessern lassen.");
@@ -154,6 +155,7 @@ public class Shop {
         }
     }
 
+    //TODO Weaponupgrading
     private static void buyWeaponUpgrade(){
 
 

@@ -8,7 +8,8 @@ public class Main {
 
 
     public static void main(String[] args) {
-        GameEngine gameEngine1 = new GameEngine();
+        PlayerCharacter player = new PlayerCharacter("Defaultname", CharacterClasses.WAFFENMEISTER);
+        GameEngine gameEngine1 = new GameEngine(player, userinput);
         gameEngine1.runGame();
 
 
