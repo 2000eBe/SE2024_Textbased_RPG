@@ -73,10 +73,27 @@ public class Shop {
         }
     }
 
-
+    //  Town Weapon Smith Method
     private static void VisitWeaponSmith() {
+        System.out.println("Du betrittst die Waffenschmiede. Du kannst deine Waffe verbessern lassen.");
+        System.out.println("(1) Wenn die Waffe verbessern möchtest.");
+        System.out.println("(2) Wenn du wieder zum Marktplatz zurückkehren möchtest.");
+
+        int input = GameLogic.readInt("Wähle einen Händler", 2);
+
+        if (input == 1 ){
+
+        }
+        if (input == 2){
+            System.out.println("Du verlässt die Waffenschmiede und kehrst zur Stadt zurück");
+            GameLogic.printSeperator(30);
+            chooseVendor();
+        }
+
     }
 
+
+    // Alchemy Laboratory Method
     private static void VisitAlchemyVendor() {
         System.out.println("Du betrittst das Alchemielabor. Du kannst dir das Sortiment anschauen.");
         System.out.println("(1) Wenn das Sortiment sehen möchtest.");
@@ -119,6 +136,9 @@ public class Shop {
 
     }
 
+
+    // buy methods for each shop
+
     private static void buyPotion(PotionItems potion){
         int price = potion.getPrice();
 
@@ -133,22 +153,26 @@ public class Shop {
             VisitAlchemyVendor();
         }
     }
+
+    private static void buyWeaponUpgrade(){
+        int price =
+
+    }
+
+    // Helping Methods
     private static boolean checkInventorySpace() {
         return pc.getCharacterInventory().getNumAvailableInventorySpace() > 0;
     }
 
-
-    // Helping Methods
     public static void setPc(PlayerCharacter pc){
         Shop.pc = pc;
     }
-    // Currency Operations / Methods
 
+    // Currency Operations / Methods
     // Check, if player can afford object or service
     private static boolean checkAffordable(int amount){
         return pc.getCharacterInventory().getCurrencyAmount() >= amount;
     }
-
     // deduct the money used in the shop / marketplace from character inventory
     private static void payGold(int amount){
         pc.getCharacterInventory().setCurrencyAmount(
