@@ -4,8 +4,8 @@ import java.util.Arrays;
 public class CharacterInventory {
 
     private final Weapon[] weaponInventory;
-    private final Items[] itemInventory;
-    private static final int MaxAvailableInventorySpace = 15;
+    private final PotionItems[] itemInventory;
+    private static final int MaxAvailableInventorySpace = 4;
     private static final int MaxWeaponArmorySpace = 3;
 
     private int currencyAmount;
@@ -14,7 +14,7 @@ public class CharacterInventory {
 
     public CharacterInventory(){
         this.weaponInventory = new Weapon[MaxWeaponArmorySpace];
-        this.itemInventory = new Items[MaxAvailableInventorySpace];
+        this.itemInventory = new PotionItems[MaxAvailableInventorySpace];
     }
 
     // Methods to add weapons or buffitems
@@ -26,9 +26,9 @@ public class CharacterInventory {
         }
     }
 
-    public void addBuffItemToInventory(Items buffItem, int position){
+    public void addPotionItemToInventory(PotionItems potion, int position){
         if (position >= 0 && position < MaxAvailableInventorySpace){
-            itemInventory[position] = buffItem;
+            itemInventory[position] = potion;
         } else {
             throw new IllegalArgumentException("Ungültiger Ablageplatz für Item oder Inventar voll!");
         }
@@ -43,24 +43,18 @@ public class CharacterInventory {
     }
 
 
-    // add Potion to inventory
-    public void addPotion(Potion potion){
-        for (int i = 0; i < itemInventory.length; i++){
-            if (itemInventory[i] == null){
-                itemInventory[i] = potion;
-                break;
-            }
-        }
-    }
-
     // take Potion out of inventory to use
-    public void usePotionInInventory(int index, PlayerCharacter pc){
-        if (index >= 0 && index < itemInventory.length && itemInventory[index] instanceof Potion){
-            Potion potion = (Potion) itemInventory[index];
-            potion.usePotion(pc);
-            itemInventory[index] = null;
+    public void useItemFromInventory(int position, PlayerCharacter player) {
+        if (position >= 0 && position < MaxAvailableInventorySpace) {
+            PotionItems item = itemInventory[position];
+            if (item != null) {
+                item.use(player);
+                itemInventory[position] = null;
+            } else {
+                System.out.println("Kein Gegenstand an der angegebenen Position vorhanden.");
+            }
         } else {
-            System.out.println("An dieser Stelle befindet sich kein Trank zum Konsumieren");
+            throw new IllegalArgumentException("Ungültige Position im Inventar!");
         }
     }
 

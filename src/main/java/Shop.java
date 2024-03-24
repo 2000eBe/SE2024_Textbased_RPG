@@ -88,6 +88,7 @@ public class Shop {
     }
 
 
+    // Helping Methods
     public static void setPc(PlayerCharacter pc){
         Shop.pc = pc;
     }
