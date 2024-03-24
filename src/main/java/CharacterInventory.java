@@ -36,7 +36,7 @@ public class CharacterInventory {
             }
         }
         if (!added) {
-            throw new IllegalArgumentException("Inventar voll! Du kannst nichts mehr aufnehmen oder kaufen!")
+            throw new IllegalArgumentException("Inventar voll! Du kannst nichts mehr aufnehmen oder kaufen!");
         }
 
     }
