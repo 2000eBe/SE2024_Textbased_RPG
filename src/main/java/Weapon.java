@@ -1,8 +1,8 @@
 public enum Weapon {
     ZAUBERSTAB("Zauberstab", new WeaponAttributes(10, 5)),
-    SCHWERT("Schwert", new WeaponAttributes(15, 3)),
+    SCHWERT("Schwert", new WeaponAttributes(15, 4)),
     AXT("Axt", new WeaponAttributes(20, 2)),
-    STREITKOLBEN("Streitkolben", new WeaponAttributes(18, 4));
+    STREITKOLBEN("Streitkolben", new WeaponAttributes(18, 3));
 
     private String weapontype;
     private WeaponAttributes attributes;
