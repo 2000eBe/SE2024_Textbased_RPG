@@ -1,16 +1,15 @@
 // This class implements a new player character and its traits
-public class PlayerCharacter implements CombatSystemInterface{
+public class PlayerCharacter implements PlayerCombat {
 
     private CharacterClass characterClass = new CharacterClass();
     private CharacterInventory characterInventory = new CharacterInventory();
     private String playerName;
-
     private int currentLevel;
     private Dungeon currentDungeon;
-
+    private LevelSystem level;
 
     public PlayerCharacter(String playerName, CharacterClasses characterClass){
-
+        this.level = new LevelSystem(1);
     }
 
 
@@ -93,9 +92,34 @@ public class PlayerCharacter implements CombatSystemInterface{
        return currentHP;
     }
 
+    @Override
+    public int getMaxHP() {
+        return 0;
+    }
+
     public int getCurrentMP(){
         int currentMP = characterClass.getMp();
         return currentMP;
+    }
+
+    @Override
+    public int getMaxMP() {
+        return 0;
+    }
+
+    @Override
+    public double getCritChance() {
+        return 0;
+    }
+
+    @Override
+    public int getBaseDamage() {
+        return 0;
+    }
+
+    @Override
+    public int getDefense() {
+        return 0;
     }
 
 
@@ -118,7 +142,12 @@ public class PlayerCharacter implements CombatSystemInterface{
     }
 
 
-   // Combatsystem
+    @Override
+    public int attack(PlayerCombat defender) {
+        return 0;
+    }
+
+    // Combatsystem
     @Override
     public int attack() {
         return 0;
@@ -144,6 +173,15 @@ public class PlayerCharacter implements CombatSystemInterface{
         return maxHP;
     }
 
+    @Override
+    public int getLevel() {
+        return 0;
+    }
+
+    // LevelSystem
+    public void grantExp(int exp){
+        level.addExp(exp);
+    }
 
     public void restoreMP(int restoreAmount) {
         if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 // This is a class and collection of available items in the game that change the character statistics
 public abstract class PotionItems {
     private String name;
@@ -6,6 +8,16 @@ public abstract class PotionItems {
     public PotionItems(String name, int price) {
         this.name = name;
         this.price = price;
+    }
+
+    public static PotionItems getRandomPotion() {
+        Random random = new Random();
+        int roll = random.nextInt(100) +1;
+        if (roll <= 50){
+            return new HealthPotion();
+        } else {
+            return new ManaPotion();
+        }
     }
 
     public String getName() {

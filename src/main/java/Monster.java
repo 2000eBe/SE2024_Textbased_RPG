@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Monster implements CombatSystemInterface{
+public class Monster implements MonsterCombat{
 
     private final String name;
     private final String description;
@@ -30,21 +30,33 @@ public class Monster implements CombatSystemInterface{
         return null;
     }
 
-    @Override
-    public int attack() {
-        return rand.nextInt(maxDmg - minDmg - 1 );
-    }
+
 
     @Override
-    public int block() {
+    public int getCurrentHP() {
         return 0;
     }
 
     @Override
-    public int heal(int amount) {
+    public int getMaxHP() {
         return 0;
     }
 
+
+    @Override
+    public int getBaseDamage() {
+        return 0;
+    }
+
+    @Override
+    public int getDefense() {
+        return 0;
+    }
+
+    @Override
+    public void heal(int damage) {
+
+    }
 
 
 }
