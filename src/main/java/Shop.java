@@ -140,7 +140,7 @@ public class Shop {
 
     // buy methods for each shop
 
-    private static void buyPotion(PotionItems potion){
+    static void buyPotion(PotionItems potion){
         int price = potion.getPrice();
 
         if (!checkAffordable(price)){
@@ -155,6 +155,8 @@ public class Shop {
         }
     }
 
+
+
     //TODO Weaponupgrading
     private static void buyWeaponUpgrade(){
 
@@ -162,7 +164,7 @@ public class Shop {
     }
 
     // Helping Methods
-    private static boolean checkInventorySpace() {
+    static boolean checkInventorySpace() {
         return pc.getCharacterInventory().getNumAvailableInventorySpace() > 0;
     }
 
@@ -172,11 +174,11 @@ public class Shop {
 
     // Currency Operations / Methods
     // Check, if player can afford object or service
-    private static boolean checkAffordable(int amount){
+    static boolean checkAffordable(int amount){
         return pc.getCharacterInventory().getCurrencyAmount() >= amount;
     }
     // deduct the money used in the shop / marketplace from character inventory
-    private static void payGold(int amount){
+    static void payGold(int amount){
         pc.getCharacterInventory().setCurrencyAmount(
                 pc.getCharacterInventory().getCurrencyAmount() - amount
         );

@@ -54,7 +54,6 @@ public abstract class PotionItems {
             super("Manatrank", 25);
         }
 
-
         public void use(PlayerCharacter pc) {
             int currentMP = pc.getCurrentMP();
             int maxMP = pc.getCharacterClass().getMp();
@@ -64,5 +63,16 @@ public abstract class PotionItems {
 
         }
 
+    }
+
+    public static class AttackPotion extends PotionItems {
+        public AttackPotion() {
+            super("Trank der Angriffskraft", 20);
+        }
+
+        @Override
+        public void use(PlayerCharacter pc) {
+            // TODO Write Code to interact with combat / weapon stats
+        }
     }
 }
