@@ -25,6 +25,8 @@ public class WeaponEquipment {
 
     }
 
+
+
     // Methods to Initialize Weaponupgrades for every type of weapon
     private void initalizeMaceUpgrades() {
         maceUpgrades.add(new WeaponUpgrade("Streitkolben Upgrade Stufe 1", 70, new WeaponAttributes(20, 5)));
@@ -59,7 +61,24 @@ public class WeaponEquipment {
         swordUpgrades.add(new WeaponUpgrade("Schwert Upgrade Stufe 5", 0, new WeaponAttributes(38, 17))); // only obtainable in dungeon
     }
 
-//TODO Change functionality to really get specifix Weapontype
+
+    public static List<WeaponUpgrade> getSwordUpgrades() {
+        return null;
+    }
+
+    public static List<WeaponUpgrade> getAxeUpgrades() {
+        return null;
+    }
+
+    public static List<WeaponUpgrade> getStaffUpgrades() {
+        return null;
+    }
+
+    public static List<WeaponUpgrade> getMaceUpgrades() {
+        return null;
+    }
+
+//TODO Change functionality to really get specific Weapontype
     public List<WeaponUpgrade> getUpgradesForWeaponType(Weapon weapon){
         switch (weapon.getWeapontype()){
             case "Schwert":

@@ -62,7 +62,6 @@ public class GameLogic {
                 break;
             case 2:
                 showCharacterStatistics();
-                //System.out.println("Hier wären Statistiken zum Charakter... wenn es da wäre!");
                 break;
             case 3:
                 openShop();
