@@ -6,13 +6,18 @@ public class CharacterInventory {
     private final Weapon[] weaponInventory;
     private final PotionItems[] itemInventory;
     private static final int MaxAvailableInventorySpace = 4;
-    private static final int MaxWeaponArmorySpace = 3;
+    private static  int MaxWeaponArmorySpace = 1;
 
     private int currencyAmount;
     private Weapon currentWeapon;
 
-
-
+    public void determineWeaponArmorySpace(PlayerCharacter pc){
+        if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
+            MaxWeaponArmorySpace = 1;
+        } else if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
+            MaxWeaponArmorySpace = 3;
+        }
+    }
     public CharacterInventory(){
         this.weaponInventory = new Weapon[MaxWeaponArmorySpace];
         this.itemInventory = new PotionItems[MaxAvailableInventorySpace];
@@ -42,14 +47,14 @@ public class CharacterInventory {
 
     }
 
-   // Show contents of inventories
+    // Show contents of inventories
     public void showInventoryWeapons(){
         System.out.println("Im Waffenschrank befinden sich folgende Waffen:");
         System.out.println(Arrays.toString(weaponInventory));
     }
 
     public void showInventoryPotions(){
-        System.out.println("Im Inventar befinden sich folgende Iteams");
+        System.out.println("Im Inventar befinden sich folgende Items");
         System.out.println(Arrays.toString(itemInventory));
     }
 
@@ -68,6 +73,11 @@ public class CharacterInventory {
         }
     }
 
+    // change Weapon from Weapon armory
+    // TODO
+    public void changeWeaponFromInventory(int position, PlayerCharacter player){
+
+    }
     // getter and setter
 
     public Weapon getCurrentWeapon(){
@@ -91,11 +101,21 @@ public class CharacterInventory {
         this.currencyAmount = currencyAmount;
     }
 
-    // check for available Inventory space
+    // check for available Inventory space for potions
     public int getNumAvailableInventorySpace() {
         int count = 0;
         for(PotionItems item : itemInventory){
             if (item == null){
+                count++;
+            }
+        }
+        return count;
+    }
+    // check for available Inventory space for Weapon
+    public int getNumAvailableWeaponInventorySpace(){
+        int count = 0;
+        for (Weapon weapon : weaponInventory){
+            if (weapon == null){
                 count++;
             }
         }

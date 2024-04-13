@@ -3,7 +3,7 @@ import java.util.Random;
 // This is a class and collection of available items in the game that change the character statistics
 public abstract class PotionItems {
     private String name;
-    private static int price;
+    private int price;
 
     public PotionItems(String name, int price) {
         this.name = name;
@@ -24,7 +24,7 @@ public abstract class PotionItems {
         return name;
     }
 
-    public static int getPrice() {
+    public int getPrice() {
         return price;
     }
 

@@ -8,7 +8,7 @@ public class Shop {
     // Method to show different Vendors
     static void chooseVendor(){
         System.out.println("Es tummeln sich viele Händler auf dem Marktplatz"
-        + "\n Welche Händler möchtest du aufsuchen? \n" +
+        + "\nWelche Händler möchtest du aufsuchen? \n" +
                         "(1) für den Alchemisten \n" +
                         "(2) für den Waffenschmied \n" +
                         "(3) für das Ärztehaus \n" +
@@ -20,13 +20,11 @@ public class Shop {
         switch (choice){
             // Alchemy vendor
             case 1:
-                System.out.println("Hier die Alchemistenmethode");
                 VisitAlchemyVendor();
                 break;
             case 2:
                 // Weapon Smith
                 VisitWeaponSmith();
-                System.out.println("hier ist der Waffenschmied");
                 break;
             case 3:
                 // Town Healer
@@ -96,6 +94,12 @@ public class Shop {
 
     // Alchemy Laboratory Method
     private static void VisitAlchemyVendor() {
+
+        PotionItems.HealthPotion healthPotion = new PotionItems.HealthPotion();
+        PotionItems.ManaPotion manaPotion = new PotionItems.ManaPotion();
+        int healthPotionPrice = healthPotion.getPrice();
+        int manaPotionPrice = manaPotion.getPrice();
+
         System.out.println("Du betrittst das Alchemielabor. Du kannst dir das Sortiment anschauen.");
         System.out.println("(1) Wenn das Sortiment sehen möchtest.");
         System.out.println("(2) Wenn du wieder zum Marktplatz zurückkehren möchtest.");
@@ -104,11 +108,11 @@ public class Shop {
 
         // show stock
         if (input == 1){
-            int input2 = GameLogic.readInt("-> ", 3);
             System.out.println("Du hast die Auswahl zwischen Heiltränken und Manatränken.");
-            System.out.println("(1) Wenn du ein Heiltrank möchtest. (Kosten: " + PotionItems.HealthPotion.getPrice() + " Gold)");
-            System.out.println("(2) Wenn du ein Manatrank möchtest. (Kosten: " + PotionItems.ManaPotion.getPrice() + " Gold)");
-            System.out.println("(3) Wenn du doch nichts kaufen möchtest und verlässt den Laden.");
+            System.out.println("(1) Wenn du ein Heiltrank möchtest. (Kosten: " + healthPotionPrice + " Gold)");
+            System.out.println("(2) Wenn du ein Manatrank möchtest. (Kosten: " + manaPotionPrice + " Gold)");
+            System.out.println("(3) Wenn du doch nichts kaufen möchtest und den Laden verlassen möchtest.");
+            int input2 = GameLogic.readInt("-> ", 3);
 
             switch (input2){
                 case 1:
@@ -144,13 +148,18 @@ public class Shop {
         int price = potion.getPrice();
 
         if (!checkAffordable(price)){
-            System.out.println("Du kann dir den Trank nicht leisten. Der Alchemist schickt dich fort");
+            System.out.println("Du kannst dir den Trank nicht leisten. Der Alchemist schickt dich fort");
+            GameLogic.printSeperator(30);
+             chooseVendor();
         } else if (!checkInventorySpace()) {
             System.out.println("Du hast keinen Platz im Inventar und kannst nichts kaufen. Du verlässt den Laden!");
+            System.out.println(" ");
+            chooseVendor();
         } else {
             payGold(price);
             pc.getCharacterInventory().addPotionItemToInventory(potion);
             System.out.println("Du hast einen Trank erworben und schaust dich weiter im Alchemielabor um.");
+            System.out.println(" ");
             VisitAlchemyVendor();
         }
     }

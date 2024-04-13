@@ -58,6 +58,7 @@ public class PlayerCharacter implements PlayerCombat {
                int input1 = GameLogic.readInt("-> ", 2);
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.MAGIER);
+                   characterInventory.determineWeaponArmorySpace(this);
                    classSet = true;
                    characterInventory.setCurrencyAmount(50);
                }
@@ -69,6 +70,7 @@ public class PlayerCharacter implements PlayerCombat {
                int input1 = GameLogic.readInt("-> ", 2);
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.WAFFENMEISTER);
+                   characterInventory.determineWeaponArmorySpace(this);
                    classSet = true;
                    characterInventory.setCurrencyAmount(50);
                }
