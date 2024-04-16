@@ -1,6 +1,6 @@
 public interface CombatInterface {
 
-    // Attack the NPC / Player with either magic or physical damage
+    // Amout of Damage that gets deducted from hp
     int getAttacked(int amount);
 
 

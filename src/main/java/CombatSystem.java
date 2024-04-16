@@ -97,13 +97,23 @@ public class CombatSystem {
             if(input >=1 && input <= availableAbilities.size()){
                 Ability selectedAbility = availableAbilities.get(input -1);
                 System.out.println("Du hast " + selectedAbility.getName() + " ausgewählt!");
-                // TODO Logik von den Attacken
+                Ability.executeAbility(selectedAbility.getName(), attacker, defender);
             } else if (input == availableAbilities.size() + 1){
                 IngameMenu.showIngameMenuInCombat(pc);
             }
 
-        } else {
-            // TODO
+        } else if (attacker instanceof  Monster){
+            Monster monster = (Monster) attacker;
+            double defenseFromPlayer = (defender.getDefense()/100);
+            double blockChance = Math.random();
+            int damage = monster.attack();
+            if (!(blockChance < defenseFromPlayer)){
+                System.out.println(monster.getName() + " greift an und verursacht " + damage + " Schaden!");
+                defender.getAttacked(damage);
+            } else {
+                System.out.println("Du hast den Angriff geblockt!");
+            }
+
         }
 
         return null;

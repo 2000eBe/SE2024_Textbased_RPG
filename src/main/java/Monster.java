@@ -122,7 +122,9 @@ public class Monster implements CombatInterface{
 
     @Override
     public int attack() {
-        return 0;
+        // get random damage between minDmg and maxDmg
+        int damage = rand.nextInt(this.maxDmg - this.minDmg + 1) + this.minDmg;
+        return damage;
     }
 
     @Override
