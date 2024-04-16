@@ -1,11 +1,11 @@
 public class Attack {
-    private final PlayerCombat attacker;
-    private final PlayerCombat defender;
+    private final CombatInterface attacker;
+    private final CombatInterface defender;
     private final int damage;
     private final boolean isCritical;
 
 
-    public Attack(PlayerCombat attacker, PlayerCombat defender, int damage, boolean isCritical) {
+    public Attack(CombatInterface attacker, CombatInterface defender, int damage, boolean isCritical) {
         this.attacker = attacker;
         this.defender = defender;
         this.damage = damage;
@@ -15,11 +15,11 @@ public class Attack {
 
 
     // Getter methods
-    public PlayerCombat getAttacker() {
+    public CombatInterface getAttacker() {
         return attacker;
     }
 
-    public PlayerCombat getDefender() {
+    public CombatInterface getDefender() {
         return defender;
     }
 

@@ -1,8 +1,10 @@
-public interface PlayerCombat {
+public interface CombatInterface {
 
     // Attack the NPC / Player with either magic or physical damage
-    int attack(PlayerCombat defender);
+    int getAttacked(int amount);
 
+
+    double curseDefense(double amount);
     // Combatsystem
     int attack();
 
@@ -41,4 +43,5 @@ public interface PlayerCombat {
     // Return the attacker's defense
     int getDefense();
 
+    Weapon getEquippedWeapon();
 }

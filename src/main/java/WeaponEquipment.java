@@ -94,4 +94,39 @@ public class WeaponEquipment {
 
         }
     }
+
+    public void setStarterWeapons(PlayerCharacter pc){
+        CharacterClasses playerClass = pc.getCharacterClass().getCharacterClass();
+
+        if (playerClass == CharacterClasses.WAFFENMEISTER){
+
+            Weapon sword = Weapon.SCHWERT;
+            Weapon axe = Weapon.AXT;
+            Weapon mace = Weapon.STREITKOLBEN;
+            List<WeaponUpgrade> swordUpgrades = getUpgradesForWeaponType(sword);
+            List<WeaponUpgrade> axeUpgrades = getUpgradesForWeaponType(axe);
+            List<WeaponUpgrade> maceUpgrades = getUpgradesForWeaponType(mace);
+
+            sword.setWeaponUpgrades(swordUpgrades);
+            axe.setWeaponUpgrades(axeUpgrades);
+            mace.setWeaponUpgrades(maceUpgrades);
+
+            CharacterInventory inventory = new CharacterInventory();
+            inventory.determineWeaponArmorySpace(pc);
+
+            inventory.addWeaponToArmory(sword, 0); //add standard sword to armory
+            inventory.addWeaponToArmory(axe, 1); //add standard mace to armory
+            inventory.addWeaponToArmory(mace, 2); //add standard axe to armory
+
+        } else if (playerClass == CharacterClasses.MAGIER){
+            // Mages can only wear the staff, so only one weapon is initialized
+            Weapon staff = Weapon.ZAUBERSTAB;
+            List<WeaponUpgrade> staffUpgrades = getUpgradesForWeaponType(staff);
+            staff.setWeaponUpgrades(staffUpgrades);
+
+            CharacterInventory inventory = new CharacterInventory();
+            inventory.addWeaponToArmory(staff, 0);
+        }
+    }
+
 }

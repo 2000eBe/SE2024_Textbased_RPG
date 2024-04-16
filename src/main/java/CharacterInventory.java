@@ -76,7 +76,9 @@ public class CharacterInventory {
     // change Weapon from Weapon armory
     // TODO
     public void changeWeaponFromInventory(int position, PlayerCharacter player){
-
+        if (position >= 0 && position < MaxWeaponArmorySpace){
+            Weapon toSwapedWeapon = weaponInventory[position];
+        }
     }
     // getter and setter
 

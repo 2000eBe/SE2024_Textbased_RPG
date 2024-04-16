@@ -25,4 +25,8 @@ public class WeaponAttributes {
     public void setBaseCritPoints(int baseCritPoints) {
         this.baseCritPoints = baseCritPoints;
     }
+
+    public double getCritChance() {
+        return 0.15; //15 % Crit Chance
+    }
 }

@@ -1,5 +1,7 @@
+import java.util.List;
+
 // This class implements a new player character and its traits
-public class PlayerCharacter implements PlayerCombat {
+public class PlayerCharacter implements CombatInterface {
 
     private CharacterClass characterClass = new CharacterClass();
     private CharacterInventory characterInventory = new CharacterInventory();
@@ -7,6 +9,9 @@ public class PlayerCharacter implements PlayerCombat {
     private int currentLevel;
     private Dungeon currentDungeon;
     private LevelSystem level;
+    private List<Ability> abilities;
+
+    public int defense = 15;
 
     public PlayerCharacter(String playerName, CharacterClasses characterClass){
         this.level = new LevelSystem(1);
@@ -124,6 +129,11 @@ public class PlayerCharacter implements PlayerCombat {
         return 0;
     }
 
+    @Override
+    public Weapon getEquippedWeapon() {
+        return null;
+    }
+
 
     // Getter and Setter Methods
 
@@ -133,7 +143,11 @@ public class PlayerCharacter implements PlayerCombat {
 
         public void setCharacterInventory(CharacterInventory characterInventory) {this.characterInventory = characterInventory;}
 
-        public String getPlayerName() {
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public String getPlayerName() {
             return playerName;
         }
 
@@ -145,8 +159,13 @@ public class PlayerCharacter implements PlayerCombat {
 
 
     @Override
-    public int attack(PlayerCombat defender) {
+    public int getAttacked(int amount) {
         return 0;
+    }
+
+    @Override
+    public double curseDefense(double amount) {
+        return this.defense = (int) Math.floor(this.defense * amount);
     }
 
     // Combatsystem
@@ -212,4 +231,17 @@ public class PlayerCharacter implements PlayerCombat {
     public void setCurrentDungeon(Dungeon dungeon) {
         this.currentDungeon = dungeon;
     }
+
+    // Methode zur Anzeige und Auswahl von Fähigkeiten
+    public void displayAndChooseAbility() {
+        List<Ability> availableAbilities = AbilityFactory.getAvailableAbilities(characterClass.getCharacterClass(), getCurrentLevel());
+        System.out.println("Verfügbare Fähigkeiten:");
+        int abilityNumber = 1;
+        for (Ability ability : availableAbilities) {
+            System.out.println("(" + abilityNumber + ") " + ability.getName() + ": " + ability.getDescription());
+            abilityNumber++;
+        }
+        // Hier kann der Spieler eine Fähigkeit auswählen und entsprechende Aktionen ausführen
+    }
 }
+

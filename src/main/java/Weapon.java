@@ -1,3 +1,5 @@
+import java.util.List;
+
 public enum Weapon {
     ZAUBERSTAB("Zauberstab", new WeaponAttributes(10, 5)),
     SCHWERT("Schwert", new WeaponAttributes(15, 4)),
@@ -6,6 +8,7 @@ public enum Weapon {
 
     private String weapontype;
     private WeaponAttributes attributes;
+    private List<WeaponUpgrade> weaponUpgrades;
 
     Weapon(String weapontype, WeaponAttributes attributes) {
         this.weapontype = weapontype;
@@ -18,5 +21,9 @@ public enum Weapon {
 
     public WeaponAttributes getAttributes() {
         return attributes;
+    }
+
+    public void setWeaponUpgrades(List<WeaponUpgrade> weaponUpgrades) {
+        this.weaponUpgrades = weaponUpgrades;
     }
 }

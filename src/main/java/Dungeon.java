@@ -18,7 +18,7 @@ public class Dungeon {
             new Monster(
                     "Kanalisationratten",
                     "Diese übergroßen Ratten sind äußerst aggressiv und versperren den Zugang in den Keller des Turms.",
-                    25,20, 5, 8,10,5,true),
+                    25,20, 5, 8,10,true),
             3,
             false,
             false));
@@ -30,7 +30,7 @@ public class Dungeon {
                 new Monster(
                         "Verpennter Gefängniswärter",
                         "Dieser desorientierte und übermüdete Gefängniswärter kann hinterlistig erledigt werden.",
-                        40,40, 7, 12,20,5,true),
+                        40,40, 7, 12,20,true),
                 3,
                 false,
                 false));

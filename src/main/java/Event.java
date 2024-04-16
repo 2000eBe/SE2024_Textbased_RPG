@@ -4,7 +4,7 @@ import java.util.Random;
 public class Event {
 
     static PlayerCharacter pc;
-    public void spawnTreasureChest(PlayerCharacter pc){
+    public static void spawnTreasureChest(PlayerCharacter pc){
         Random random = new Random();
         int roll = random.nextInt(100)+1; // roll between 1 and 100
         if (roll <= 50){
