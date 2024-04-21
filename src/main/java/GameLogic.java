@@ -6,36 +6,12 @@ public class GameLogic {
     static PlayerCharacter player;//current player
     static boolean isRunning;
 
-    // Method to format dialogues a little bit prettier
-        public static void printSeperator(int n){
-            for (int i = 0; i < n; i++){
-                System.out.print("-");
-            }
-            System.out.println();
-        }
+    public GameLogic(PlayerCharacter player) {
+        this.player = player;
+        this.scanner = new Scanner(System.in);
+    }
 
-    // Method to print a heading
 
-        public static void printHeading(String title){
-                printSeperator(30);
-                System.out.println(title);
-                printSeperator(30);
-        }
-    // Method to get user input from console
-        public static int readInt(String prompt, int userChoice){
-                int input;
-
-                do {
-                    System.out.println(prompt);
-                    try{
-                        input = Integer.parseInt(scanner.next());
-                    } catch (Exception e){
-                        input = -1;
-                        System.out.println("Bitte ein Integer einfügen!");
-                    }
-                } while (input < 1 || input > userChoice);
-                return input;
-            }
 
 
 
@@ -53,8 +29,8 @@ public class GameLogic {
         switch (choice){
             case 1:
                 if (player.getCurrentLevel() != 0){
-                    GameEngine game = new GameEngine(player, scanner);
-                    game.startGame();
+
+                  // TODO
                 } else {
                     System.out.println("Spieler hat keine aktuelle Dungeon-Instanz");
                     showMainMenu();
@@ -77,19 +53,40 @@ public class GameLogic {
 
     }
 
+
+    static void initializeGame() {
+        GameLogic.printHeading("Willkommen zum Spiel!");
+        PlayerCharacter pc = new PlayerCharacter("DefaultName", CharacterClasses.MAGIER);
+        GameLogic.setPlayer(pc);
+        GameLogic.printHeading("Erstelle deinen eigenen Helden!");
+        pc.CharacterCreationName();
+        pc.CharacterCreationClass();
+
+        System.out.println("TEST NAME IST: " + pc.getPlayerName());
+        System.out.println("TEST Klasse IST: " + pc.getCharacterClass());
+
+        pc.setCurrentLevel(1);
+        showMainMenu();
+    }
+
+    // Start the dungeons
+    public void startGame(){
+    }
+
+    // Simple method to end the game
     private static void endGame() {
     }
 
     private static void openShop() {
-            printHeading("DER MARKTPLATZ");
-            shop = new Shop();
-            shop.setPc(player);
-            Shop.chooseVendor();
+        printHeading("DER MARKTPLATZ");
+        shop = new Shop();
+        shop.setPc(player);
+        Shop.chooseVendor();
 
     }
 
     private static void showCharacterStatistics() {
-            printHeading("CHARAKTERSTATISTIKEN");
+        printHeading("CHARAKTERSTATISTIKEN");
         System.out.println("Charaktername: " + player.getPlayerName());
         System.out.println("Klasse: " + player.getCharacterClass());
         System.out.println("Verfügbare HP: " + player.getCurrentHP());
@@ -107,31 +104,53 @@ public class GameLogic {
         if( input == 1){
             showMainMenu();
         }
-        }
-
-
-
-    // Method to simulate clearing of the console for a cleaner look
-    public static void clearConsole(){
-            for (int i = 0; i < 100; i++){
-                System.out.println();
-            }
     }
+
+
+
+
 
 
 
     // getter and Setter
-
     public static void setPlayer(PlayerCharacter player) {
         GameLogic.player = player;
     }
 
-    // IO for critical hit
-    public static void playerCrit(){
-        System.out.println("Du hast kritischen Schaden zugefügt! (x2 Schaden zugefügt)");
+    // Method to format dialogues a little bit prettier
+    public static void printSeperator(int n){
+        for (int i = 0; i < n; i++){
+            System.out.print("-");
+        }
+        System.out.println();
     }
 
-    public static void monsterCrit(){
-        System.out.println("Dein Gegner hat dich kritisch verwundet! (x2 Schaden erhalten)" );
+    // Method to print a heading
+    public static void printHeading(String title){
+        printSeperator(30);
+        System.out.println(title);
+        printSeperator(30);
+    }
+    // Method to get user input from console
+    public static int readInt(String prompt, int userChoice){
+        int input;
+
+        do {
+            System.out.println(prompt);
+            try{
+                input = Integer.parseInt(scanner.next());
+            } catch (Exception e){
+                input = -1;
+                System.out.println("Bitte ein Integer einfügen!");
+            }
+        } while (input < 1 || input > userChoice);
+        return input;
+    }
+
+    // Method to simulate clearing of the console for a cleaner look
+    public static void clearConsole(){
+        for (int i = 0; i < 100; i++){
+            System.out.println();
+        }
     }
 }
