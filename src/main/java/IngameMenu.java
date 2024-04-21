@@ -19,7 +19,9 @@ import java.util.Scanner;
                  changeWeaponInCombat(pc);
                  break;
              case 4:
-                 break;
+                 GameLogic.printSeperator(30);
+                 System.out.println("Du fliehst vor dem Kampf und kehrst um.");
+                 GameLogic.showMainMenu();
              default:
 
                  break;

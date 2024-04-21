@@ -6,6 +6,7 @@ public class GameLogic {
     static Dungeon dungeon; // the tower to climb
     static PlayerCharacter player;//current player
     static boolean isRunning;
+    static int completedLevels = 1; // 1 to start with level 1, gets increased through playing
 
     public GameLogic(PlayerCharacter player) {
         this.player = player;
@@ -74,7 +75,7 @@ public class GameLogic {
     // Start the dungeons
     public static  void startGame(){
         printHeading("DER DUNKLE TURM ERWARTET DICH");
-        Map currentLevel = dungeon.getLevel(1);
+        Map currentLevel = dungeon.getLevel(completedLevels);
         System.out.println(currentLevel.getDescription());
         CombatSystem.startCombatRound(player, currentLevel.getMonster());
         // TODO Wie inkrementell prüfen, welche Level bereits besiegt worden sind?
@@ -104,7 +105,7 @@ public class GameLogic {
 
         System.out.println("Getragene Waffe: ");
         System.out.println("Gesammeltes Vermögen: " + player.getCharacterInventory().getCurrencyAmount() + " Gold");
-        System.out.println("Bezwungene Turm-Etagen: ");
+        System.out.println("Bezwungene Turm-Etagen: " + (completedLevels - 1));
 
         printSeperator(30);
         int input = readInt("Bitte (1) auswählen, um zum Menü zurückzukehren", 1);

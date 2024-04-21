@@ -18,7 +18,7 @@ public class CombatSystem {
                     return; // End combat if player is defeated
                 }
             }
-
+            showCurrentMonsterHP(monsters);
             // Monsters get to attack
             if (player.getCurrentHP() > 0){
                 for (Monster monster: monsters){
@@ -32,10 +32,12 @@ public class CombatSystem {
                     }
                 }
             }
+            ShowCurrentPlayerHPandMP(player);
         }
         if(!areMonstersAlive(monsters)){
             GameLogic.printSeperator(30);
             System.out.println("Herzlichen Glückwunsch! Du hast alle Gefahren der Etage gemeistert");
+            GameLogic.completedLevels++;
             double random = Math.random();
             if (random < 0.4){
                 Event.spawnTreasureChest(player);
@@ -58,6 +60,21 @@ public class CombatSystem {
                     // TODO Etage als Verweis irgendwo speichern
             }
 
+        }
+    }
+
+    private static void showCurrentMonsterHP(List<Monster> monsters) {
+        //TODO
+    }
+
+    private static void ShowCurrentPlayerHPandMP(PlayerCharacter player) {
+        if (player.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
+            System.out.println("Aktueller Stand:"
+                    + player.getCurrentHP() + "/" + player.getCharacterClass().getHp() + " & "
+                    + player.getCurrentMP() + "/" + player.getCharacterClass().getMp());
+        } else {
+            System.out.println("Aktueller Stand:"
+                    + player.getCurrentHP() + "/" + player.getCharacterClass().getHp());
         }
     }
 
@@ -92,7 +109,7 @@ public class CombatSystem {
             System.out.println("Verfügbare Fähigkeiten: ");
             for (int iterator = 0; iterator < availableAbilities.size(); iterator++) {
                 Ability ability = availableAbilities.get(iterator);
-                System.out.println((iterator + 1) + ". " + ability.getName() + ": " + ability.getDescription());
+                System.out.println("(" + (iterator + 1) + ") " + ability.getName() + ": " + ability.getDescription());
             }
             System.out.println("(" + (availableAbilities.size() +1) + ") für Kampfmenü (sonstiges)");
 
