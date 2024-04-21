@@ -3,6 +3,7 @@ public class GameLogic {
 
     static Scanner scanner = new Scanner(System.in);
     static Shop shop;
+    static Dungeon dungeon; // the tower to climb
     static PlayerCharacter player;//current player
     static boolean isRunning;
 
@@ -29,8 +30,7 @@ public class GameLogic {
         switch (choice){
             case 1:
                 if (player.getCurrentLevel() != 0){
-
-                  // TODO
+                  startGame();
                 } else {
                     System.out.println("Spieler hat keine aktuelle Dungeon-Instanz");
                     showMainMenu();
@@ -55,8 +55,10 @@ public class GameLogic {
 
 
     static void initializeGame() {
-        GameLogic.printHeading("Willkommen zum Spiel!");
+
         PlayerCharacter pc = new PlayerCharacter("DefaultName", CharacterClasses.MAGIER);
+        dungeon = new Dungeon();
+        GameLogic.printHeading("Willkommen zum Spiel!");
         GameLogic.setPlayer(pc);
         GameLogic.printHeading("Erstelle deinen eigenen Helden!");
         pc.CharacterCreationName();
@@ -70,7 +72,12 @@ public class GameLogic {
     }
 
     // Start the dungeons
-    public void startGame(){
+    public static  void startGame(){
+        printHeading("DER DUNKLE TURM ERWARTET DICH");
+        Map currentLevel = dungeon.getLevel(1);
+        System.out.println(currentLevel.getDescription());
+        CombatSystem.startCombatRound(player, currentLevel.getMonster());
+        // TODO Wie inkrementell prüfen, welche Level bereits besiegt worden sind?
     }
 
     // Simple method to end the game

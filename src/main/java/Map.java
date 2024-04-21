@@ -1,18 +1,18 @@
 import java.util.Collection;
+import java.util.List;
 
 // This class should visualize the map of areas or dungeon rooms with the symbols - and |
 public class Map {
 
     private final String description;
-    private final Monster monster;
-    private final int numOfMonster;
+
     private final boolean isBossArea;
+    private List<Monster> monsters;
 
     private final boolean hasSecretChest;
-    public Map(String description, Monster monster, int numOfMonster, boolean isBossArea, boolean hasSecretChest) {
+    public Map(String description, List<Monster> monsters, boolean isBossArea, boolean hasSecretChest) {
         this.description = description;
-        this.monster = monster;
-        this.numOfMonster = numOfMonster;
+        this.monsters = monsters;
         this.isBossArea = isBossArea;
         this.hasSecretChest = hasSecretChest;
     }
@@ -32,19 +32,15 @@ public class Map {
         return description;
     }
 
-    public Monster getMonster() {
-        return monster;
-    }
-
-    public int getNumOfMonster() {
-        return numOfMonster;
+    public List<Monster> getMonster() {
+        return monsters;
     }
 
     public boolean isBossArea() {
         return isBossArea;
     }
 
-    public boolean isHasSecretChest() {
+    public boolean itHasSecretChest() {
         return hasSecretChest;
     }
 
