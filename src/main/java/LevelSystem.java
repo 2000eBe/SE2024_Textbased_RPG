@@ -28,6 +28,7 @@ public class LevelSystem {
         System.out.println("Herzlichen Glückwunsch! Du bist ein Level aufgestiegen!" + "\n" + "Du bist nun Level: " + currentLevel);
     }
 
+
     public int getCurrentLevel() {
         return currentLevel;
     }

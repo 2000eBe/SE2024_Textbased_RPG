@@ -4,9 +4,13 @@ import java.util.List;
 public class Dungeon {
 
     private List<Map> levels;
+    private int INITIAL_EXP = 100;
+    private int currentLevelIndex;
     public Dungeon(){
         levels = new ArrayList<>();
         initializeLevels();
+        currentLevelIndex = 0;
+
     }
 
     private void initializeLevels() {
@@ -44,5 +48,31 @@ public class Dungeon {
               throw new IllegalArgumentException("Ungültige Level-Nummer");
         }
 
+
 }
+
+    // Method to go to next dungeon level
+    public void getNextDungeonLevel(){
+        currentLevelIndex++;
+        if (currentLevelIndex >= levels.size()){
+            GameLogic.printHeading("SPIEL GEWONNEN!");
+            System.out.println("Du hast die Gefahren des Turmes gebannt! Das ganze Königreich ist dir dankbar!");
+            System.out.println("Du verlässt den bereinigten Turm. Die königlichen Truppen werden sich darum kümmern.");
+            GameLogic.showMainMenu();
+        } else {
+            System.out.println("Du betrittst die nächste Etage:" + (currentLevelIndex+1) + " des Turmes");
+        }
+    }
+    // Method to calculate exp amount based on dungeon level
+    public int calculateExpForLevel(int levelNumber) {
+        // check if level is valid
+        if (levelNumber >= 1 && levelNumber <= levels.size()) {
+            // exp grows with each level
+            return INITIAL_EXP * levelNumber;
+        } else {
+            throw new IllegalArgumentException("Ungültige Level-Nummer");
+        }
+    }
+
+
 }

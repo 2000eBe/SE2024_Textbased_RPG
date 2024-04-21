@@ -3,7 +3,8 @@ import java.util.List;
 
 // This Class implements a textbased combat system that is similar to the old Final Fantasy Games or Pokémon
 public class CombatSystem {
-
+    static Dungeon dungeon;
+    static PlayerCharacter player;
     public static void startCombatRound(PlayerCharacter player, List<Monster> monsters){
         while (player.getCurrentHP() > 0 && areMonstersAlive(monsters)) {
             for (Monster monster : monsters) {
@@ -62,8 +63,10 @@ public class CombatSystem {
 
 
     public static void monsterGotDefeated(Monster monster) {
-        System.out.println(monster.getName() + " wurde bewzungen!");
-        // TODO Drop Items und verweis auf Kampf bei mehreren Monstern!
+        System.out.println(monster.getName() + " wurde bezwungen!");
+        int expGained = dungeon.calculateExpForLevel(monster.getLevel());
+        player.grantExp(expGained);
+        System.out.println("Du erhälst " + expGained + " EXP!");
     }
 
     private static void playerGotDefeated(PlayerCharacter player) {

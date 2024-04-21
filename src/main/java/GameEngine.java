@@ -8,24 +8,7 @@ public class GameEngine {
     private Scanner scanner;
 
     public void runGame(){
-        // Check if person wants to continue or start new game
-        //checkPlayerGameChoice();
-        // Initialize the game
         initializeGame();
-
-        // Main Loop for game
-        //while (GameLogic.isRunning) {
-            // Spielupdate durchführen
-           // updateGame();
-
-            // Spieleraktionen verarbeiten
-           // processPlayerActions();
-
-            // Gegneraktionen verarbeiten
-          //  processEnemyActions();
-
-            // Spielzustand überprüfen
-           // checkGameStatus();
         }
 
         public GameEngine(PlayerCharacter player, Scanner scanner){
