@@ -6,19 +6,26 @@ public class CharacterInventory {
     private final Weapon[] weaponInventory;
     private final PotionItems[] itemInventory;
     private static final int MaxAvailableInventorySpace = 4;
-    private static  int MaxWeaponArmorySpace = 1;
+    private int MaxWeaponArmorySpace;
 
     private int currencyAmount;
     private Weapon currentWeapon;
 
+    /*
     public void determineWeaponArmorySpace(PlayerCharacter pc){
         if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
             MaxWeaponArmorySpace = 1;
         } else if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
             MaxWeaponArmorySpace = 3;
         }
-    }
-    public CharacterInventory(){
+    } */
+    public CharacterInventory(PlayerCharacter pc){
+        if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
+            this.MaxWeaponArmorySpace = 1;
+        } else if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
+            this.MaxWeaponArmorySpace = 3;
+        }
+
         this.weaponInventory = new Weapon[MaxWeaponArmorySpace];
         this.itemInventory = new PotionItems[MaxAvailableInventorySpace];
     }
@@ -113,6 +120,18 @@ public class CharacterInventory {
         }
         return count;
     }
+
+    // test get num inventory spaces
+    public int getInventoryWeaponspace(){
+            int count = 0;
+            for (Weapon weapon : weaponInventory) {
+                if (weapon != null) {
+                    count++;
+                }
+            }
+            return count;
+        };
+
     // check for available Inventory space for Weapon
     public int getNumAvailableWeaponInventorySpace(){
         int count = 0;

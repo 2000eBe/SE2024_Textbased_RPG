@@ -20,7 +20,7 @@ public class Dungeon {
         levels.add(new Map(
                 "Kanalisationzugang des dunklen Turms (Level 1)"
                         + "\n" + "Ein schrecklicher Gestank umgibt die Kanalisation.\nDu siehst am Ende des Kanalisationszugangs eine Gittertür aus der Licht scheint. \n" +
-                        "Rote und aggressive Augen lurken aus der Dunkleheit hevor und blockieren dir den Zugang in den Turmkeller",
+                        "Rote und aggressive Augen lurken aus der Dunkleheit hevor und blockieren dir den Zugang in den Turmkeller" + "\n" + monsters1.get(0).getName() + " greift dich an!",
                 monsters1,
                 false,
                 false

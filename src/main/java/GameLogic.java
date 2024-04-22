@@ -55,16 +55,14 @@ public class GameLogic {
     }
 
 
-    static void initializeGame() {
-
-        PlayerCharacter pc = new PlayerCharacter("DefaultName", CharacterClasses.MAGIER);
+    static void initializeGame(PlayerCharacter pc) {
         dungeon = new Dungeon();
         GameLogic.printHeading("Willkommen zum Spiel!");
         GameLogic.setPlayer(pc);
         GameLogic.printHeading("Erstelle deinen eigenen Helden!");
         pc.CharacterCreationName();
         pc.CharacterCreationClass();
-
+        System.out.println("maxWeaponArmorySpace: " + pc.getCharacterInventory().getInventoryWeaponspace());
         System.out.println("TEST NAME IST: " + pc.getPlayerName());
         System.out.println("TEST Klasse IST: " + pc.getCharacterClass());
 
@@ -103,7 +101,7 @@ public class GameLogic {
             System.out.println("Verfügbare MP: " + player.getCurrentMP());
         }
 
-        System.out.println("Getragene Waffe: ");
+        System.out.println("Verfügbare Waffenplätze: " + player.getCharacterInventory().getInventoryWeaponspace());
         System.out.println("Gesammeltes Vermögen: " + player.getCharacterInventory().getCurrencyAmount() + " Gold");
         System.out.println("Bezwungene Turm-Etagen: " + (completedLevels - 1));
 

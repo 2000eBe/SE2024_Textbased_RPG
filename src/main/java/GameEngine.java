@@ -7,8 +7,8 @@ public class GameEngine {
     private GameLogic gameLogic;
     private Scanner scanner;
 
-    public void runGame(){
-        GameLogic.initializeGame();
+    public void runGame(PlayerCharacter player){
+        GameLogic.initializeGame(player);
     }
 
     public GameEngine(PlayerCharacter player, Scanner scanner){

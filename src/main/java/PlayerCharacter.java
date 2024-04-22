@@ -4,17 +4,25 @@ import java.util.List;
 public class PlayerCharacter implements CombatInterface {
 
     private CharacterClass characterClass = new CharacterClass();
-    private CharacterInventory characterInventory = new CharacterInventory();
+    private PlayerCharacter pc;
+    private CharacterInventory characterInventory;
     private String playerName;
     private int currentLevel;
     private Dungeon currentDungeon;
     private LevelSystem level;
     private List<Ability> abilities;
+    private WeaponEquipment weaponEquipment;
 
     public int defense = 15;
 
     public PlayerCharacter(String playerName, CharacterClasses characterClass){
+        this.playerName = playerName;
+        this.characterClass.setCharacterClass(characterClass);
         this.level = new LevelSystem(1);
+        this.characterInventory = new CharacterInventory(this);
+        this.weaponEquipment = new WeaponEquipment();
+
+
     }
 
 
@@ -63,9 +71,9 @@ public class PlayerCharacter implements CombatInterface {
                int input1 = GameLogic.readInt("-> ", 2);
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.MAGIER);
-                   characterInventory.determineWeaponArmorySpace(this);
                    classSet = true;
                    characterInventory.setCurrencyAmount(50);
+                   WeaponEquipment.setStarterWeapons(this);
                }
            } else if (input == 2) {
                System.out.println("Entscheidest du dich für den Pfad der Waffenkunst?" + "\n" +
@@ -75,9 +83,10 @@ public class PlayerCharacter implements CombatInterface {
                int input1 = GameLogic.readInt("-> ", 2);
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.WAFFENMEISTER);
-                   characterInventory.determineWeaponArmorySpace(this);
+
                    classSet = true;
                    characterInventory.setCurrencyAmount(50);
+                   WeaponEquipment.setStarterWeapons(this);
                }
            } else if (input == 3) {
                GameLogic.printSeperator(30);
@@ -131,6 +140,9 @@ public class PlayerCharacter implements CombatInterface {
 
     @Override
     public Weapon getEquippedWeapon() {
+        if (characterInventory.getCurrentWeapon() != null){
+            return characterInventory.getCurrentWeapon();
+        }
         return null;
     }
 

@@ -5,10 +5,10 @@ import java.util.List;
 public class WeaponEquipment {
 
 
-    private List<WeaponUpgrade> swordUpgrades;
-    private List<WeaponUpgrade> axeUpgrades;
-    private List<WeaponUpgrade> staffUpgrades;
-    private List<WeaponUpgrade> maceUpgrades;
+    private static List<WeaponUpgrade> swordUpgrades;
+    private static List<WeaponUpgrade> axeUpgrades;
+    private static List<WeaponUpgrade> staffUpgrades;
+    private static List<WeaponUpgrade> maceUpgrades;
 
 
     public WeaponEquipment(){
@@ -62,24 +62,22 @@ public class WeaponEquipment {
     }
 
 
-    public static List<WeaponUpgrade> getSwordUpgrades() {
-        return null;
-    }
+    public static List<WeaponUpgrade> getSwordUpgrades() {return swordUpgrades;}
 
     public static List<WeaponUpgrade> getAxeUpgrades() {
-        return null;
+        return axeUpgrades;
     }
 
     public static List<WeaponUpgrade> getStaffUpgrades() {
-        return null;
+        return staffUpgrades;
     }
 
     public static List<WeaponUpgrade> getMaceUpgrades() {
-        return null;
+        return maceUpgrades;
     }
 
 //TODO Change functionality to really get specific Weapontype
-    public List<WeaponUpgrade> getUpgradesForWeaponType(Weapon weapon){
+    public static List<WeaponUpgrade> getUpgradesForWeaponType(Weapon weapon){
         switch (weapon.getWeapontype()){
             case "Schwert":
                 return swordUpgrades;
@@ -95,7 +93,7 @@ public class WeaponEquipment {
         }
     }
 
-    public void setStarterWeapons(PlayerCharacter pc){
+    public static void setStarterWeapons(PlayerCharacter pc){
         CharacterClasses playerClass = pc.getCharacterClass().getCharacterClass();
 
         if (playerClass == CharacterClasses.WAFFENMEISTER){
@@ -111,12 +109,13 @@ public class WeaponEquipment {
             axe.setWeaponUpgrades(axeUpgrades);
             mace.setWeaponUpgrades(maceUpgrades);
 
-            CharacterInventory inventory = new CharacterInventory();
-            inventory.determineWeaponArmorySpace(pc);
+            //CharacterInventory inventory = new CharacterInventory(pc); fml alter was habe ich mir hier gedacht
+            CharacterInventory inventory = pc.getCharacterInventory();
 
             inventory.addWeaponToArmory(sword, 0); //add standard sword to armory
             inventory.addWeaponToArmory(axe, 1); //add standard mace to armory
             inventory.addWeaponToArmory(mace, 2); //add standard axe to armory
+            inventory.setCurrentWeapon(sword);
 
         } else if (playerClass == CharacterClasses.MAGIER){
             // Mages can only wear the staff, so only one weapon is initialized
@@ -124,8 +123,10 @@ public class WeaponEquipment {
             List<WeaponUpgrade> staffUpgrades = getUpgradesForWeaponType(staff);
             staff.setWeaponUpgrades(staffUpgrades);
 
-            CharacterInventory inventory = new CharacterInventory();
+            //CharacterInventory inventory = new CharacterInventory(pc);
+            CharacterInventory inventory = pc.getCharacterInventory();
             inventory.addWeaponToArmory(staff, 0);
+            inventory.setCurrentWeapon(staff);
         }
     }
 

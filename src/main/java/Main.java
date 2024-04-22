@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         PlayerCharacter player = new PlayerCharacter("Defaultname", CharacterClasses.WAFFENMEISTER);
         GameEngine gameEngine = new GameEngine(player, userinput);
-        gameEngine.runGame();
+        gameEngine.runGame(player);
 
 
     }
