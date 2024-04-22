@@ -19,17 +19,16 @@ public class Ability {
         int baseCritPoints = attackerAttributes.getBaseCritPoints();
         double critChance = attackerAttributes.getCritChance();
         int damage = 0;
+        System.out.println("DEBUG ABILITY CLASS EXECUTEABILITY");
 
-        String AttackString = ("Du hast mit" + abilityName + " " + damage + " Schaden zugefügt!");
-        String BlockString = ("Monster hat" + abilityName + " geblockt!");
         switch (abilityName) {
             case "Feuerball":
                 damage = calculateDamageWithCrit(baseDamage, baseCritPoints, critChance, 1.2);
                 if(!checkIfBlocked(abilityName, defender)){
-                    System.out.println(AttackString);
                    defender.getAttacked(damage);
+                   attackMessage(abilityName, damage);
                 } else {
-                    System.out.println(BlockString);
+                    blockMessage(abilityName);
                 }
                 break;
             case "Heilaura":
@@ -41,7 +40,7 @@ public class Ability {
                     System.out.println("Du reduzierst die Verteidigung deines Gegners mit dem Fluch um die Hälfte. Er blockt nun seltener!");
                     defender.curseDefense(0.5); // half defense of monster
                 } else {
-                    System.out.println(BlockString);
+                    blockMessage(abilityName);
                 }
                 break;
             case "Feuerschwall":
@@ -49,19 +48,19 @@ public class Ability {
             case "Meteor":
                 damage = calculateDamageWithCrit(baseDamage, baseCritPoints, critChance, 2.5);
                 if(!checkIfBlocked(abilityName, defender)){
-                    System.out.println(AttackString);
+                    attackMessage(abilityName, damage);
                     defender.getAttacked(damage);
                 } else {
-                    System.out.println(BlockString);
+                    blockMessage(abilityName);
                 }
                 break;
             case "Zerschmetternder Hieb":
                 damage = calculateDamageWithCrit(baseDamage, baseCritPoints, critChance, 1.3);
                 if(!checkIfBlocked(abilityName, defender)){
-                    System.out.println(AttackString);
+                    attackMessage(abilityName, damage);
                     defender.getAttacked(damage);
                 } else {
-                    System.out.println(BlockString);
+                    blockMessage(abilityName);
                 }
                 break;
             case "Schildaura":
@@ -77,10 +76,10 @@ public class Ability {
             case "Hinrichten":
                 damage = calculateExecutionDamage(baseDamage, baseCritPoints, critChance, 2.2, defender);
                 if(!checkIfBlocked(abilityName, defender)){
-                    System.out.println(AttackString);
+                    attackMessage(abilityName, damage);
                     defender.getAttacked(damage);
                 } else {
-                    System.out.println(BlockString);
+                    blockMessage(abilityName);
                 }
                 break;
             case "Schlachtruf":
@@ -88,12 +87,24 @@ public class Ability {
                     System.out.println("Du schüchterst dein Gegener ein. Er verlieren ein Viertel seiner Verteidigung. Er blockt nun seltener!");
                     defender.curseDefense(0.75); // half defense of monster
                 } else {
-                    System.out.println(BlockString);
+                    blockMessage(abilityName);
                 }
                 break;
             default:
                 System.out.println("Ungültiger Fertigkeitsname");
         }
+
+
+    }
+
+    private static void blockMessage(String abilityName) {
+        String blockString = ("Monster hat " + abilityName + " geblockt!");
+        System.out.println(blockString);
+    }
+
+    private static void attackMessage(String abilityName, int damage) {
+        String attackString = ("Du hast mit " + abilityName + " " + damage + " Schaden zugefügt!");
+        System.out.println(attackString);
     }
 
     private static int calculateExecutionDamage(int baseDamage, int baseCritPoints, double critChance, double skillBias, CombatInterface enemy) {

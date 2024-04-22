@@ -5,6 +5,7 @@ public class Monster implements CombatInterface{
     private final String name;
     private final String description;
     private final int maxHP;
+    private int level;
     private int hp;
     private final int minDmg;
     private final int maxDmg;
@@ -14,7 +15,7 @@ public class Monster implements CombatInterface{
 
 
 
-    public Monster(String name, String description, int maxHP, int hp, int minDmg, int maxDmg, int defense, boolean aggression) {
+    public Monster(String name, String description, int maxHP, int hp, int minDmg, int maxDmg, int defense, int level) {
         this.name = name;
         this.description = description;
         this.maxHP = maxHP;
@@ -22,7 +23,7 @@ public class Monster implements CombatInterface{
         this.minDmg = minDmg;
         this.maxDmg = maxDmg;
         this.defense = defense;
-        this.aggression = aggression;
+        this.level = level;
     }
 
 
@@ -50,13 +51,6 @@ public class Monster implements CombatInterface{
         return maxDmg;
     }
 
-    public boolean isAggression() {
-        return aggression;
-    }
-
-    public void setAggression(boolean aggression) {
-        this.aggression = aggression;
-    }
     public static Object randomMonster() {
         return null;
     }
@@ -139,8 +133,13 @@ public class Monster implements CombatInterface{
     }
 
     @Override
+    // Getter & Setter for monster level
     public int getLevel() {
-        return 0;
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
 

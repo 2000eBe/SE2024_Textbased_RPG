@@ -5,20 +5,32 @@ import java.util.List;
 public class CombatSystem {
     static Dungeon dungeon;
     static PlayerCharacter player;
+
+    public static void setDungeon(Dungeon d){
+        CombatSystem.dungeon = d;
+    }
+
     public static void startCombatRound(PlayerCharacter player, List<Monster> monsters){
+        System.out.println("DEBUG: START KAMPFRUNDE");
+        CombatSystem.player = player;
+        int DebugCount = 1;
         while (player.getCurrentHP() > 0 && areMonstersAlive(monsters)) {
             for (Monster monster : monsters) {
+
                 // Player gets to attack
                 executeAttack(player, monster);
+                System.out.println("DEBUG monster debugCount: " + DebugCount);
                 if (monster.getCurrentHP() <= 0) {
+                    System.out.println("DEBUG monster unter 0 HP vor GotDefeated debugCount: " + DebugCount);
                     monsterGotDefeated(monster);
                 }
                 if (player.getCurrentHP() <= 0) {
                     playerGotDefeated(player);
                     return; // End combat if player is defeated
                 }
+                DebugCount++;
             }
-            showCurrentMonsterHP(monsters);
+
             // Monsters get to attack
             if (player.getCurrentHP() > 0){
                 for (Monster monster: monsters){
@@ -26,60 +38,76 @@ public class CombatSystem {
                         continue; // skip any defeated monsters
                     }
                     executeAttack(monster, player);
+
                     if (player.getCurrentHP() <= 0){
                         playerGotDefeated(player);
                         return; // End Combat if player is defeated
                     }
                 }
             }
-            ShowCurrentPlayerHPandMP(player);
         }
+
+        showCurrentMonsterHP(monsters);
+        ShowCurrentPlayerHPandMP(player);
+        continueGameAfterCombat(player);
+        /* Check if all defeated, display menu after combat
         if(!areMonstersAlive(monsters)){
-            GameLogic.printSeperator(30);
-            System.out.println("Herzlichen Glückwunsch! Du hast alle Gefahren der Etage gemeistert");
-            GameLogic.completedLevels++;
-            double random = Math.random();
-            if (random < 0.4){
-                Event.spawnTreasureChest(player);
-            }
 
-            System.out.println("Was möchtest du nun tun?");
-            System.out.println("(1) um die nächste Turm-Etage zu erklimmen.");
-            System.out.println("(2) um das Menü für den Kampf & Sonstiges zu öffnen.");
-            System.out.println("(3) um den Turm zu verlassen und zum Hauptmenü zurückzukehren (Turm-Etage bleibt erhalten).");
-            int input = GameLogic.readInt("-> ", 3);
-            switch (input){
-                case 1:
-                    //TODO next Level
-                    break;
-                case 2:
-                    IngameMenu.showIngameMenuInCombat(player);
-                    break;
-                case 3:
-                    GameLogic.showMainMenu();
-                    // TODO Etage als Verweis irgendwo speichern
-            }
+        }*/
+    }
 
+    private static void continueGameAfterCombat(PlayerCharacter pc) {
+        GameLogic.printSeperator(30);
+        System.out.println("Herzlichen Glückwunsch! Du hast alle Gefahren der Etage gemeistert");
+        GameLogic.completedLevels++;
+        double random = Math.random();
+        if (random < 0.4){
+            Event.spawnTreasureChest(player);
+        }
+
+        System.out.println("Was möchtest du nun tun?");
+        System.out.println("(1) um die nächste Turm-Etage zu erklimmen.");
+        System.out.println("(2) um das Menü für den Kampf & Sonstiges zu öffnen.");
+        System.out.println("(3) um den Turm zu verlassen und zum Hauptmenü zurückzukehren (Turm-Etage bleibt erhalten).");
+        int input = GameLogic.readInt("-> ", 3);
+        switch (input){
+            case 1:
+                //TODO next Level
+                break;
+            case 2:
+                IngameMenu.showIngameMenuInCombat(player);
+                break;
+            case 3:
+                GameLogic.showMainMenu();
+                // TODO Etage als Verweis irgendwo speichern
         }
     }
 
     private static void showCurrentMonsterHP(List<Monster> monsters) {
-        //TODO
+        System.out.println("DEBUG CombatSystem showCurrentMonsterHP ");
+        for (Monster monster : monsters){
+            int countMonster = 1;
+            int currentHP = monster.getCurrentHP();
+            int maxHP = monster.getMaxMP();
+            System.out.println(monster.getName() + " " + countMonster + " hat noch " + currentHP + " HP übrig!" );
+            countMonster++; // to make difference between monsters visible
+        }
     }
 
     private static void ShowCurrentPlayerHPandMP(PlayerCharacter player) {
         if (player.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
             System.out.println("Aktueller Stand:"
-                    + player.getCurrentHP() + "/" + player.getCharacterClass().getHp() + " & "
-                    + player.getCurrentMP() + "/" + player.getCharacterClass().getMp());
+                    + player.getCurrentHP() + "/" + 75 + " HP & "
+                    + player.getCurrentMP() + "/" + 100 + " MP");
         } else {
             System.out.println("Aktueller Stand:"
-                    + player.getCurrentHP() + "/" + player.getCharacterClass().getHp());
+                    + player.getCurrentHP() + "/" + 100 + " HP");
         }
     }
 
 
     public static void monsterGotDefeated(Monster monster) {
+        System.out.println("DEBUG monsterGotDefeated");
         System.out.println(monster.getName() + " wurde bezwungen!");
         int expGained = dungeon.calculateExpForLevel(monster.getLevel());
         player.grantExp(expGained);
@@ -102,6 +130,7 @@ public class CombatSystem {
 
 
     public static Attack executeAttack(CombatInterface attacker, CombatInterface defender) {
+        System.out.println("DEBUG CombatSytem executeAttack");
         if(attacker instanceof PlayerCharacter){
             PlayerCharacter pc = (PlayerCharacter) attacker;
             List<Ability> availableAbilities = AbilityFactory.getAvailableAbilities(pc.getCharacterClass().getCharacterClass(), pc.getCurrentLevel());
@@ -128,8 +157,16 @@ public class CombatSystem {
             double blockChance = Math.random();
             int damage = monster.attack();
             if (!(blockChance < defenseFromPlayer)){
+                System.out.println("Debug CombatSystemExecuteAttack NOT BLOCKED");
                 System.out.println(monster.getName() + " greift an und verursacht " + damage + " Schaden!");
                 defender.getAttacked(damage);
+                if (defender.getCurrentHP() <= 0) {
+                    if (defender instanceof PlayerCharacter) {
+                        playerGotDefeated((PlayerCharacter) defender);
+                    } else if (defender instanceof Monster) {
+                        monsterGotDefeated((Monster) defender);
+                    }
+                }
             } else {
                 System.out.println("Du hast den Angriff geblockt!");
             }

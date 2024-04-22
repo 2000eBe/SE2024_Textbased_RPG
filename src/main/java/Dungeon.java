@@ -15,7 +15,10 @@ public class Dungeon {
 
     private void initializeLevels() {
         List<Monster> monsters1 = new ArrayList<>();
-        monsters1.add(new Monster("Kanalisationsratte", "Diese übergroßen Ratten sind äußerst aggressiv und versperren den Zugang in den Keller des Turms.", 25, 20, 5, 8, 10, true));
+        monsters1.add(new Monster(
+                "Kanalisationsratte",
+                "Diese übergroßen Ratten sind äußerst aggressiv und versperren den Zugang in den Keller des Turms.",
+                25, 20, 5, 8, 10, 1));
         // Level 1
         levels.add(new Map(
                 "Kanalisationzugang des dunklen Turms (Level 1)"
@@ -27,7 +30,7 @@ public class Dungeon {
         ));
 
         List<Monster> monsters2 = new ArrayList<>();
-        monsters2.add(new Monster("Verpennter Gefängniswärter", "Dieser desorientierte und übermüdete Gefängniswärter kann hinterlistig erledigt werden.", 40, 40, 7, 12, 20, true));
+        monsters2.add(new Monster("Verpennter Gefängniswärter", "Dieser desorientierte und übermüdete Gefängniswärter kann hinterlistig erledigt werden.", 40, 40, 7, 12, 20, 2));
         // Level 2
         levels.add(new Map(
                 "Keller des dunklen Turms (Level 1)"

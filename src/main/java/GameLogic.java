@@ -57,6 +57,7 @@ public class GameLogic {
 
     static void initializeGame(PlayerCharacter pc) {
         dungeon = new Dungeon();
+        CombatSystem.setDungeon(dungeon);
         GameLogic.printHeading("Willkommen zum Spiel!");
         GameLogic.setPlayer(pc);
         GameLogic.printHeading("Erstelle deinen eigenen Helden!");
@@ -76,7 +77,7 @@ public class GameLogic {
         Map currentLevel = dungeon.getLevel(completedLevels);
         System.out.println(currentLevel.getDescription());
         CombatSystem.startCombatRound(player, currentLevel.getMonster());
-        // TODO Wie inkrementell prüfen, welche Level bereits besiegt worden sind?
+
     }
 
     // Simple method to end the game

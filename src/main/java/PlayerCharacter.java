@@ -172,7 +172,15 @@ public class PlayerCharacter implements CombatInterface {
 
     @Override
     public int getAttacked(int amount) {
-        return 0;
+        int currentHP = getCurrentHP();
+        //System.out.println("HP vor Angriff" + currentHP); DEBUG
+        currentHP -= amount;
+        if (currentHP < 0){
+            currentHP = 0;
+        }
+        // System.out.println("HP NACH Angriff" + currentHP); DEBUG
+        this.characterClass.setHp(currentHP);
+        return currentHP;
     }
 
     @Override
