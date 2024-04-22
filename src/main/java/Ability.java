@@ -19,13 +19,12 @@ public class Ability {
         int baseCritPoints = attackerAttributes.getBaseCritPoints();
         double critChance = attackerAttributes.getCritChance();
         int damage = 0;
-        System.out.println("DEBUG ABILITY CLASS EXECUTEABILITY");
 
         switch (abilityName) {
             case "Feuerball":
                 damage = calculateDamageWithCrit(baseDamage, baseCritPoints, critChance, 1.2);
                 if(!checkIfBlocked(abilityName, defender)){
-                   defender.getAttacked(damage);
+                   defender.getAttacked(damage,true);
                    attackMessage(abilityName, damage);
                 } else {
                     blockMessage(abilityName);
@@ -49,7 +48,7 @@ public class Ability {
                 damage = calculateDamageWithCrit(baseDamage, baseCritPoints, critChance, 2.5);
                 if(!checkIfBlocked(abilityName, defender)){
                     attackMessage(abilityName, damage);
-                    defender.getAttacked(damage);
+                    defender.getAttacked(damage,true);
                 } else {
                     blockMessage(abilityName);
                 }
@@ -58,7 +57,7 @@ public class Ability {
                 damage = calculateDamageWithCrit(baseDamage, baseCritPoints, critChance, 1.3);
                 if(!checkIfBlocked(abilityName, defender)){
                     attackMessage(abilityName, damage);
-                    defender.getAttacked(damage);
+                    defender.getAttacked(damage,true);
                 } else {
                     blockMessage(abilityName);
                 }
@@ -77,7 +76,7 @@ public class Ability {
                 damage = calculateExecutionDamage(baseDamage, baseCritPoints, critChance, 2.2, defender);
                 if(!checkIfBlocked(abilityName, defender)){
                     attackMessage(abilityName, damage);
-                    defender.getAttacked(damage);
+                    defender.getAttacked(damage, true);
                 } else {
                     blockMessage(abilityName);
                 }

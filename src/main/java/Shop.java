@@ -1,12 +1,13 @@
-import java.sql.SQLOutput;
-
 // This class represents different vendors / shops and their stock
 public class Shop {
 
-    static PlayerCharacter pc;
+    PlayerCharacter player;
+    public Shop(PlayerCharacter player){
+        this.player = player;
+    }
 
     // Method to show different Vendors
-    static void chooseVendor(){
+    void chooseVendor(){
         System.out.println("Es tummeln sich viele Händler auf dem Marktplatz"
         + "\nWelche Händler möchtest du aufsuchen? \n" +
                         "(1) für den Alchemisten \n" +
@@ -15,7 +16,7 @@ public class Shop {
                         "(4) die Stadt verlassen"
         );
 
-        int choice = GameLogic.readInt("Wähle einen Händler", 4);
+        int choice = GameUtility.readInt("Wähle einen Händler", 4);
 
         switch (choice){
             // Alchemy vendor
@@ -32,60 +33,63 @@ public class Shop {
                 break;
             case 4:
                 System.out.println("Du verlässt die Stadt wieder.");
-                GameLogic.printSeperator(30);
-                GameLogic.showMainMenu();
+                GameUtility.printSeperator(30);
         }
     }
 
     // Town Healer Method
-    private static void VisitTownHealer() {
+    private void VisitTownHealer() {
         System.out.println("Du betrittst das Ärztehaus. Du kannst dich für 20 Gold heilen lassen.");
+        System.out.println(player.getCurrentHP());
         System.out.println("(1) für Heilung (Kosten: 20 Gold)");
         System.out.println("(2) du möchtest keine Heilung und verlässt das Ärztehaus wieder.");
 
-        int input = GameLogic.readInt("-> ", 2);
+
+        int input = GameUtility.readInt("-> ", 2);
         if(input == 1){
-            if (pc.getCurrentHP() >= pc.getCharacterClass().getHp()){
+            if (player.getCurrentHP() >= player.getCharacterClass().getHp()){
                 System.out.println("Du bist nicht verwundet. Der Heiler schickt dich fort.");
-                GameLogic.printSeperator(30);
+                GameUtility.printSeperator(30);
                 // go back to marketplace
                 chooseVendor();
+                return;
             }
 
-            if (checkAffordable(20)){
-                payGold(20);
+            if (player.getCharacterInventory().checkAffordable(20)){
+                player.getCharacterInventory().payGold(20);
                 // get difference between max possible hp and current hp
-                int damageAmount = pc.getCharacterClass().getHp() - pc.getCurrentHP();
-                pc.heal(damageAmount);
+                int damageAmount = player.getCharacterClass().getHp() - player.getCurrentHP();
+                player.heal(damageAmount);
                 System.out.println("Der Heiler hat " + damageAmount + " HP wiederhergestellt! Du gehst erholt wieder auf den Marktplatz");
-                GameLogic.printSeperator(30);
+                GameUtility.printSeperator(30);
                 chooseVendor();
+                return;
             }
             System.out.println("Du kannst dir dies nicht leisten! Der Heiler schickt dich fort.");
-            GameLogic.printSeperator(30);
+            GameUtility.printSeperator(30);
             chooseVendor();
 
         } else if (input == 2){
-            GameLogic.printSeperator(30);
+            GameUtility.printSeperator(30);
             chooseVendor();
         }
     }
 
     // TODO add Weaponupgrading functionality to WeaponSmith
     //  Town Weapon Smith Method
-    private static void VisitWeaponSmith() {
+    private void VisitWeaponSmith() {
         System.out.println("Du betrittst die Waffenschmiede. Du kannst deine Waffe verbessern lassen.");
         System.out.println("(1) Wenn die Waffe verbessern möchtest.");
         System.out.println("(2) Wenn du wieder zum Marktplatz zurückkehren möchtest.");
 
-        int input = GameLogic.readInt("Wähle einen Händler", 2);
+        int input = GameUtility.readInt("Wähle einen Händler", 2);
 
         if (input == 1 ){
 
         }
         if (input == 2){
             System.out.println("Du verlässt die Waffenschmiede und kehrst zur Stadt zurück");
-            GameLogic.printSeperator(30);
+            GameUtility.printSeperator(30);
             chooseVendor();
         }
 
@@ -93,7 +97,7 @@ public class Shop {
 
 
     // Alchemy Laboratory Method
-    private static void VisitAlchemyVendor() {
+    private void VisitAlchemyVendor() {
 
         PotionItems.HealthPotion healthPotion = new PotionItems.HealthPotion();
         PotionItems.ManaPotion manaPotion = new PotionItems.ManaPotion();
@@ -104,7 +108,7 @@ public class Shop {
         System.out.println("(1) Wenn das Sortiment sehen möchtest.");
         System.out.println("(2) Wenn du wieder zum Marktplatz zurückkehren möchtest.");
 
-        int input = GameLogic.readInt("-> ", 2);
+        int input = GameUtility.readInt("-> ", 2);
 
         // show stock
         if (input == 1){
@@ -112,7 +116,7 @@ public class Shop {
             System.out.println("(1) Wenn du ein Heiltrank möchtest. (Kosten: " + healthPotionPrice + " Gold)");
             System.out.println("(2) Wenn du ein Manatrank möchtest. (Kosten: " + manaPotionPrice + " Gold)");
             System.out.println("(3) Wenn du doch nichts kaufen möchtest und den Laden verlassen möchtest.");
-            int input2 = GameLogic.readInt("-> ", 3);
+            int input2 = GameUtility.readInt("-> ", 3);
 
             switch (input2){
                 case 1:
@@ -123,7 +127,7 @@ public class Shop {
                     break;
                 case 3:
                     System.out.println("Du verlässt das Alchemielabor und kehrst zur Stadt zurück");
-                    GameLogic.printSeperator(30);
+                    GameUtility.printSeperator(30);
                     chooseVendor();
                     break;
                 default:
@@ -134,30 +138,28 @@ public class Shop {
         //leave
         else if (input == 2){
             System.out.println("Du verlässt das Alchemielabor und kehrst zur Stadt zurück");
-            GameLogic.printSeperator(30);
+            GameUtility.printSeperator(30);
             chooseVendor();
         }
 
 
     }
 
-
     // buy methods for each shop
-
-    static void buyPotion(PotionItems potion){
+    void buyPotion(PotionItems potion){
         int price = potion.getPrice();
 
-        if (!checkAffordable(price)){
+        if (!player.getCharacterInventory().checkAffordable(price)){
             System.out.println("Du kannst dir den Trank nicht leisten. Der Alchemist schickt dich fort");
-            GameLogic.printSeperator(30);
+            GameUtility.printSeperator(30);
              chooseVendor();
-        } else if (!checkInventorySpace()) {
+        } else if (player.getCharacterInventory().checkInventorySpace()) {
             System.out.println("Du hast keinen Platz im Inventar und kannst nichts kaufen. Du verlässt den Laden!");
             System.out.println(" ");
             chooseVendor();
         } else {
-            payGold(price);
-            pc.getCharacterInventory().addPotionItemToInventory(potion);
+            player.getCharacterInventory().payGold(price);
+            player.getCharacterInventory().addPotionItemToInventory(potion);
             System.out.println("Du hast einen Trank erworben und schaust dich weiter im Alchemielabor um.");
             System.out.println(" ");
             VisitAlchemyVendor();
@@ -167,29 +169,7 @@ public class Shop {
 
 
     //TODO Weaponupgrading
-    private static void buyWeaponUpgrade(){
+    private void buyWeaponUpgrade(){
 
-
-    }
-
-    // Helping Methods
-    static boolean checkInventorySpace() {
-        return pc.getCharacterInventory().getNumAvailableInventorySpace() > 0;
-    }
-
-    public static void setPc(PlayerCharacter pc){
-        Shop.pc = pc;
-    }
-
-    // Currency Operations / Methods
-    // Check, if player can afford object or service
-    static boolean checkAffordable(int amount){
-        return pc.getCharacterInventory().getCurrencyAmount() >= amount;
-    }
-    // deduct the money used in the shop / marketplace from character inventory
-    static void payGold(int amount){
-        pc.getCharacterInventory().setCurrencyAmount(
-                pc.getCharacterInventory().getCurrencyAmount() - amount
-        );
     }
 }

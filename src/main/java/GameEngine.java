@@ -8,7 +8,8 @@ public class GameEngine {
     private Scanner scanner;
 
     public void runGame(PlayerCharacter player){
-        GameLogic.initializeGame(player);
+        gameLogic.initializeGame();
+
     }
 
     public GameEngine(PlayerCharacter player, Scanner scanner){

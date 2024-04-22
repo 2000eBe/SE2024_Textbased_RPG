@@ -6,6 +6,7 @@ public class CharacterInventory {
     private final Weapon[] weaponInventory;
     private final PotionItems[] itemInventory;
     private static final int MaxAvailableInventorySpace = 4;
+    private final PlayerCharacter player;
     private int MaxWeaponArmorySpace;
 
     private int currencyAmount;
@@ -19,13 +20,13 @@ public class CharacterInventory {
             MaxWeaponArmorySpace = 3;
         }
     } */
-    public CharacterInventory(PlayerCharacter pc){
-        if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
+    public CharacterInventory(PlayerCharacter player){
+        this.player = player;
+        if (player.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
             this.MaxWeaponArmorySpace = 1;
-        } else if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
+        } else if (player.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
             this.MaxWeaponArmorySpace = 3;
         }
-
         this.weaponInventory = new Weapon[MaxWeaponArmorySpace];
         this.itemInventory = new PotionItems[MaxAvailableInventorySpace];
     }
@@ -66,7 +67,7 @@ public class CharacterInventory {
     }
 
     // take Potion out of inventory to use
-    public void useItemFromInventory(int position, PlayerCharacter player) {
+    public void useItemFromInventory(int position) {
         if (position >= 0 && position < MaxAvailableInventorySpace) {
             PotionItems item = itemInventory[position];
             if (item != null) {
@@ -80,19 +81,35 @@ public class CharacterInventory {
         }
     }
 
+    // Helping Methods
+    boolean checkInventorySpace() {
+        return player.getCharacterInventory().getNumAvailableInventorySpace() <= 0;
+    }
+
     // change Weapon from Weapon armory
     // TODO
-    public void changeWeaponFromInventory(int position, PlayerCharacter player){
+    public void changeWeaponFromInventory(int position){
         if (position >= 0 && position < MaxWeaponArmorySpace){
             Weapon toSwapedWeapon = weaponInventory[position];
         }
     }
-    // getter and setter
 
+    // Currency Operations / Methods
+    // Check, if player can afford object or service
+    boolean checkAffordable(int amount){
+        return player.getCharacterInventory().getCurrencyAmount() >= amount;
+    }
+    // deduct the money used in the shop / marketplace from character inventory
+    void payGold(int amount){
+        player.getCharacterInventory().setCurrencyAmount(
+                player.getCharacterInventory().getCurrencyAmount() - amount
+        );
+    }
+
+    // getter and setter
     public Weapon getCurrentWeapon(){
         return currentWeapon;
     }
-
     public void setCurrentWeapon(Weapon weapon){
         if (Arrays.asList(weaponInventory).contains(weapon)){
             currentWeapon = weapon;
@@ -120,7 +137,6 @@ public class CharacterInventory {
         }
         return count;
     }
-
     // test get num inventory spaces
     public int getInventoryWeaponspace(){
             int count = 0;

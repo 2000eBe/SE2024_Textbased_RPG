@@ -4,7 +4,6 @@ public class Attack {
     private final int damage;
     private final boolean isCritical;
 
-
     public Attack(CombatInterface attacker, CombatInterface defender, int damage, boolean isCritical) {
         this.attacker = attacker;
         this.defender = defender;
@@ -13,21 +12,4 @@ public class Attack {
 
     }
 
-
-    // Getter methods
-    public CombatInterface getAttacker() {
-        return attacker;
-    }
-
-    public CombatInterface getDefender() {
-        return defender;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public boolean isCritical() {
-        return isCritical;
-    }
 }

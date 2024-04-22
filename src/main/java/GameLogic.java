@@ -1,16 +1,19 @@
 import java.util.Scanner;
 public class GameLogic {
 
-    static Scanner scanner = new Scanner(System.in);
-    static Shop shop;
-    static Dungeon dungeon; // the tower to climb
-    static PlayerCharacter player;//current player
-    static boolean isRunning;
-    static int completedLevels = 1; // 1 to start with level 1, gets increased through playing
+     Shop shop;
+     Dungeon dungeon; // the tower to climb
+     PlayerCharacter player;//current player
+     boolean isRunning;
+
+    private  CombatSystem combatSystem;
 
     public GameLogic(PlayerCharacter player) {
         this.player = player;
-        this.scanner = new Scanner(System.in);
+        this.dungeon = new Dungeon();
+        combatSystem = new CombatSystem(player);
+        combatSystem.setDungeon(dungeon);
+        shop = new Shop(player);
     }
 
 
@@ -19,81 +22,73 @@ public class GameLogic {
 
     // Method for Main Menu
 
-    public static void showMainMenu(){
-        System.out.println("Hauptmenü");
-        System.out.println("(1) zum Spiel starten");
-        System.out.println("(2) Charakterstatistiken und Informationen");
-        System.out.println("(3) Händler in der Stadt besuchen");
-        System.out.println("(4) Spiel beenden");
+    public void showMainMenu(){
+        do {
+            System.out.println("Hauptmenü");
+            System.out.println("(1) zum Spiel starten");
+            System.out.println("(2) Charakterstatistiken und Informationen");
+            System.out.println("(3) Händler in der Stadt besuchen");
+            System.out.println("(4) Spiel beenden");
 
-        int choice = readInt("Bitte wähle eine Option aus: ", 4);
+            int choice = GameUtility.readInt("Bitte wähle eine Option aus: ", 4);
 
-        switch (choice){
-            case 1:
-                if (player.getCurrentLevel() != 0){
-                  startGame();
-                } else {
-                    System.out.println("Spieler hat keine aktuelle Dungeon-Instanz");
-                    showMainMenu();
-                }
-                break;
-            case 2:
-                showCharacterStatistics();
-                break;
-            case 3:
-                openShop();
-                break;
-            case 4:
-                //endGame();
-                break;
-            default:
-                System.out.println("Ungültige Option. Bitte versuche es erneut!");
-                showMainMenu();
-                break;
-        }
+            switch (choice){
+                case 1:
+                    if (player.getCurrentLevel() != 0){
+                        startGame();
+                    }
+                    break;
+                case 2:
+                    showCharacterStatistics();
+                    break;
+                case 3:
+                    openShop();
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Ungültige Option. Bitte versuche es erneut!");
+            }
+        }while (true);
 
     }
 
 
-    static void initializeGame(PlayerCharacter pc) {
-        dungeon = new Dungeon();
-        CombatSystem.setDungeon(dungeon);
-        GameLogic.printHeading("Willkommen zum Spiel!");
-        GameLogic.setPlayer(pc);
-        GameLogic.printHeading("Erstelle deinen eigenen Helden!");
-        pc.CharacterCreationName();
-        pc.CharacterCreationClass();
-        System.out.println("maxWeaponArmorySpace: " + pc.getCharacterInventory().getInventoryWeaponspace());
-        System.out.println("TEST NAME IST: " + pc.getPlayerName());
-        System.out.println("TEST Klasse IST: " + pc.getCharacterClass());
+     void initializeGame() {
 
-        pc.setCurrentLevel(1);
+        GameUtility.printHeading("Willkommen zum Spiel!");
+        GameUtility.printHeading("Erstelle deinen eigenen Helden!");
+        player.CharacterCreationName();
+        player.CharacterCreationClass();
+        //System.out.println("maxWeaponArmorySpace: " + player.getCharacterInventory().getInventoryWeaponspace());
+       // System.out.println("TEST NAME IST: " + pc.getPlayerName());
+        // System.out.println("TEST Klasse IST: " + pc.getCharacterClass());
+
+        player.setCurrentLevel(1);
         showMainMenu();
     }
 
     // Start the dungeons
-    public static  void startGame(){
-        printHeading("DER DUNKLE TURM ERWARTET DICH");
-        Map currentLevel = dungeon.getLevel(completedLevels);
-        System.out.println(currentLevel.getDescription());
-        CombatSystem.startCombatRound(player, currentLevel.getMonster());
+    public void startGame(){
+        GameUtility.printHeading("DER DUNKLE TURM ERWARTET DICH");
+        do {
+            Map currentLevel = dungeon.getLevel();
+            System.out.println(currentLevel.getDescription());
+            if (!combatSystem.startCombatRound(player, currentLevel.getMonster())){
+                break;
+            }
+        } while (true); //TODO Endlevel Index berechnen bzw. Ende vom Spiel ausgeben
 
     }
 
-    // Simple method to end the game
-    private static void endGame() {
-    }
-
-    private static void openShop() {
-        printHeading("DER MARKTPLATZ");
-        shop = new Shop();
-        shop.setPc(player);
-        Shop.chooseVendor();
+    private void openShop() {
+        GameUtility.printHeading("DER MARKTPLATZ");
+        shop.chooseVendor();
 
     }
 
-    private static void showCharacterStatistics() {
-        printHeading("CHARAKTERSTATISTIKEN");
+    private void showCharacterStatistics() {
+        GameUtility.printHeading("CHARAKTERSTATISTIKEN");
         System.out.println("Charaktername: " + player.getPlayerName());
         System.out.println("Klasse: " + player.getCharacterClass());
         System.out.println("Verfügbare HP: " + player.getCurrentHP());
@@ -104,60 +99,12 @@ public class GameLogic {
 
         System.out.println("Verfügbare Waffenplätze: " + player.getCharacterInventory().getInventoryWeaponspace());
         System.out.println("Gesammeltes Vermögen: " + player.getCharacterInventory().getCurrencyAmount() + " Gold");
-        System.out.println("Bezwungene Turm-Etagen: " + (completedLevels - 1));
-
-        printSeperator(30);
-        int input = readInt("Bitte (1) auswählen, um zum Menü zurückzukehren", 1);
-        if( input == 1){
-            showMainMenu();
-        }
+        System.out.println("Bezwungene Turm-Etagen: " + (dungeon.getCurrentLevelIndex()));
+        GameUtility.printSeperator(30);
     }
-
-
-
-
-
-
-
     // getter and Setter
-    public static void setPlayer(PlayerCharacter player) {
-        GameLogic.player = player;
+    public void setPlayer(PlayerCharacter player) {
+        this.player = player;
     }
 
-    // Method to format dialogues a little bit prettier
-    public static void printSeperator(int n){
-        for (int i = 0; i < n; i++){
-            System.out.print("-");
-        }
-        System.out.println();
-    }
-
-    // Method to print a heading
-    public static void printHeading(String title){
-        printSeperator(30);
-        System.out.println(title);
-        printSeperator(30);
-    }
-    // Method to get user input from console
-    public static int readInt(String prompt, int userChoice){
-        int input;
-
-        do {
-            System.out.println(prompt);
-            try{
-                input = Integer.parseInt(scanner.next());
-            } catch (Exception e){
-                input = -1;
-                System.out.println("Bitte ein Integer einfügen!");
-            }
-        } while (input < 1 || input > userChoice);
-        return input;
-    }
-
-    // Method to simulate clearing of the console for a cleaner look
-    public static void clearConsole(){
-        for (int i = 0; i < 100; i++){
-            System.out.println();
-        }
-    }
 }

@@ -44,6 +44,7 @@ public abstract class PotionItems {
             int currentHP = pc.getCurrentHP();
             int maxHP = pc.getCharacterClass().getHp();
             int healAmount = Math.min(maxHP - currentHP, 50);
+            System.out.println("Du trinkst den Heiltrank und heilst dich um: " + healAmount);
             pc.heal(healAmount);
         }
     }

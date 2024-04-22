@@ -30,22 +30,27 @@ public class PlayerCharacter implements CombatInterface {
 
     // Method to choose the charactername
     public void CharacterCreationName(){
-        // GameLogic.printHeading("Charaktererstellung");
+        // GameUtility.printHeading("Charaktererstellung");
         boolean nameSet = false;
 
         do {
             System.out.println("Wie heißt du? ");
-            setPlayerName(GameLogic.scanner.nextLine());
-            GameLogic.printHeading("Den Namen " + getPlayerName() + " bestätigen?");
+            setPlayerName(GameUtility.nextLine());
+            GameUtility.printHeading("Den Namen " + getPlayerName() + " bestätigen?");
             System.out.println("(1) für ''Ja''");
             System.out.println("(2) für ''Nein, ich möchte mich gerne umbenennen!''");
 
-            int input = GameLogic.readInt("-> ", 2);
+            int input = GameUtility.readInt("-> ", 2);
             if (input == 1){
                 nameSet = true;
             } else if (input == 2) {
-                System.out.println("Bitte den korrigierten Namen eintragen.");
-
+                String jerns;
+                System.out.println("Bitte neuen Namen eingeben: ");
+                do {
+                    jerns = GameUtility.nextLine();
+                } while (jerns.isEmpty());
+                setPlayerName(jerns);
+                nameSet = true;
             }
         } while (!nameSet);
     }
@@ -54,21 +59,21 @@ public class PlayerCharacter implements CombatInterface {
    public void CharacterCreationClass() {
        boolean classSet = false;
        do {
-           GameLogic.printSeperator(30);
+           GameUtility.printSeperator(30);
            System.out.println("Welche Klasse möchtest du spielen?" + "\n" + "Magier oder Waffenmeister?");
            System.out.println("Du kannst deine Klasse danach nicht mehr ändern!");
            System.out.println("(1) für ''Magier''");
            System.out.println("(2) für ''Waffenmeister''");
            System.out.println("(3) für Informationen zu den beiden Klassen");
 
-           int input = GameLogic.readInt("-> ", 3);
+           int input = GameUtility.readInt("-> ", 3);
 
            if (input == 1) {
                System.out.println("Entscheidest du dich für den Pfad der Magie?" + "\n" +
                        "(1) für ''Ja''!" + "\n" +
                        "(2) für ''Nein, ich möchte es mir erneut überlegen''"
                );
-               int input1 = GameLogic.readInt("-> ", 2);
+               int input1 = GameUtility.readInt("-> ", 2);
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.MAGIER);
                    classSet = true;
@@ -80,7 +85,7 @@ public class PlayerCharacter implements CombatInterface {
                        "(1) für ''Ja''!" + "\n" +
                        "(2) für ''Nein, ich möchte es mir erneut überlegen''"
                );
-               int input1 = GameLogic.readInt("-> ", 2);
+               int input1 = GameUtility.readInt("-> ", 2);
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.WAFFENMEISTER);
 
@@ -89,7 +94,7 @@ public class PlayerCharacter implements CombatInterface {
                    WeaponEquipment.setStarterWeapons(this);
                }
            } else if (input == 3) {
-               GameLogic.printSeperator(30);
+               GameUtility.printSeperator(30);
                System.out.println(
                        "Magier haben weniger Lebenspunkte als Waffenmeister. Sie haben jedoch Manapunkte und ihre " + "\n" +
                                "Angriffe sind mächtiger - dafür sind sie umso gebrechlicher. Magier können nur Zauberstäbe führen.");
@@ -97,7 +102,7 @@ public class PlayerCharacter implements CombatInterface {
                        "Waffenmeister haben mehr Lebenspunkte und keine Manapunkte." + "\n" +
                                "Sie können Schwerter, Äxte und Streitkolben führen, aber keine Zauberstäbe." + "\n" +
                                "Ihre Angriffe sind stark abhängig von der geführten Waffe.");
-               GameLogic.printSeperator(30);
+               GameUtility.printSeperator(30);
            }
        } while (!classSet);
    }
@@ -171,7 +176,7 @@ public class PlayerCharacter implements CombatInterface {
 
 
     @Override
-    public int getAttacked(int amount) {
+    public int getAttacked(int amount, boolean alive) {
         int currentHP = getCurrentHP();
         //System.out.println("HP vor Angriff" + currentHP); DEBUG
         currentHP -= amount;

@@ -15,7 +15,6 @@ public class CharacterClass {
     }
 
     public void changeWeapon(){
-
         if(characterClass == CharacterClasses.MAGIER){
             // check if player can wield the weapon
             if (weapon == Weapon.ZAUBERSTAB){

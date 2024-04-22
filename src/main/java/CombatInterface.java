@@ -1,7 +1,7 @@
 public interface CombatInterface {
 
     // Amout of Damage that gets deducted from hp
-    int getAttacked(int amount);
+    int getAttacked(int amount, boolean alive);
 
 
     double curseDefense(double amount);

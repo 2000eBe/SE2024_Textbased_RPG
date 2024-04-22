@@ -57,13 +57,13 @@ public class Monster implements CombatInterface{
 
 
 
-    public int getAttacked(int amount){
+    public int getAttacked(int amount, boolean defeated){
         int currentHP = getCurrentHP();
         if (currentHP > 0){
             currentHP -= amount;
             if (currentHP <= 0) {
                 currentHP = 0; // Um sicherzustellen, dass HP nicht negativ wird
-                CombatSystem.monsterGotDefeated(this);
+
             }
             setHp(currentHP);
         }
