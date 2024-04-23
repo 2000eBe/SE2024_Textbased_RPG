@@ -12,7 +12,6 @@ public class PlayerCharacter implements CombatInterface {
     private LevelSystem level;
     private List<Ability> abilities;
     private WeaponEquipment weaponEquipment;
-
     public int defense = 15;
 
     public PlayerCharacter(String playerName, CharacterClasses characterClass){
@@ -20,13 +19,10 @@ public class PlayerCharacter implements CombatInterface {
         this.characterClass.setCharacterClass(characterClass);
         this.level = new LevelSystem(1);
         this.characterInventory = new CharacterInventory(this);
-        this.weaponEquipment = new WeaponEquipment();
+        this.weaponEquipment = new WeaponEquipment(this);
 
 
     }
-
-
-
 
     // Method to choose the charactername
     public void CharacterCreationName(){
@@ -90,7 +86,7 @@ public class PlayerCharacter implements CombatInterface {
                    characterClass.setCharacterClass(CharacterClasses.WAFFENMEISTER);
 
                    classSet = true;
-                   characterInventory.setCurrencyAmount(50);
+                   characterInventory.setCurrencyAmount(100);
                    WeaponEquipment.setStarterWeapons(this);
                }
            } else if (input == 3) {
@@ -115,7 +111,12 @@ public class PlayerCharacter implements CombatInterface {
 
     @Override
     public int getMaxHP() {
-        return 0;
+        if (this.characterClass.getCharacterClass() == CharacterClasses.MAGIER){
+            return 75;
+        } else {
+            return 100;
+        }
+
     }
 
     public int getCurrentMP(){
@@ -150,6 +151,7 @@ public class PlayerCharacter implements CombatInterface {
         }
         return null;
     }
+
 
 
     // Getter and Setter Methods
@@ -188,6 +190,14 @@ public class PlayerCharacter implements CombatInterface {
         return currentHP;
     }
 
+    // reduce MP for each magical skill usage
+    @Override
+    public int subtractMP(int amount) {
+        int currentMP = getCurrentMP();
+            currentMP -= amount;
+            this.characterClass.setMp(currentMP);
+            return currentMP;
+    }
     @Override
     public double curseDefense(double amount) {
         return this.defense = (int) Math.floor(this.defense * amount);
@@ -209,13 +219,20 @@ public class PlayerCharacter implements CombatInterface {
         int maxHP = 100;
         if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
             maxHP = 75;
-        }
-        int currentHP = characterClass.getHp();
-        currentHP += amount;
-        if(currentHP > maxHP){
-            currentHP = maxHP;
+            int currentHP = this.getCurrentHP();
+            currentHP += amount;
+            if(currentHP > maxHP){
+                this.characterClass.setHp(maxHP);
+            }
+            this.characterClass.setHp(currentHP);
         }
 
+        int currentHP = this.getCurrentHP();
+        currentHP += amount;
+        if(currentHP > maxHP){
+           this.characterClass.setHp(maxHP);
+        }
+        this.characterClass.setHp(currentHP);
         return maxHP;
     }
 
@@ -231,14 +248,25 @@ public class PlayerCharacter implements CombatInterface {
 
     public void restoreMP(int restoreAmount) {
         if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
-           int maxMP = characterClass.getMp();
-
-            int currentMP = getCurrentMP();
+           int maxMP = 100;
+            int currentMP = this.getCurrentMP();
             if(currentMP > maxMP){
                 currentMP = maxMP;
             }
         }
-        System.out.println("Manatränke haben keinen Effekt auf Waffenmeister");
+        System.out.println("Manatränke haben keinen Effekt auf Waffenmeister, " +
+                "da sie keine MP besitzen");
+    }
+
+    public void restoreWithInn(){
+        if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
+            this.characterClass.setMp(100); //reset MP to fullest
+            this.heal(15);
+            System.out.println("Du hast volle MP und deine HP hat sich um den Wert 15 erholt!");
+        } else if (characterClass.getCharacterClass() == CharacterClasses.WAFFENMEISTER){
+            this.heal(15);
+            System.out.println("Deine HP hat sich um den Wert 15 erholt!");
+        }
     }
 
     public int getCurrentLevel() {
@@ -257,16 +285,5 @@ public class PlayerCharacter implements CombatInterface {
         this.currentDungeon = dungeon;
     }
 
-    // Methode zur Anzeige und Auswahl von Fähigkeiten
-    public void displayAndChooseAbility() {
-        List<Ability> availableAbilities = AbilityFactory.getAvailableAbilities(characterClass.getCharacterClass(), getCurrentLevel());
-        System.out.println("Verfügbare Fähigkeiten:");
-        int abilityNumber = 1;
-        for (Ability ability : availableAbilities) {
-            System.out.println("(" + abilityNumber + ") " + ability.getName() + ": " + ability.getDescription());
-            abilityNumber++;
-        }
-        // Hier kann der Spieler eine Fähigkeit auswählen und entsprechende Aktionen ausführen
-    }
 }
 

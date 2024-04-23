@@ -9,8 +9,9 @@ public class CharacterClass {
 
     public void Magier( int hp, int mp, Weapon weapon){
         this.characterClass = CharacterClasses.MAGIER;
-        this.hp = hp;
+        this.hp = 75;
         this.mp = 100; // only mages need mana points
+        this.weapon = weapon;
 
     }
 
@@ -60,7 +61,7 @@ public class CharacterClass {
     }
 
     public int getHp() {
-        return hp;
+        return this.hp;
     }
 
     public void setHp(int hp) {

@@ -1,9 +1,17 @@
+import java.util.List;
+import java.util.SortedMap;
+
 // This class represents different vendors / shops and their stock
 public class Shop {
 
     PlayerCharacter player;
+    WeaponEquipment weaponUpgrade;
+    Weapon weapon;
+    WeaponAttributes weaponAttributes;
+    WeaponEquipment weaponEquipment;
     public Shop(PlayerCharacter player){
         this.player = player;
+        this.weaponEquipment = new WeaponEquipment(player);
     }
 
     // Method to show different Vendors
@@ -13,13 +21,14 @@ public class Shop {
                         "(1) für den Alchemisten \n" +
                         "(2) für den Waffenschmied \n" +
                         "(3) für das Ärztehaus \n" +
-                        "(4) die Stadt verlassen"
+                        "(4) für das Gasthaus \n" +
+                        "(5) die Stadt verlassen"
         );
 
-        int choice = GameUtility.readInt("Wähle einen Händler", 4);
+        int choice = GameUtility.readInt("Wähle einen Händler", 5);
 
         switch (choice){
-            // Alchemy vendor
+                // Alchemy vendor
             case 1:
                 VisitAlchemyVendor();
                 break;
@@ -32,22 +41,47 @@ public class Shop {
                 VisitTownHealer();
                 break;
             case 4:
+                // Town inn
+                visitInn();
+                break;
+            case 5:
                 System.out.println("Du verlässt die Stadt wieder.");
                 GameUtility.printSeperator(30);
         }
     }
 
+    // Town inn method
+    private void visitInn() {
+        System.out.println("Du betrittst das Gasthaus und kannst dich als ausruhen.");
+        System.out.println("Gasthäuser heilen nur geringfügig HP," +
+                " wobei sie die MP vollständig regenerieren!");
+        System.out.println("Du kannst für 5 Gold eine Nacht im Gasthaus schlafen.");
+        System.out.println("(1) für die Übernachtung (Kosten: 5 Gold)");
+        System.out.println("(2) du möchtest nicht verweilen und verlässt das Gasthaus.");
+
+        int input = GameUtility.readInt("->", 2);
+                if(input == 1){
+                    if (player.getCharacterInventory().checkAffordable(5)){
+                        player.getCharacterInventory().payGold(5);
+                        System.out.println("Du nächtigst im Gasthaus und wachst voller Energie wieder auf!");
+                        player.restoreWithInn();
+                    }
+                } else if (input == 2){
+                    GameUtility.printSeperator(30);
+                    chooseVendor();
+                }
+    }
+
     // Town Healer Method
     private void VisitTownHealer() {
         System.out.println("Du betrittst das Ärztehaus. Du kannst dich für 20 Gold heilen lassen.");
-        System.out.println(player.getCurrentHP());
         System.out.println("(1) für Heilung (Kosten: 20 Gold)");
         System.out.println("(2) du möchtest keine Heilung und verlässt das Ärztehaus wieder.");
 
 
         int input = GameUtility.readInt("-> ", 2);
         if(input == 1){
-            if (player.getCurrentHP() >= player.getCharacterClass().getHp()){
+            if (player.getCurrentHP() >= player.getMaxHP()){
                 System.out.println("Du bist nicht verwundet. Der Heiler schickt dich fort.");
                 GameUtility.printSeperator(30);
                 // go back to marketplace
@@ -58,7 +92,7 @@ public class Shop {
             if (player.getCharacterInventory().checkAffordable(20)){
                 player.getCharacterInventory().payGold(20);
                 // get difference between max possible hp and current hp
-                int damageAmount = player.getCharacterClass().getHp() - player.getCurrentHP();
+                int damageAmount = player.getMaxHP() - player.getCurrentHP();
                 player.heal(damageAmount);
                 System.out.println("Der Heiler hat " + damageAmount + " HP wiederhergestellt! Du gehst erholt wieder auf den Marktplatz");
                 GameUtility.printSeperator(30);
@@ -74,25 +108,48 @@ public class Shop {
             chooseVendor();
         }
     }
-
-    // TODO add Weaponupgrading functionality to WeaponSmith
-    //  Town Weapon Smith Method
     private void VisitWeaponSmith() {
         System.out.println("Du betrittst die Waffenschmiede. Du kannst deine Waffe verbessern lassen.");
-        System.out.println("(1) Wenn die Waffe verbessern möchtest.");
-        System.out.println("(2) Wenn du wieder zum Marktplatz zurückkehren möchtest.");
+        System.out.println("Für welche Waffe suchst du eine Verbesserung?");
+        // for mages
+        if (player.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
+            System.out.println("(1) Zauberstab (Magier)");
+            System.out.println("(2) Wenn du wieder zum Marktplatz zurückkehren möchtest.");
 
-        int input = GameUtility.readInt("Wähle einen Händler", 2);
-
-        if (input == 1 ){
-
+            int input = GameUtility.readInt("Wähle einen Händler", 2);
+            if (input == 1 ){
+                showAvailableUpgrades(player.getEquippedWeapon());
+            }
+            if (input == 2){
+                System.out.println("Du verlässt die Waffenschmiede und kehrst zur Stadt zurück");
+                GameUtility.printSeperator(30);
+                chooseVendor();
+            }
         }
-        if (input == 2){
-            System.out.println("Du verlässt die Waffenschmiede und kehrst zur Stadt zurück");
-            GameUtility.printSeperator(30);
-            chooseVendor();
-        }
+        System.out.println("(1) Schwerter (Waffenmeister");
+        System.out.println("(2) Streitkolben (Waffenmeister");
+        System.out.println("(3) Äxte (Waffenmeister");
+        System.out.println("(4) Wenn du wieder zum Marktplatz zurückkehren möchtest");
 
+        int input = GameUtility.readInt("-> ", 4);
+        switch (input){
+            case 1:
+                showAvailableUpgrades(player.getCharacterInventory().getWeaponAtIndex(0)); // auf platz 0
+                break;
+            case 2:
+                showAvailableUpgrades(player.getCharacterInventory().getWeaponAtIndex(2)); // in wepaoniventory auf platz 2
+                break;
+            case 3:
+                showAvailableUpgrades(player.getCharacterInventory().getWeaponAtIndex(1)); // in Weaponinventory auf Platz 1
+                break;
+            case 4:
+                System.out.println("Du verlässt die Waffenschmiede!");
+                chooseVendor();
+        }
+    }
+
+    private void showAvailableUpgrades(Weapon weapon) {
+        weaponEquipment.showAvailableUpgradesForWeapon(weapon);
     }
 
 
@@ -164,12 +221,5 @@ public class Shop {
             System.out.println(" ");
             VisitAlchemyVendor();
         }
-    }
-
-
-
-    //TODO Weaponupgrading
-    private void buyWeaponUpgrade(){
-
     }
 }

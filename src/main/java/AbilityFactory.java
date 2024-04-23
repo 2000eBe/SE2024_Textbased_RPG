@@ -13,13 +13,13 @@ public class AbilityFactory {
         MAGICIAN_ABILITIES.add(new Ability("Feuerball", "Ein mächtiger Feuerzauber.", 1));
         MAGICIAN_ABILITIES.add(new Ability("Heilaura", "Ein Zauber, der um 40 HP heilt.", 2));
         MAGICIAN_ABILITIES.add(new Ability("Schwächender Fluch", "Ein Fluch, der die Feinde schwächt.", 3));
-        MAGICIAN_ABILITIES.add(new Ability("Feuerschwall", "Eine mächtige Feuerattacke, die alle Feinde trifft.", 4));
+        MAGICIAN_ABILITIES.add(new Ability("Feuerschwall", "Eine mächtige Feuerattacke, stärker als Feuerball.", 4));
         MAGICIAN_ABILITIES.add(new Ability("Meteor", "Beschwört einen Meteor, der enormen Schaden verursacht.", 5));
 
         // Fähigkeiten für Krieger
         WARRIOR_ABILITIES.add(new Ability("Zerschmetternder Hieb", "Ein mächtiger Schlag, der großen Schaden verursacht.", 1));
         WARRIOR_ABILITIES.add(new Ability("Schildaura", "Errichtet eine magische Barriere um den Krieger.", 2));
-        WARRIOR_ABILITIES.add(new Ability("Wirbelschlag", "Eine schnelle Angriffskombination, die mehrere Ziele trifft.", 3));
+        WARRIOR_ABILITIES.add(new Ability("Wirbelschlag", "Eine schnelle Angriffskombination, die aber höhere Crit-Chance hat.", 3));
         WARRIOR_ABILITIES.add(new Ability("Schlachtruf", "Schüchtert Gegner ein und reduziert deren Defensivität.", 4));
         WARRIOR_ABILITIES.add(new Ability("Hinrichten", "Wenn der Gegner weniger als 30% HP hat, beendest du es schnell und kaltblütig (Über 30% HP ist es ein sehr mächtiger Hieb!)!", 5));
     }

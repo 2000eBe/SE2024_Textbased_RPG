@@ -10,7 +10,6 @@ public class Monster implements CombatInterface{
     private final int minDmg;
     private final int maxDmg;
     private int defense;
-    private boolean aggression;
     private static final Random rand = new Random();
 
 
@@ -26,35 +25,13 @@ public class Monster implements CombatInterface{
         this.level = level;
     }
 
-
     public String getName() {
         return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getHp() {
-        return hp;
     }
 
     public void setHp(int hp) {
         this.hp = hp;
     }
-
-    public int getMinDmg() {
-        return minDmg;
-    }
-
-    public int getMaxDmg() {
-        return maxDmg;
-    }
-
-    public static Object randomMonster() {
-        return null;
-    }
-
 
 
     public int getAttacked(int amount, boolean defeated){
@@ -63,11 +40,22 @@ public class Monster implements CombatInterface{
             currentHP -= amount;
             if (currentHP <= 0) {
                 currentHP = 0; // Um sicherzustellen, dass HP nicht negativ wird
-
             }
             setHp(currentHP);
         }
         return currentHP;
+    }
+
+    @Override
+    public int subtractMP(int amount) {
+        return 0;
+    }
+
+    @Override
+    public int attack() {
+        // get random damage between minDmg and maxDmg
+        int damage = rand.nextInt(this.maxDmg - this.minDmg + 1) + this.minDmg;
+        return damage;
     }
 
     @Override
@@ -115,20 +103,12 @@ public class Monster implements CombatInterface{
     }
 
     @Override
-    public int attack() {
-        // get random damage between minDmg and maxDmg
-        int damage = rand.nextInt(this.maxDmg - this.minDmg + 1) + this.minDmg;
-        return damage;
-    }
-
-    @Override
     public int block() {
         return 0;
     }
 
     @Override
     public int heal(int damage) {
-
         return damage;
     }
 

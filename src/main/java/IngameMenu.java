@@ -74,11 +74,12 @@ import java.util.Scanner;
                  CharacterInventory inventoryWeapons = player.getCharacterInventory();
                  int availableWeaponSlots = inventoryWeapons.getNumAvailableWeaponInventorySpace();
                  inventoryWeapons.showInventoryWeapons();
+                 System.out.println("Aktuell getragene Waffe: " + player.getCharacterInventory().getCurrentWeapon());
                  int itemPosition = GameUtility.readInt(
-                         "Wähle eine Waffe aus den " + availableWeaponSlots +
+                         "Wähle eine Waffe aus den 3" +
                                  " Waffenplätzen im Inventar eine zum Tausch aus. \n"
                                  + "(0) wenn keine Waffe getauscht werden soll und zum Menü zurückkehren.",
-                         availableWeaponSlots);
+                         4);
                  // don't change weapon and go back to menu
                  if (itemPosition == 0) {
                      System.out.println("Rückkehr zum Menü.");

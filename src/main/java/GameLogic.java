@@ -97,7 +97,7 @@ public class GameLogic {
             System.out.println("Verfügbare MP: " + player.getCurrentMP());
         }
 
-        System.out.println("Verfügbare Waffenplätze: " + player.getCharacterInventory().getInventoryWeaponspace());
+        System.out.println("Aktuelle getragene Waffe: " + player.getCharacterInventory().getCurrentWeapon());
         System.out.println("Gesammeltes Vermögen: " + player.getCharacterInventory().getCurrencyAmount() + " Gold");
         System.out.println("Bezwungene Turm-Etagen: " + (dungeon.getCurrentLevelIndex()));
         GameUtility.printSeperator(30);

@@ -6,17 +6,17 @@ public enum Weapon {
     AXT("Axt", new WeaponAttributes(20, 2)),
     STREITKOLBEN("Streitkolben", new WeaponAttributes(18, 3));
 
-    private String weapontype;
+    private String weapontypeName;
     private WeaponAttributes attributes;
     private List<WeaponUpgrade> weaponUpgrades;
 
     Weapon(String weapontype, WeaponAttributes attributes) {
-        this.weapontype = weapontype;
+        this.weapontypeName = weapontype;
         this.attributes = attributes;
     }
 
-    public String getWeapontype() {
-        return weapontype;
+    public String getWeapontypeName() {
+        return weapontypeName;
     }
 
     public WeaponAttributes getAttributes() {

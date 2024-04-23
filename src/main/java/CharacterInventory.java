@@ -12,14 +12,8 @@ public class CharacterInventory {
     private int currencyAmount;
     private Weapon currentWeapon;
 
-    /*
-    public void determineWeaponArmorySpace(PlayerCharacter pc){
-        if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
-            MaxWeaponArmorySpace = 1;
-        } else if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
-            MaxWeaponArmorySpace = 3;
-        }
-    } */
+
+
     public CharacterInventory(PlayerCharacter player){
         this.player = player;
         if (player.getCharacterClass().getCharacterClass() == CharacterClasses.MAGIER){
@@ -86,11 +80,12 @@ public class CharacterInventory {
         return player.getCharacterInventory().getNumAvailableInventorySpace() <= 0;
     }
 
-    // change Weapon from Weapon armory
-    // TODO
     public void changeWeaponFromInventory(int position){
+        --position; // to get from 0 to 2 instead of 1 to 3
         if (position >= 0 && position < MaxWeaponArmorySpace){
             Weapon toSwapedWeapon = weaponInventory[position];
+            setCurrentWeapon(toSwapedWeapon);
+            System.out.println("Waffe wurde getauscht auf " +toSwapedWeapon.getWeapontypeName());
         }
     }
 
@@ -157,5 +152,13 @@ public class CharacterInventory {
             }
         }
         return count;
+    }
+
+    public Weapon getWeaponAtIndex(int index) {
+        if (index >= 0 && index < MaxWeaponArmorySpace){
+            return weaponInventory[index];
+        } else {
+            throw new IllegalArgumentException("Ungültiger Index für Waffe!");
+        }
     }
 }

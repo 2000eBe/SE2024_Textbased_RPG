@@ -4,6 +4,9 @@ public interface CombatInterface {
     int getAttacked(int amount, boolean alive);
 
 
+    // reduce MP for each magical skill usage
+    int subtractMP(int amount);
+
     double curseDefense(double amount);
     // Combatsystem
     int attack();
@@ -44,4 +47,5 @@ public interface CombatInterface {
     int getDefense();
 
     Weapon getEquippedWeapon();
+
 }

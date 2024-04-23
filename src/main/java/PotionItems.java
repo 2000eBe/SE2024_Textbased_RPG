@@ -34,6 +34,8 @@ public abstract class PotionItems {
 
     public abstract void use(PlayerCharacter pc);
 
+
+    // Potion implementations
     public static class HealthPotion extends PotionItems {
         public HealthPotion() {
             super("Heiltrank", 30);
