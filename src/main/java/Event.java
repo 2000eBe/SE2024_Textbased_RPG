@@ -1,11 +1,15 @@
+import java.util.List;
 import java.util.Random;
 
 // This Class should represent special Events in the game, that can be triggered
 public class Event {
     private final PlayerCharacter player;
+    WeaponEquipment weaponEquipment;
+
 
     public Event(PlayerCharacter player){
         this.player = player;
+        this.weaponEquipment = new WeaponEquipment(player);
     }
     public void spawnTreasureChest(){
         Random random = new Random();
@@ -26,7 +30,44 @@ public class Event {
 
     // Makes last weaponUpgrade available
     public void spawnWeaponChest(){
-        // TODO Spawn Last Weapon Upgrade
+        System.out.println("Der Gegner lässt einen Schlüsselbund und einen großen einzelnen Schlüssel fallen.");
+        System.out.println("Du siehst einen Nebenraum und betrittst diesen mit dem großen Schlüssel");
+        System.out.println("Viele Vitrinen mit ausgestellten Waffen sind sichtbar. Der kleinere Schlüsselbund ist eindeutig für die Vitrinenschlösser");
+        System.out.println("Sie sehen mächtiger aus als das, was die Waffenschmiede in der Stadt bieten kann!");
+        System.out.println("Du öffnest die Vitrinen von den Waffen, die du tragen kannst, und nimmst sie an dich.");
+
+        GameUtility.printSeperator(30);
+        if (player.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
+            Weapon playerSword = player.getCharacterInventory().getWeaponAtIndex(0);
+            Weapon playerAxe = player.getCharacterInventory().getWeaponAtIndex(1);
+            Weapon playerMace = player.getCharacterInventory().getWeaponAtIndex(2);
+
+            List<WeaponUpgrade> swords = WeaponEquipment.getUpgradesForWeaponType(playerSword);
+            List<WeaponUpgrade> axe = WeaponEquipment.getUpgradesForWeaponType(playerAxe);
+            List<WeaponUpgrade> mace = WeaponEquipment.getUpgradesForWeaponType(playerMace);
+
+            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(swords, 4);
+            player.getCharacterInventory().getWeaponAtIndex(1).getAttributes().applyUpgrade(axe, 4);
+            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(mace, 4);
+            /*System.out.println("DEBUG SWORD AFTER WEAPONCHEST: " + player.getEquippedWeapon().getAttributes().getBaseAttackPoints()
+            + "DEBUG SWORD AFTER WEAPONCHEST" + player.getEquippedWeapon().getAttributes().getBaseCritPoints());
+            System.out.println(
+                    "DEBUG Axe AFTER WEAPONCHEST: " + player.getCharacterInventory().getWeaponAtIndex(1).getAttributes().getBaseAttackPoints()
+                    + "DEBUG SORD AFTER WEAPONCHEST" + player.getCharacterInventory().getWeaponAtIndex(1).getAttributes().getBaseCritPoints());
+            System.out.println(
+                    "DEBUG Mace AFTER WEAPONCHEST: " + player.getCharacterInventory().getWeaponAtIndex(2).getAttributes().getBaseAttackPoints()
+                            + "DEBUG Mace AFTER WEAPONCHEST" + player.getCharacterInventory().getWeaponAtIndex(2).getAttributes().getBaseCritPoints());
+            */
+
+        } else {
+            Weapon playerStaff = player.getCharacterInventory().getWeaponAtIndex(0);
+            List<WeaponUpgrade> staff = WeaponEquipment.getUpgradesForWeaponType(playerStaff);
+            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(staff, 4);
+            //System.out.println("DEBUG staff AFTER WEAPONCHEST: " + player.getEquippedWeapon().getAttributes().getBaseAttackPoints()
+              //      + "DEBUG Staff AFTER WEAPONCHEST" + player.getEquippedWeapon().getAttributes().getBaseCritPoints());
+        }
+        WeaponEquipment.setCanUpgrade(false); //make weapons not upgradeable anymore. Achieved highest weapon level
+        //System.out.println("Waffe noch upgradebar?" + WeaponEquipment.getCanUpgrade());
     }
 
     // SecretVendor that sells special potions

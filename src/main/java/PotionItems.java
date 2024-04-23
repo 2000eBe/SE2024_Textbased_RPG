@@ -43,8 +43,14 @@ public abstract class PotionItems {
 
         @Override
         public void use(PlayerCharacter pc) {
+            int maxHP;
             int currentHP = pc.getCurrentHP();
-            int maxHP = pc.getCharacterClass().getHp();
+            if (pc.getCharacterClass().getCharacterClass() == CharacterClasses.WAFFENMEISTER){
+                maxHP = 100;
+            }
+            else {
+                maxHP = 75;
+            }
             int healAmount = Math.min(maxHP - currentHP, 50);
             System.out.println("Du trinkst den Heiltrank und heilst dich um: " + healAmount);
             pc.heal(healAmount);
@@ -59,23 +65,25 @@ public abstract class PotionItems {
 
         public void use(PlayerCharacter pc) {
             int currentMP = pc.getCurrentMP();
-            int maxMP = pc.getCharacterClass().getMp();
+            int maxMP = 100;
             int restoreAmount = Math.min(maxMP - currentMP, 75);
+            System.out.println("Du trinkst einen Manatrank und stellst " + restoreAmount + " MP wieder her!");
             pc.restoreMP(restoreAmount);
-
-
         }
 
     }
 
     public static class AttackPotion extends PotionItems {
         public AttackPotion() {
-            super("Trank der Angriffskraft", 20);
+            super("Trank der kritischen Angriffskraft", 100);
         }
 
         @Override
         public void use(PlayerCharacter pc) {
-            // TODO Write Code to interact with combat / weapon stats
+            System.out.println("Der Genuss dieses merkwürdigen Trankes macht dich blutrünstig! \n" +
+                    "(Information: Der Trank erhöht dauerhaft deinen Kritischen Trefferwert um 5%!");
+            pc.getCharacterInventory().getCurrentWeapon().getAttributes().setCritChance(0.2); // set to 20 %
         }
+
     }
 }

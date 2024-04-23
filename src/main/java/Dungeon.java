@@ -67,4 +67,5 @@ public class Dungeon {
     public void increaseLevel() {
         currentLevelIndex++;
     }
+
 }

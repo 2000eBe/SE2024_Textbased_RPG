@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 
 // This class represents all the equipment item weapons that can be obtained and worn by the player
 public class WeaponEquipment {
@@ -12,9 +11,19 @@ public class WeaponEquipment {
     private static List<WeaponUpgrade> staffUpgrades;
     private static List<WeaponUpgrade> maceUpgrades;
 
+    static Boolean canUpgrade;
+
+    public static void setCanUpgrade(boolean b) {
+        canUpgrade = b;
+    }
+
+    public static Boolean getCanUpgrade() {
+        return canUpgrade;
+    }
 
     public WeaponEquipment(PlayerCharacter player){
         this.player = player;
+        setCanUpgrade(true);
         // initialize lists for upgrades
         swordUpgrades = new ArrayList<>();
         axeUpgrades = new ArrayList<>();
@@ -135,54 +144,65 @@ public class WeaponEquipment {
         List<WeaponUpgrade> availableUpgrades = new ArrayList<>(upgrades);
         List<WeaponUpgrade> purchasedUpgrades = new ArrayList<>();
 
-        System.out.println("Verfügbare Upgrades für " + weapon.getWeapontypeName() + ":");
-        System.out.println("Information: Du kannst deine Waffe nur nach der Reihe verbessern. " +
-                "Du kannst nicht direkt die höchste Stufe erwerben!");
+        System.out.println("Kann geupgraded werden: " + canUpgrade);
+        if (canUpgrade)
+        {
+            System.out.println("Verfügbare Upgrades für " + weapon.getWeapontypeName() + ":");
+            System.out.println("Information: Du kannst deine Waffe nur nach der Reihe verbessern. " +
+                    "Du kannst nicht direkt die höchste Stufe erwerben!");
 
-        while (!availableUpgrades.isEmpty()) {
-            // Anzeige der verfügbaren Upgrades
-            for (int i = 0; i < availableUpgrades.size()-2; i++){
-                WeaponUpgrade upgrade = availableUpgrades.get(i);
-                System.out.println("(" + (i+1) + ") " + upgrade.getUpgradeName() + " (Kosten " + upgrade.getPrice() + ")" +
-                        " mit Werten: Angriffspunkte: " + upgrade.getModifiedAttributes().getBaseAttackPoints() +
-                        " & Kritische Trefferpunkte: " + upgrade.getModifiedAttributes().getBaseCritPoints());
-            }
+            while (!availableUpgrades.isEmpty()) {
+                // Anzeige der verfügbaren Upgrades
+                for (int i = 0; i < availableUpgrades.size()-2; i++){
+                    WeaponUpgrade upgrade = availableUpgrades.get(i);
+                    System.out.println("(" + (i+1) + ") " + upgrade.getUpgradeName() + " (Kosten " + upgrade.getPrice() + ")" +
+                            " mit Werten: Angriffspunkte: " + upgrade.getModifiedAttributes().getBaseAttackPoints() +
+                            " & Kritische Trefferpunkte: " + upgrade.getModifiedAttributes().getBaseCritPoints());
+                }
 
-            GameUtility.printSeperator(30);
-            System.out.println("Möchtest du eine Waffenverbesserung erwerben?");
-            System.out.println("(1) für Ja");
-            System.out.println("(2) um zurück zum Sortiment zu gehen.");
-            int input = GameUtility.readInt("->", 2);
+                GameUtility.printSeperator(30);
+                System.out.println("Möchtest du eine Waffenverbesserung erwerben?");
+                System.out.println("(1) für Ja");
+                System.out.println("(2) um zurück zum Sortiment zu gehen.");
+                int input = GameUtility.readInt("->", 2);
 
-            if (input == 1){
-                // Finde den Index des niedrigsten verfügbaren Upgrades
-                int selectedIndex = 0;
-                WeaponUpgrade lowestUpgrade = availableUpgrades.get(0);
-                for (int i = 1; i < availableUpgrades.size()-2; i++) {
-                    WeaponUpgrade currentUpgrade = availableUpgrades.get(i);
-                    if (currentUpgrade.getPrice() < lowestUpgrade.getPrice()) {
-                        lowestUpgrade = currentUpgrade;
-                        selectedIndex = i;
+                if (input == 1){
+                    // Finde den Index des niedrigsten verfügbaren Upgrades
+                    int selectedIndex = 0;
+                    WeaponUpgrade lowestUpgrade = availableUpgrades.get(0);
+                    for (int i = 1; i < availableUpgrades.size()-2; i++) {
+                        WeaponUpgrade currentUpgrade = availableUpgrades.get(i);
+                        if (currentUpgrade.getPrice() < lowestUpgrade.getPrice()) {
+                            lowestUpgrade = currentUpgrade;
+                            selectedIndex = i;
+                        }
                     }
-                }
 
-                WeaponUpgrade selectedUpgrade = availableUpgrades.get(selectedIndex);
-                int weaponPrice = selectedUpgrade.getPrice();
+                    WeaponUpgrade selectedUpgrade = availableUpgrades.get(selectedIndex);
+                    int weaponPrice = selectedUpgrade.getPrice();
 
-                if (!player.getCharacterInventory().checkAffordable(weaponPrice)){
-                    System.out.println("Du kannst dir die Verbesserung nicht leisten! ");
-                    GameUtility.printSeperator(30);
-                } else {
-                    player.getCharacterInventory().payGold(weaponPrice);
-                    weapon.getAttributes().applyUpgrade(availableUpgrades, selectedIndex);
-                    purchasedUpgrades.add(selectedUpgrade);
-                    availableUpgrades.remove(selectedUpgrade);
+                    if (!player.getCharacterInventory().checkAffordable(weaponPrice)){
+                        System.out.println("Du kannst dir die Verbesserung nicht leisten! ");
+                        GameUtility.printSeperator(30);
+                    } else {
+                        player.getCharacterInventory().payGold(weaponPrice);
+                        weapon.getAttributes().applyUpgrade(availableUpgrades, selectedIndex);
+                        purchasedUpgrades.add(selectedUpgrade);
+                        availableUpgrades.remove(selectedUpgrade);
+                    }
+                } else if (input == 2){
+                    System.out.println("Du kehrst zurück");
+                    break;
                 }
-            } else if (input == 2){
-                System.out.println("Du kehrst zurück");
-                break;
             }
+        } else if(!canUpgrade){
+            System.out.println("Waffenhändler:'' So eine mächtige Waffe, wie du sie führst, habe ich noch nicht gesehen! \n" +
+                    "Ich kann dir keine bessere Waffe schmieden...''");
+            System.out.println("Der Waffenschmied schickt dich fort");
+            GameUtility.printSeperator(30);
+            return;
         }
+
     }
 
 

@@ -46,7 +46,7 @@ import java.util.Scanner;
                  inventory.showInventoryPotions();
                  int availableInventorySpace = inventory.getNumAvailableInventorySpace();
                  int itemPosition = GameUtility.readInt(
-                         "Wähle einen Trank aus den: " + availableInventorySpace + " Inventarplätzen aus. \n" +
+                         "Wähle einen Trank aus den: " + 4 + " Inventarplätzen aus. \n" +
                                  "(0) wenn kein Trank verwendet werden soll und um zum Menü zurückzukehren",
                          availableInventorySpace);
                  // Use no Potion and go back to menu

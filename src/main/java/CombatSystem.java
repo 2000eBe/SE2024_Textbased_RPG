@@ -4,6 +4,11 @@ import java.util.List;
 public class CombatSystem {
     private final IngameMenu ingameMenu;
     private final Event event;
+
+    public static boolean weaponChestGotTriggered;
+
+
+
     Dungeon dungeon;
     PlayerCharacter player;
     Monster monster;
@@ -13,6 +18,7 @@ public class CombatSystem {
         this.player = player;
         ingameMenu = new IngameMenu(player);
         event = new Event(player);
+        setWeaponChestGotTriggered(false);
     }
 
     public void setDungeon(Dungeon d) {
@@ -63,10 +69,18 @@ public class CombatSystem {
         GameUtility.printSeperator(30);
         System.out.println("Herzlichen Glückwunsch! Du hast alle Gefahren der Etage gemeistert");
         dungeon.increaseLevel();
+
+
         double random = Math.random();
         if (random < 0.4) {
             event.spawnTreasureChest();
         }
+
+        if (dungeon.getLevel().isBossArea() && !getWeaponChestGotTriggered()){
+            event.spawnWeaponChest();
+            setWeaponChestGotTriggered(true);
+        } // Weapons spawn on the first boss throughout the game and only once
+
 
         do {
             System.out.println("Was möchtest du nun tun?");
@@ -217,6 +231,14 @@ public class CombatSystem {
             }
         }
         return false;
+    }
+
+    public static boolean getWeaponChestGotTriggered() {
+        return weaponChestGotTriggered;
+    }
+
+    public static void setWeaponChestGotTriggered(boolean weaponChestGotTriggered) {
+        CombatSystem.weaponChestGotTriggered = weaponChestGotTriggered;
     }
 
 }

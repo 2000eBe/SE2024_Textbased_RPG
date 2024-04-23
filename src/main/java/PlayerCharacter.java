@@ -216,8 +216,9 @@ public class PlayerCharacter implements CombatInterface {
 
     @Override
     public int heal(int amount) {
+
         int maxHP = 100;
-        if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
+        if (this.characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
             maxHP = 75;
             int currentHP = this.getCurrentHP();
             currentHP += amount;
@@ -234,6 +235,7 @@ public class PlayerCharacter implements CombatInterface {
         }
         this.characterClass.setHp(currentHP);
         return maxHP;
+
     }
 
     @Override
@@ -250,12 +252,16 @@ public class PlayerCharacter implements CombatInterface {
         if (characterClass.getCharacterClass() == CharacterClasses.MAGIER) {
            int maxMP = 100;
             int currentMP = this.getCurrentMP();
+            currentMP += restoreAmount;
             if(currentMP > maxMP){
                 currentMP = maxMP;
+                this.characterClass.setHp(currentMP);
             }
+            this.characterClass.setMp(currentMP);
+        } else {
+            System.out.println("Manatränke haben keinen Effekt auf Waffenmeister, " +
+                    "da sie keine MP besitzen");
         }
-        System.out.println("Manatränke haben keinen Effekt auf Waffenmeister, " +
-                "da sie keine MP besitzen");
     }
 
     public void restoreWithInn(){

@@ -5,6 +5,8 @@ public class WeaponAttributes {
     private int baseAttackPoints;
     private int baseCritPoints;
 
+    private double critChance = 0.15; //15% for everyone
+
     public WeaponAttributes(int baseAttackPoints, int baseCritPoints){
         this.baseAttackPoints = baseAttackPoints;
         this.baseCritPoints = baseCritPoints;
@@ -46,6 +48,9 @@ public class WeaponAttributes {
     }
 
     public double getCritChance() {
-        return 0.15; //15 % Crit Chance
+        return critChance;
+    }
+    public void setCritChance(double critChance) {
+        this.critChance = critChance;
     }
 }
