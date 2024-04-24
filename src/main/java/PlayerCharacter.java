@@ -7,12 +7,13 @@ public class PlayerCharacter implements CombatInterface {
     private PlayerCharacter pc;
     private CharacterInventory characterInventory;
     private String playerName;
-    private int currentLevel;
+
     private Dungeon currentDungeon;
     private LevelSystem level;
     private List<Ability> abilities;
     private WeaponEquipment weaponEquipment;
     public int defense = 15;
+
 
     public PlayerCharacter(String playerName, CharacterClasses characterClass){
         this.playerName = playerName;
@@ -40,12 +41,12 @@ public class PlayerCharacter implements CombatInterface {
             if (input == 1){
                 nameSet = true;
             } else if (input == 2) {
-                String jerns;
+                String line;
                 System.out.println("Bitte neuen Namen eingeben: ");
                 do {
-                    jerns = GameUtility.nextLine();
-                } while (jerns.isEmpty());
-                setPlayerName(jerns);
+                    line = GameUtility.nextLine();
+                } while (line.isEmpty());
+                setPlayerName(line);
                 nameSet = true;
             }
         } while (!nameSet);
@@ -73,7 +74,7 @@ public class PlayerCharacter implements CombatInterface {
                if (input1 == 1) {
                    characterClass.setCharacterClass(CharacterClasses.MAGIER);
                    classSet = true;
-                   characterInventory.setCurrencyAmount(50);
+                   characterInventory.setCurrencyAmount(100);
                    WeaponEquipment.setStarterWeapons(this);
                }
            } else if (input == 2) {
@@ -276,11 +277,11 @@ public class PlayerCharacter implements CombatInterface {
     }
 
     public int getCurrentLevel() {
-        return currentLevel;
+        return level.getCurrentLevel();
     }
 
     public void setCurrentLevel(int level) {
-        this.currentLevel = level;
+        ;
     }
 
     public Map getCurrentDungeon() {

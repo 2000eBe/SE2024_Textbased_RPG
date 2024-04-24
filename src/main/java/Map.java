@@ -9,25 +9,14 @@ public class Map {
     private final boolean isBossArea;
     private List<Monster> monsters;
 
-    private final boolean hasSecretChest;
-    public Map(String description, List<Monster> monsters, boolean isBossArea, boolean hasSecretChest) {
+
+    public Map(String description, List<Monster> monsters, boolean isBossArea) {
         this.description = description;
         this.monsters = monsters;
         this.isBossArea = isBossArea;
-        this.hasSecretChest = hasSecretChest;
-    }
-
-    public static Map newMapInstance(){
-        String description = null;
-        int numOfMonsters = 0;
-        boolean isBossArea = false;
-        boolean hasSecretVendor = false;
-        int random = Main.rand.nextInt(3) + 1;
-        return null;  //new Map(description,Monster.randomMonster(), 2, false, false);
     }
 
     // Getter Methods
-
     public String getDescription() {
         return description;
     }
@@ -38,17 +27,5 @@ public class Map {
 
     public boolean isBossArea() {
         return isBossArea;
-    }
-
-    public boolean itHasSecretChest() {
-        return hasSecretChest;
-    }
-
-    public Map getLevel(int currentLevel) {
-        return null;
-    }
-
-    public Collection<Object> getLevels() {
-        return null;
     }
 }

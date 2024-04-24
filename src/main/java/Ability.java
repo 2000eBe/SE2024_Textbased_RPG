@@ -16,11 +16,6 @@ public class Ability {
         int baseCritPoints = attackerAttributes.getBaseCritPoints();
         double critChance = attackerAttributes.getCritChance();
         int damage = 0;
-
-        System.out.println("DEBUG BaseAttackPunkte von " + baseDamage);
-        System.out.println("DEBUG BaseCritPunkte von " + baseCritPoints);
-        System.out.println("DEBUG Allgemeine CritChance:" + critChance);
-        System.out.println("DEBUG Von Waffe " + playerAttacker.getEquippedWeapon().getWeapontypeName());
         switch (abilityName) {
             case "Feuerball":
                 int mpCost1 = 20;

@@ -7,6 +7,7 @@ public class LevelSystem {
     private int currentExp;
     private int levelExp;
 
+
     public LevelSystem(int startingLevel){
         this.currentLevel = startingLevel;
         this.currentExp = 0;
@@ -28,20 +29,8 @@ public class LevelSystem {
         System.out.println("Herzlichen Glückwunsch! Du bist ein Level aufgestiegen!" + "\n" + "Du bist nun Level: " + currentLevel);
     }
 
-
     public int getCurrentLevel() {
         return currentLevel;
     }
 
-    public void setCurrentLevel(int currentLevel) {
-        this.currentLevel = currentLevel;
-    }
-
-    public int getCurrentExp() {
-        return currentExp;
-    }
-
-    public void setCurrentExp(int currentExp) {
-        this.currentExp = currentExp;
-    }
 }

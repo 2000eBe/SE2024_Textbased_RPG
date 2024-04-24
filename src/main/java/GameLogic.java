@@ -5,7 +5,6 @@ public class GameLogic {
      Dungeon dungeon; // the tower to climb
      PlayerCharacter player;//current player
      boolean isRunning;
-
     private  CombatSystem combatSystem;
 
     public GameLogic(PlayerCharacter player) {
@@ -16,12 +15,7 @@ public class GameLogic {
         shop = new Shop(player);
     }
 
-
-
-
-
     // Method for Main Menu
-
     public void showMainMenu(){
         do {
             System.out.println("Hauptmenü");
@@ -60,11 +54,6 @@ public class GameLogic {
         GameUtility.printHeading("Erstelle deinen eigenen Helden!");
         player.CharacterCreationName();
         player.CharacterCreationClass();
-        //System.out.println("maxWeaponArmorySpace: " + player.getCharacterInventory().getInventoryWeaponspace());
-       // System.out.println("TEST NAME IST: " + pc.getPlayerName());
-        // System.out.println("TEST Klasse IST: " + pc.getCharacterClass());
-
-        player.setCurrentLevel(1);
         showMainMenu();
     }
 
@@ -84,7 +73,6 @@ public class GameLogic {
     private void openShop() {
         GameUtility.printHeading("DER MARKTPLATZ");
         shop.chooseVendor();
-
     }
 
     private void showCharacterStatistics() {
