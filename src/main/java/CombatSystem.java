@@ -7,6 +7,8 @@ public class CombatSystem {
 
     public static boolean weaponChestGotTriggered;
 
+    private boolean merchantGotTriggered = false;
+
 
 
     Dungeon dungeon;
@@ -80,6 +82,12 @@ public class CombatSystem {
             event.spawnWeaponChest();
             setWeaponChestGotTriggered(true);
         } // Weapons spawn on the first boss throughout the game and only once
+
+        if (!merchantGotTriggered && random < 0.3){
+            event.spawnSecretVendor();
+            merchantGotTriggered = true;
+        }
+
 
 
         do {

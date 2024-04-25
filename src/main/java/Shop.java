@@ -1,13 +1,7 @@
-import java.util.List;
-import java.util.SortedMap;
-
 // This class represents different vendors / shops and their stock
 public class Shop {
 
     PlayerCharacter player;
-    WeaponEquipment weaponUpgrade;
-    Weapon weapon;
-    WeaponAttributes weaponAttributes;
     WeaponEquipment weaponEquipment;
     public Shop(PlayerCharacter player){
         this.player = player;
@@ -118,7 +112,7 @@ public class Shop {
 
             int input = GameUtility.readInt("Wähle einen Händler", 2);
             if (input == 1 ){
-                showAvailableUpgrades(player.getEquippedWeapon());
+                showAvailableUpgrades(player.getCharacterInventory().getCurrentWeapon());
             }
             if (input == 2){
                 System.out.println("Du verlässt die Waffenschmiede und kehrst zur Stadt zurück");

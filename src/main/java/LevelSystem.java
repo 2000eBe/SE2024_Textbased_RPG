@@ -26,7 +26,8 @@ public class LevelSystem {
     private void levelUp() {
         currentLevel++;
         levelExp = LEVEL_UP_EXPERIENCE[currentLevel];
-        System.out.println("Herzlichen Glückwunsch! Du bist ein Level aufgestiegen!" + "\n" + "Du bist nun Level: " + currentLevel);
+        System.out.println("Herzlichen Glückwunsch! Du bist ein Level aufgestiegen!" + "\n"
+                + "Du bist nun Level: " + currentLevel);
     }
 
     public int getCurrentLevel() {

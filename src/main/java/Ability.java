@@ -11,7 +11,7 @@ public class Ability {
     }
 
     public static void executeAbility(String abilityName, CombatInterface playerAttacker, CombatInterface defender) {
-        WeaponAttributes attackerAttributes = playerAttacker.getEquippedWeapon().getAttributes();
+        WeaponAttributes attackerAttributes = playerAttacker.getWeaponAttribute();
         int baseDamage = attackerAttributes.getBaseAttackPoints();
         int baseCritPoints = attackerAttributes.getBaseCritPoints();
         double critChance = attackerAttributes.getCritChance();

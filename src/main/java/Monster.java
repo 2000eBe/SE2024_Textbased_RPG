@@ -98,7 +98,7 @@ public class Monster implements CombatInterface{
     }
 
     @Override
-    public Weapon getEquippedWeapon() {
+    public WeaponAttributes getWeaponAttribute() {
         return null;
     }
 

@@ -8,6 +8,7 @@ public interface CombatInterface {
     int subtractMP(int amount);
 
     double curseDefense(double amount);
+
     // Combatsystem
     int attack();
 
@@ -46,6 +47,6 @@ public interface CombatInterface {
     // Return the attacker's defense
     int getDefense();
 
-    Weapon getEquippedWeapon();
+    WeaponAttributes getWeaponAttribute();
 
 }

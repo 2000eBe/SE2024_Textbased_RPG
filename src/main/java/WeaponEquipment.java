@@ -41,36 +41,86 @@ public class WeaponEquipment {
 
     // Methods to Initialize Weaponupgrades for every type of weapon
     private void initalizeMaceUpgrades() {
-        maceUpgrades.add(new WeaponUpgrade("Streitkolben Stufe 1", 70, new WeaponAttributes(20, 5)));
-        maceUpgrades.add(new WeaponUpgrade("Streitkolben Stufe 2", 120, new WeaponAttributes(25, 7)));
-        maceUpgrades.add(new WeaponUpgrade("Streitkolben Stufe 3", 175, new WeaponAttributes(30, 10)));
-        maceUpgrades.add(new WeaponUpgrade("Streitkolben Stufe 4", 200, new WeaponAttributes(35, 12)));
-        maceUpgrades.add(new WeaponUpgrade("Streitkolben Stufe 5", 0, new WeaponAttributes(40, 15))); // only obtainable in dungeon
+        maceUpgrades.add(
+                new WeaponUpgrade("Streitkolben Stufe 1", 70,
+                        new WeaponAttributes(20, 5)));
+        maceUpgrades.add(
+                new WeaponUpgrade("Streitkolben Stufe 2", 120,
+                        new WeaponAttributes(25, 7)));
+        maceUpgrades.add(
+                new WeaponUpgrade("Streitkolben Stufe 3", 175,
+                        new WeaponAttributes(30, 10)));
+        maceUpgrades.add(
+                new WeaponUpgrade("Streitkolben Stufe 4", 200,
+                        new WeaponAttributes(35, 12)));
+        maceUpgrades.add(
+                new WeaponUpgrade("Streitkolben Stufe 5", 0,
+                        new WeaponAttributes(40, 15))); // only obtainable in dungeon
 
     }
 
     private void initializeStaffUpgrades() {
-        staffUpgrades.add(new WeaponUpgrade("Zauberstab Stufe 1", 70, new WeaponAttributes(10, 5)));
-        staffUpgrades.add(new WeaponUpgrade("Zauberstab Stufe 2", 120, new WeaponAttributes(15, 7)));
-        staffUpgrades.add(new WeaponUpgrade("Zauberstab Stufe 3", 175, new WeaponAttributes(20, 10)));
-        staffUpgrades.add(new WeaponUpgrade("Zauberstab Stufe 4", 200, new WeaponAttributes(25, 12)));
-        staffUpgrades.add(new WeaponUpgrade("Zauberstab Stufe 5", 0, new WeaponAttributes(30, 18))); // only obtainable in dungeon
+        staffUpgrades.add(
+                new WeaponUpgrade(
+                "Zauberstab Stufe 1", 70,
+                    new WeaponAttributes(10, 5)));
+        staffUpgrades.add(
+                new WeaponUpgrade(
+                "Zauberstab Stufe 2", 120,
+                    new WeaponAttributes(15, 7)));
+        staffUpgrades.add(
+                new WeaponUpgrade(
+                "Zauberstab Stufe 3", 175,
+                    new WeaponAttributes(20, 10)));
+        staffUpgrades.add(
+                new WeaponUpgrade(
+                "Zauberstab Stufe 4", 200,
+                        new WeaponAttributes(25, 12)));
+        staffUpgrades.add(new WeaponUpgrade(
+                "Zauberstab Stufe 5", 0,
+                    new WeaponAttributes(30, 18))); // only obtainable in dungeon
     }
 
     private void initializeAxeUpgrades() {
-        axeUpgrades.add(new WeaponUpgrade("Axt Stufe 1", 70, new WeaponAttributes(22, 6)));
-        axeUpgrades.add(new WeaponUpgrade("Axt Stufe 2", 120, new WeaponAttributes(25, 8)));
-        axeUpgrades.add(new WeaponUpgrade("Axt Stufe 3", 175, new WeaponAttributes(35, 10)));
-        axeUpgrades.add(new WeaponUpgrade("Axt Stufe 4", 200, new WeaponAttributes(38, 12)));
-        axeUpgrades.add(new WeaponUpgrade("Axt Stufe 5", 0, new WeaponAttributes(42, 14))); // only obtainable in dungeon
+        axeUpgrades.add(
+                new WeaponUpgrade(
+                "Axt Stufe 1", 70,
+                    new WeaponAttributes(22, 6)));
+        axeUpgrades.add(
+                new WeaponUpgrade(
+                "Axt Stufe 2", 120,
+                    new WeaponAttributes(25, 8)));
+        axeUpgrades.add(
+                new WeaponUpgrade(
+                "Axt Stufe 3", 175,
+                    new WeaponAttributes(35, 10)));
+        axeUpgrades.add(
+                new WeaponUpgrade(
+                "Axt Stufe 4", 200,
+                        new WeaponAttributes(38, 12)));
+        axeUpgrades.add(
+                new WeaponUpgrade(
+                "Axt Stufe 5", 0,
+                    new WeaponAttributes(42, 14))); // only obtainable in dungeon
     }
 
     private void initializeSwordUpgrades() {
-        swordUpgrades.add(new WeaponUpgrade("Schwert Stufe 1", 70, new WeaponAttributes(20, 7)));
-        swordUpgrades.add(new WeaponUpgrade("Schwert Stufe 2", 120, new WeaponAttributes(24, 9)));
-        swordUpgrades.add(new WeaponUpgrade("Schwert Stufe 3", 175, new WeaponAttributes(28, 10)));
-        swordUpgrades.add(new WeaponUpgrade("Schwert Stufe 4", 200, new WeaponAttributes(35, 14)));
-        swordUpgrades.add(new WeaponUpgrade("Schwert Stufe 5", 0, new WeaponAttributes(38, 17))); // only obtainable in dungeon
+        swordUpgrades.add(
+                new WeaponUpgrade(
+                        "Schwert Stufe 1", 70,
+                        new WeaponAttributes(20, 7)));
+        swordUpgrades.add(
+                new WeaponUpgrade("Schwert Stufe 2", 120,
+                    new WeaponAttributes(24, 9)));
+        swordUpgrades.add(
+                new WeaponUpgrade("Schwert Stufe 3", 175,
+                        new WeaponAttributes(28, 10)));
+        swordUpgrades.add(
+                new WeaponUpgrade("Schwert Stufe 4", 200,
+                        new WeaponAttributes(35, 14)));
+        swordUpgrades.add(
+                new WeaponUpgrade("Schwert Stufe 5", 0,
+                        new WeaponAttributes(38, 17))); // only obtainable in dungeon
     }
 
 

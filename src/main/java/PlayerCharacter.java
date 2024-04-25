@@ -1,5 +1,3 @@
-import java.util.List;
-
 // This class implements a new player character and its traits
 public class PlayerCharacter implements CombatInterface {
 
@@ -8,10 +6,7 @@ public class PlayerCharacter implements CombatInterface {
     private CharacterInventory characterInventory;
     private String playerName;
 
-    private Dungeon currentDungeon;
     private LevelSystem level;
-    private List<Ability> abilities;
-    private WeaponEquipment weaponEquipment;
     public int defense = 15;
 
 
@@ -20,7 +15,6 @@ public class PlayerCharacter implements CombatInterface {
         this.characterClass.setCharacterClass(characterClass);
         this.level = new LevelSystem(1);
         this.characterInventory = new CharacterInventory(this);
-        this.weaponEquipment = new WeaponEquipment(this);
 
 
     }
@@ -146,9 +140,9 @@ public class PlayerCharacter implements CombatInterface {
     }
 
     @Override
-    public Weapon getEquippedWeapon() {
+    public WeaponAttributes getWeaponAttribute() {
         if (characterInventory.getCurrentWeapon() != null){
-            return characterInventory.getCurrentWeapon();
+            return characterInventory.getCurrentWeapon().getAttributes();
         }
         return null;
     }
@@ -288,9 +282,6 @@ public class PlayerCharacter implements CombatInterface {
         return null;
     }
 
-    public void setCurrentDungeon(Dungeon dungeon) {
-        this.currentDungeon = dungeon;
-    }
 
 }
 
