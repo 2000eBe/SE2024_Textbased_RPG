@@ -4,8 +4,9 @@ public class GameLogic {
      Shop shop;
      Dungeon dungeon; // the tower to climb
      PlayerCharacter player;//current player
-     boolean isRunning;
+     static boolean isTowerPlayable = true;
     private  CombatSystem combatSystem;
+
 
     public GameLogic(PlayerCharacter player) {
         this.player = player;
@@ -13,6 +14,16 @@ public class GameLogic {
         combatSystem = new CombatSystem(player);
         combatSystem.setDungeon(dungeon);
         shop = new Shop(player);
+    }
+
+    public static void endgame() {
+        GameUtility.printHeading("HERZLICHEN GLÜCKWUNSCH!");
+        System.out.println("Du hast das Königreich vor Ivan und seinen Schergen befreit!");
+        System.out.println("Du hast das Spiel durchgespielt! ");
+        System.out.println("Geh ins Hauptmenü um deine Charakterstatistiken zu betrachten!");
+        isTowerPlayable = false;
+        GameUtility.printSeperator(30);
+
     }
 
     // Method for Main Menu
@@ -28,8 +39,14 @@ public class GameLogic {
 
             switch (choice){
                 case 1:
-                    if (player.getCurrentLevel() != 0){
+                    if (player.getCurrentLevel() != 0 && isTowerPlayable){
                         startGame();
+                    } else {
+                        GameUtility.printSeperator(30);
+                        System.out.println(
+                                "Du hast den Turm bereits bezwungen! \n" +
+                                "Bitte beginne ein neuen Spielstand!");
+                        GameUtility.printSeperator(30);
                     }
                     break;
                 case 2:
@@ -66,7 +83,7 @@ public class GameLogic {
             if (!combatSystem.startCombatRound(player, currentLevel.getMonster())){
                 break;
             }
-        } while (true); //TODO Endlevel Index berechnen bzw. Ende vom Spiel ausgeben
+        } while (true);
 
     }
 

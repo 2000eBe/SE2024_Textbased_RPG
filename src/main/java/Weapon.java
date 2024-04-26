@@ -10,6 +10,10 @@ public enum Weapon {
     private WeaponAttributes attributes;
     private List<WeaponUpgrade> weaponUpgrades;
 
+    public List<WeaponUpgrade> getWeaponUpgrades() {
+        return weaponUpgrades;
+    }
+
     Weapon(String weapontype, WeaponAttributes attributes) {
         this.weapontypeName = weapontype;
         this.attributes = attributes;

@@ -10,7 +10,7 @@ public class Dungeon {
     public Dungeon(){
         levels = new ArrayList<>();
         initializeLevels();
-        currentLevelIndex = 0;
+        currentLevelIndex = 12;
 
     }
 
@@ -233,7 +233,7 @@ public class Dungeon {
         monsters13.add(new Monster(
                 "Ivan der Schreckliche - Turmherr (Endboss)",
                 "Vor dir steht der Herrscher des Turms - Ivan der Schreckliche!",
-                250, 250, 20, 25, 58, 13));
+                25, 25, 20, 25, 58, 13));
 
         levels.add(new Map(
                 "Herrschergemächer des dunklen Turms - Spitze des Turms (Endboss)"
@@ -266,7 +266,15 @@ public class Dungeon {
     }
 
     public void increaseLevel() {
-        currentLevelIndex++;
+        if (currentLevelIndex < 12){
+            currentLevelIndex++;
+        } else {
+            for (int i = 0; i <= 10; i++){
+                System.out.println(" "); // Clear the console a bit
+            }
+            GameLogic.endgame();
+        }
+
     }
 
 }

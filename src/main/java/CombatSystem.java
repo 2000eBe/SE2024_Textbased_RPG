@@ -70,9 +70,7 @@ public class CombatSystem {
     private boolean continueGameAfterCombat() {
         GameUtility.printSeperator(30);
         System.out.println("Herzlichen Glückwunsch! Du hast alle Gefahren der Etage gemeistert");
-        dungeon.increaseLevel();
-
-
+        if (GameLogic.isTowerPlayable){
         double random = Math.random();
         if (random < 0.4) {
             event.spawnTreasureChest();
@@ -87,9 +85,9 @@ public class CombatSystem {
             event.spawnSecretVendor();
             merchantGotTriggered = true;
         }
+        }
 
-
-
+        dungeon.increaseLevel();
         do {
             System.out.println("Was möchtest du nun tun?");
             System.out.println("(1) um die nächste Turm-Etage zu erklimmen.");

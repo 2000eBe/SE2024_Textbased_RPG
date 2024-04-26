@@ -77,22 +77,6 @@ public class Monster implements CombatInterface{
     }
 
     @Override
-    public int getMaxMP() {
-        return 0;
-    }
-
-    @Override
-    public double getCritChance() {
-        return 0;
-    }
-
-
-    @Override
-    public int getBaseDamage() {
-        return 0;
-    }
-
-    @Override
     public int getDefense() {
         return this.defense;
     }
@@ -100,11 +84,6 @@ public class Monster implements CombatInterface{
     @Override
     public WeaponAttributes getWeaponAttribute() {
         return null;
-    }
-
-    @Override
-    public int block() {
-        return 0;
     }
 
     @Override
@@ -117,10 +96,5 @@ public class Monster implements CombatInterface{
     public int getLevel() {
         return level;
     }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
 
 }

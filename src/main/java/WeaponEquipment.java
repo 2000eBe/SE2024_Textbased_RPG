@@ -6,6 +6,7 @@ public class WeaponEquipment {
 
 
     PlayerCharacter player;
+
     private static List<WeaponUpgrade> swordUpgrades;
     private static List<WeaponUpgrade> axeUpgrades;
     private static List<WeaponUpgrade> staffUpgrades;
@@ -238,7 +239,7 @@ public class WeaponEquipment {
                         player.getCharacterInventory().payGold(weaponPrice);
                         weapon.getAttributes().applyUpgrade(availableUpgrades, selectedIndex);
                         purchasedUpgrades.add(selectedUpgrade);
-                        availableUpgrades.remove(selectedUpgrade);
+                       availableUpgrades.remove(selectedUpgrade);
                     }
                 } else if (input == 2){
                     System.out.println("Du kehrst zurück");

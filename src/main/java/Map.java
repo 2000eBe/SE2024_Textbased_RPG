@@ -1,13 +1,13 @@
 import java.util.Collection;
 import java.util.List;
 
-// This class should visualize the map of areas or dungeon rooms with the symbols - and |
+// This class should visualize the map of areas
 public class Map {
 
     private final String description;
 
     private final boolean isBossArea;
-    private List<Monster> monsters;
+    private final List<Monster> monsters;
 
 
     public Map(String description, List<Monster> monsters, boolean isBossArea) {
