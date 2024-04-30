@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // Main Class
 public class Main {
-    public static final Scanner userinput = new Scanner(System.in);
+    public static Scanner userinput = new Scanner(System.in);
     public static final Random rand = new Random();
 
 

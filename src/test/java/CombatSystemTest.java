@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +14,8 @@ class CombatSystemTest {
         String inputs = "1" + "\n";
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(inputs.getBytes());
         System.setIn(byteArrayInputStream);
+        Main.userinput = new Scanner(System.in);
+
         MonsterMock monstermock = new MonsterMock();
         CombatSystem combatSystem = new CombatSystem(playerMock);
         combatSystem.setDungeon(new Dungeon());
