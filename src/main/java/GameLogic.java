@@ -1,11 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class GameLogic {
 
-     Shop shop;
      Dungeon dungeon; // the tower to climb
      PlayerCharacter player;//current player
      static boolean isTowerPlayable = true;
     private  CombatSystem combatSystem;
+    private List<ShopInterface> vendors;
 
 
     public GameLogic(PlayerCharacter player) {
@@ -13,7 +15,6 @@ public class GameLogic {
         this.dungeon = new Dungeon();
         combatSystem = new CombatSystem(player);
         combatSystem.setDungeon(dungeon);
-        shop = new Shop(player);
     }
 
     public static void endgame() {
@@ -71,7 +72,13 @@ public class GameLogic {
         GameUtility.printHeading("Erstelle deinen eigenen Helden!");
         player.CharacterCreationName();
         player.CharacterCreationClass();
+         vendors = new ArrayList<>();
+         vendors.add(new AlchemyVendor());
+         vendors.add(new WeaponVendor());
+         vendors.add(new TownhealerVendor());
+         vendors.add(new InnVendor());
         showMainMenu();
+
     }
 
     // Start the dungeons
@@ -89,7 +96,41 @@ public class GameLogic {
 
     private void openShop() {
         GameUtility.printHeading("DER MARKTPLATZ");
-        shop.chooseVendor();
+        do {
+            System.out.println("Es tummeln sich viele Händler auf dem Marktplatz"
+                    + "\nWelche Händler möchtest du aufsuchen? \n" +
+                    "(1) für den Alchemisten \n" +
+                    "(2) für den Waffenschmied \n" +
+                    "(3) für das Ärztehaus \n" +
+                    "(4) für das Gasthaus \n" +
+                    "(5) die Stadt verlassen"
+            );
+
+            int choice = GameUtility.readInt("Wähle einen Händler", 5);
+
+            switch (choice){
+                // Alchemy vendor
+                case 1:
+                    vendors.get(0).visit(player);
+                    break;
+                case 2:
+                    // Weapon Smith
+                    vendors.get(1).visit(player);
+                    break;
+                case 3:
+                    // Town Healer
+                    vendors.get(2).visit(player);
+                    break;
+                case 4:
+                    // Town inn
+                    vendors.get(3).visit(player);
+                    break;
+                case 5:
+                    System.out.println("Du verlässt die Stadt wieder.");
+                    GameUtility.printSeperator(30);
+                    return;
+            }
+        } while (true);
     }
 
     private void showCharacterStatistics() {

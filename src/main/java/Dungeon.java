@@ -10,7 +10,7 @@ public class Dungeon {
     public Dungeon(){
         levels = new ArrayList<>();
         initializeLevels();
-        currentLevelIndex = 12;
+        currentLevelIndex = 0;
 
     }
 

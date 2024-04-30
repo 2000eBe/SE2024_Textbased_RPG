@@ -9,7 +9,7 @@ public class Event {
 
     public Event(PlayerCharacter player){
         this.player = player;
-        this.weaponEquipment = new WeaponEquipment(player);
+        this.weaponEquipment = WeaponEquipment.getInstance();
     }
     public void spawnTreasureChest(){
         Random random = new Random();
@@ -30,6 +30,7 @@ public class Event {
 
     // Makes last weaponUpgrade available
     public void spawnWeaponChest(){
+
         System.out.println("Die Marmorstatue zerbricht lässt einen Schlüsselbund und einen großen einzelnen Schlüssel fallen.");
         System.out.println("Du gehst damit durch die prächtige Tür und betrittst einen Ausstellungsraum.");
         System.out.println("Viele Vitrinen mit ausgestellten Waffen sind sichtbar. Der kleinere Schlüsselbund ist eindeutig für die Vitrinenschlösser");
@@ -42,22 +43,22 @@ public class Event {
             Weapon playerAxe = player.getCharacterInventory().getWeaponAtIndex(1);
             Weapon playerMace = player.getCharacterInventory().getWeaponAtIndex(2);
 
-            List<WeaponUpgrade> swords = WeaponEquipment.getUpgradesForWeaponType(playerSword);
-            List<WeaponUpgrade> axe = WeaponEquipment.getUpgradesForWeaponType(playerAxe);
-            List<WeaponUpgrade> mace = WeaponEquipment.getUpgradesForWeaponType(playerMace);
+            List<WeaponUpgrade> swords = weaponEquipment.getUpgradesForWeaponType(playerSword);
+            List<WeaponUpgrade> axe = weaponEquipment.getUpgradesForWeaponType(playerAxe);
+            List<WeaponUpgrade> mace = weaponEquipment.getUpgradesForWeaponType(playerMace);
 
-            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(swords, 4);
-            player.getCharacterInventory().getWeaponAtIndex(1).getAttributes().applyUpgrade(axe, 4);
-            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(mace, 4);
+            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(swords, swords.size()-1);
+            player.getCharacterInventory().getWeaponAtIndex(1).getAttributes().applyUpgrade(axe, axe.size()-1);
+            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(mace, mace.size()-1);
             System.out.println("Info: Du besitzt nun von dem Schwert, Axt und Streitkolben die höchste Stufe! ");
 
         } else {
             Weapon playerStaff = player.getCharacterInventory().getWeaponAtIndex(0);
-            List<WeaponUpgrade> staff = WeaponEquipment.getUpgradesForWeaponType(playerStaff);
-            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(staff, 4);
+            List<WeaponUpgrade> staff = weaponEquipment.getUpgradesForWeaponType(playerStaff);
+            player.getCharacterInventory().getWeaponAtIndex(0).getAttributes().applyUpgrade(staff, staff.size()-1);
             System.out.println("Info: Du besitzt nun von dem Zauberstab die höchste Stufe! ");
         }
-        WeaponEquipment.setCanUpgrade(false); //make weapons not upgradeable anymore. Achieved highest weapon level
+        weaponEquipment.setCanUpgrade(false); //make weapons not upgradeable anymore. Achieved highest weapon level
     }
 
     // SecretVendor that sells special potions

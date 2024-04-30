@@ -69,7 +69,7 @@ public class PlayerCharacter implements CombatInterface, Player {
                     characterClass.setCharacterClass(CharacterClasses.MAGIER);
                     classSet = true;
                     characterInventory.setCurrencyAmount(100);
-                    WeaponEquipment.setStarterWeapons(this);
+                    WeaponEquipment.getInstance().setStarterWeapons(this);
                 }
             } else if (input == 2) {
                 System.out.println("Entscheidest du dich für den Pfad der Waffenkunst?" + "\n" +
@@ -82,7 +82,7 @@ public class PlayerCharacter implements CombatInterface, Player {
 
                     classSet = true;
                     characterInventory.setCurrencyAmount(100);
-                    WeaponEquipment.setStarterWeapons(this);
+                    WeaponEquipment.getInstance().setStarterWeapons(this);
                 }
             } else if (input == 3) {
                 GameUtility.printSeperator(30);
