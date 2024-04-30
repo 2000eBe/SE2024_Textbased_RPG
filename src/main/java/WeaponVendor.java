@@ -22,9 +22,9 @@ public class WeaponVendor implements ShopInterface {
             }
             return;
         }
-        System.out.println("(1) Schwerter (Waffenmeister");
-        System.out.println("(2) Streitkolben (Waffenmeister");
-        System.out.println("(3) Äxte (Waffenmeister");
+        System.out.println("(1) Schwerter (Waffenmeister)");
+        System.out.println("(2) Streitkolben (Waffenmeister)");
+        System.out.println("(3) Äxte (Waffenmeister)");
         System.out.println("(4) Wenn du wieder zum Marktplatz zurückkehren möchtest");
 
         int input = GameUtility.readInt("-> ", 4);

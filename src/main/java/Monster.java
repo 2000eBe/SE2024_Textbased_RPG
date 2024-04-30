@@ -34,7 +34,7 @@ public class Monster implements CombatInterface{
     }
 
 
-    public int getAttacked(int amount, boolean defeated){
+    public int getAttacked(int amount, boolean alive){
         int currentHP = getCurrentHP();
         if (currentHP > 0){
             currentHP -= amount;

@@ -171,7 +171,7 @@ public class CombatSystem {
     }
 
     public void monsterAttackPlayer() {
-        double defenseFromPlayer = ((double) monster.getDefense() / 100);
+        double defenseFromPlayer = ((double) player.getDefense() / 100);
         double blockChance = Math.random();
         int damage = monster.attack();
         if (!(blockChance < defenseFromPlayer)) {

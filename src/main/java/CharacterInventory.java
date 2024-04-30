@@ -132,27 +132,6 @@ public class CharacterInventory {
         }
         return count;
     }
-    // test get num inventory spaces
-    public int getInventoryWeaponspace(){
-            int count = 0;
-            for (Weapon weapon : weaponInventory) {
-                if (weapon != null) {
-                    count++;
-                }
-            }
-            return count;
-        };
-
-    // check for available Inventory space for Weapon
-    public int getNumAvailableWeaponInventorySpace(){
-        int count = 0;
-        for (Weapon weapon : weaponInventory){
-            if (weapon == null){
-                count++;
-            }
-        }
-        return count;
-    }
 
     public Weapon getWeaponAtIndex(int index) {
         if (index >= 0 && index < MaxWeaponArmorySpace){

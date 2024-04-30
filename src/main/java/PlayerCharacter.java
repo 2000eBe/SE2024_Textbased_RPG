@@ -2,7 +2,6 @@
 public class PlayerCharacter implements CombatInterface, Player {
 
     private CharacterClass characterClass = new CharacterClass();
-    private PlayerCharacter pc;
     private CharacterInventory characterInventory;
     private String playerName;
 
@@ -125,7 +124,7 @@ public class PlayerCharacter implements CombatInterface, Player {
 
     @Override
     public int getDefense() {
-        return 0;
+        return defense;
     }
 
     @Override
@@ -148,9 +147,6 @@ public class PlayerCharacter implements CombatInterface, Player {
 
     public CharacterClass getCharacterClass() {
         return characterClass;
-    }
-
-    public void setCharacterClass() {
     }
 
     public void setPlayerName(String playerName) {
@@ -201,16 +197,19 @@ public class PlayerCharacter implements CombatInterface, Player {
             currentHP += amount;
             if (currentHP > maxHP) {
                 this.characterClass.setHp(maxHP);
+            } else {
+                this.characterClass.setHp(currentHP);
             }
-            this.characterClass.setHp(currentHP);
+            return currentHP;
         }
 
         int currentHP = this.getCurrentHP();
         currentHP += amount;
         if (currentHP > maxHP) {
             this.characterClass.setHp(maxHP);
+        } else {
+            this.characterClass.setHp(currentHP);
         }
-        this.characterClass.setHp(currentHP);
         return maxHP;
 
     }

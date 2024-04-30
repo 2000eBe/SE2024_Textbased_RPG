@@ -4,8 +4,6 @@ public class WeaponUpgrade {
     private String upgradeName;
     private int price;
 
-    Weapon weapon;
-
     private WeaponAttributes modifiedAttributes;
 
 

@@ -72,7 +72,7 @@ import java.util.Scanner;
              try {
                  GameUtility.printSeperator(30);
                  CharacterInventory inventoryWeapons = player.getCharacterInventory();
-                 int availableWeaponSlots = inventoryWeapons.getNumAvailableWeaponInventorySpace();
+                 //int availableWeaponSlots = inventoryWeapons.getNumAvailableWeaponInventorySpace();
                  inventoryWeapons.showInventoryWeapons();
                  System.out.println("Aktuell getragene Waffe: " + player.getCharacterInventory().getCurrentWeapon());
                  int itemPosition = GameUtility.readInt(
