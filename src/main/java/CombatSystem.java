@@ -64,10 +64,10 @@ public class CombatSystem {
             }
 
         }
-        return AfterCombat();
+        return ContinueGameAfterCombat();
     }
 
-    private boolean AfterCombat() {
+    private boolean ContinueGameAfterCombat() {
         GameUtility.printSeperator(30);
         System.out.println("Herzlichen Glückwunsch! Du hast alle Gefahren der Etage gemeistert");
         if (GameLogic.isTowerPlayable){
