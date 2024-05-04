@@ -231,16 +231,32 @@ public class Dungeon {
         // Level 13
         List<Monster> monsters13 = new ArrayList<>();
         monsters13.add(new Monster(
+                "Schattenwesen",
+                "Ein Wesen aus der Hölle",
+                180, 190, 17, 20, 30, 13));
+
+        levels.add(new Map(
+                "Dunkler Turm - Turmspitze (Level 13)"
+                        + "\n" + "Bevor du zum Turmherr gelangst, musst du dich durch weitere schemenhafte Wesen durchkämpfen. \n" +
+                        "Sie tarnen sich in den Schatten und greifen dich hinterhältig an. \n" +
+                        monsters13.get(0).getName() + " greift dich an!",
+                monsters13,
+                false
+
+        ));
+        // Level 14
+        List<Monster> monsters14 = new ArrayList<>();
+        monsters14.add(new Monster(
                 "Ivan der Schreckliche - Turmherr (Endboss)",
                 "Vor dir steht der Herrscher des Turms - Ivan der Schreckliche!",
-                25, 25, 20, 25, 58, 13));
+                200, 200, 20, 25, 58, 14));
 
         levels.add(new Map(
                 "Herrschergemächer des dunklen Turms - Spitze des Turms (Endboss)"
                         + "\n" + "Nach all den düsteren Gängen erwartet dich ein prächtiger Saal mit Thron. \n" +
                         " Vor dir steht der Tyrann des Königreichs - Ivan der Schreckliche. \n" +
                         "Bezwinge Ivan und werde Held des Königreichs!",
-                monsters13,
+                monsters14,
                 true
 
         ));
